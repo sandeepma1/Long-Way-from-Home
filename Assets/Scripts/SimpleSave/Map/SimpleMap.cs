@@ -8,17 +8,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using static BayatGames.SaveGameFree.SaveGameAuto;
 
-public class SimpleMaq : MonoBehaviour
+public class SimpleMap : MonoBehaviour
 {
     public bool doEncode;
+    public bool passwordProtected;
     public Text text;
     public SaveFormat format = SaveFormat.JSON;
     public ISaveGameSerializer serializer;
     public ISaveGameEncoder encoder;
     public Encoding encoding;
     public SaveGamePath savePath = SaveGamePath.PersistentDataPath;
-    private string idtentifier = "SimpleSaveMaq";
-    private byte width = 32, height = 64;
+    private string idtentifier = "SimpleSaveMap";
+    public byte width = 32, height = 32;
 
     private void Awake()
     {
@@ -50,82 +51,82 @@ public class SimpleMaq : MonoBehaviour
 
     private void Start()
     {
-        Invoke("Save", 5f);
-        //Load();
+        Save();
+        Load();
     }
 
     private void Save()
     {
-        MaqIteo[,] data = new MaqIteo[width, height];
+        MapItem[,] mapItem = new MapItem[width, height];
 
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                data[i, j] = new MaqIteo();
-                data[i, j].tessId = (byte)Random.Range(0, 255);
-                data[i, j].iteoId = new Iteo((short)Random.Range(0, 255), (short)Random.Range(0, 255));
-                data[i, j].structtId = (short)Random.Range(0, 255);
+                mapItem[i, j] = new MapItem();
+                mapItem[i, j].tessId = (byte)Random.Range(0, 255);
+                mapItem[i, j].iteoId = new Iteo((short)Random.Range(0, 255), (short)Random.Range(0, 255));
+                mapItem[i, j].structtId = (short)Random.Range(0, 255);
             }
         }
 
-        Maq inItems;
-        inItems = new Maq(width, height, 0, data.MultiToSingle(width, height));
+        Map inItems;
+        inItems = new Map(width, height, 0, mapItem.MultiToSingle(width, height));
         if (doEncode)
         {
-            SaveGame.Save<Maq>(idtentifier, inItems, true, "pass", serializer, encoder, encoding, savePath);
+            SaveGame.Save<Map>(idtentifier, inItems, passwordProtected, "pass", serializer, encoder, encoding, savePath);
         }
         else
         {
-            SaveGame.Save<Maq>(idtentifier, inItems);//, true, "pass", serializer, encoder, encoding, savePath);
+            SaveGame.Save<Map>(idtentifier, inItems);//, true, "pass", serializer, encoder, encoding, savePath);
         }
     }
 
     private void Load()
     {
-        Maq inItems;
+        Map inItems;
         if (doEncode)
         {
-            inItems = SaveGame.Load<Maq>(idtentifier, new Maq(), true, "pass", serializer, encoder, encoding, savePath);
+            inItems = SaveGame.Load<Map>(idtentifier, new Map(), passwordProtected, "pass", serializer, encoder, encoding, savePath);
         }
         else
         {
-            inItems = SaveGame.Load<Maq>(idtentifier);
+            inItems = SaveGame.Load<Map>(idtentifier);
         }
-        text.text = inItems.maqId.ToString() + " " + inItems.data.SingleToMulti(inItems.width, inItems.height).LongLength.ToString();
+        text.text = inItems.mapId.ToString() + " " + inItems.mapItems.SingleToMulti(inItems.width, inItems.height).LongLength.ToString();
     }
 
     private void OnApplicationQuit()
     {
-        Save();
-        print("Saved");
+        //Save();
+        //print("Saved");
     }
 }
 
 [System.Serializable]
-public class Maq
+public class Map
 {
     public byte width;
     public byte height;
-    public byte maqId;
-    public MaqIteo[] data;
-    public Maq() { }
-    public Maq(byte _width, byte _height, byte _maqId, MaqIteo[] _data)
+    public byte mapId;
+    public MapItem[] mapItems;
+    public Map() { }
+    public Map(byte _width, byte _height, byte _mapId, MapItem[] _mapItems)
     {
         width = _width;
         height = _height;
-        maqId = _maqId;
-        data = _data;
+        mapId = _mapId;
+        mapItems = _mapItems;
     }
 }
 [System.Serializable]
-public class MaqIteo
+public class MapItem
 {
     public byte tessId;
     public Iteo iteoId;
     public short structtId;
-    public MaqIteo() { }
-    public MaqIteo(byte _tessId, Iteo _iteoId, short _structtId)
+    public MapItem() { }
+    public MapItem(byte _tessId, Iteo _iteoId, short _structtId)
     {
         tessId = _tessId;
         iteoId = _iteoId;

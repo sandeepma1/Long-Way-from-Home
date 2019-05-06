@@ -70,16 +70,16 @@ public static class ExtensionMethods
     }
 
     //MapIteo version
-    public static MaqIteo[,] SingleToMulti(this MaqIteo[] array, int width, int height)
+    public static MapItem[,] SingleToMulti(this MapItem[] array, int width, int height)
     {
         int index = 0;
-        MaqIteo[,] multi = new MaqIteo[width, height];
+        MapItem[,] multi = new MapItem[width, height];
         for (int y = 0; y < width; y++)
         {
             for (int x = 0; x < height; x++)
             {
                 //have to interchange x & y below as the retrival is reversed
-                multi[y, x] = new MaqIteo();
+                multi[y, x] = new MapItem();
                 multi[y, x].iteoId = array[index].iteoId;
                 multi[y, x].structtId = array[index].structtId;
                 multi[y, x].tessId = array[index].tessId;
@@ -89,15 +89,15 @@ public static class ExtensionMethods
         return multi;
     }
 
-    public static MaqIteo[] MultiToSingle(this MaqIteo[,] array, int width, int height)
+    public static MapItem[] MultiToSingle(this MapItem[,] array, int width, int height)
     {
         int index = 0;
-        MaqIteo[] single = new MaqIteo[width * height];
+        MapItem[] single = new MapItem[width * height];
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
             {
-                single[index] = new MaqIteo();
+                single[index] = new MapItem();
                 single[index].iteoId = array[x, y].iteoId;
                 single[index].structtId = array[x, y].structtId;
                 single[index].tessId = array[x, y].tessId;
