@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using BayatGames.SaveGameFree.Types;
+﻿using System.Collections.Generic;
 using UnityEngine;
+
 public class SimpleStructt : MonoBehaviour
 {
     private void Start()
@@ -10,31 +9,24 @@ public class SimpleStructt : MonoBehaviour
     }
 }
 
-public class AllStructt
+public struct AllStructt
 {
     public string name;
     public List<Structt> structts;
 }
 
-public class Structt
+public struct Structt
 {
     public StructtType structtType;
-    public IteoGrp[] inputItemIds;
-    public IteoGrp[] outputItemIds;
+    public InuIteo[] inputItemIds;
+    public InuIteo[] outputItemIds;
     public short mediumItemId;
-    public Structt() { }
-    public Structt(StructtType _structtType, IteoGrp[] _inputItemIds, IteoGrp[] _outputItemIds, short _mediumItemId)
-    {
-        structtType = _structtType;
-        inputItemIds = _inputItemIds;
-        outputItemIds = _outputItemIds;
-        mediumItemId = _mediumItemId;
-    }
 }
 
 public enum StructtType
 {
     Storf,
     Procest,
-    Crafu
+    Crafu,
+    Decos
 }

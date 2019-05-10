@@ -26,19 +26,16 @@ public class MapGenerator : MonoBehaviour
         regions[3] = new BiomeType(0.4f, Color.green);
         regions[4] = new BiomeType(0.8f, Color.red);
         regions[5] = new BiomeType(1, Color.gray);
-
-        CreateMaps();
     }
 
-    public void CreateMaps()
+    public MapData CreateMaps()
     {
         falloffMap = FalloffGenerator.GenerateFalloffMap(mapSizeX, mapSizeY, falloff);
         MapData mapData = GenerateMapData(Vector2.zero);
         Texture2D finalTexture = TextureGenerator.TextureFromColourMap(mapData.colourMap, mapSizeX, mapSizeY);
-
-        mainRenderer.transform.localScale = new Vector3(finalTexture.width / 10, finalTexture.height / 10);
+        //mainRenderer.transform.localScale = new Vector3(finalTexture.width / 10, finalTexture.height / 10);
         mainRenderer.material.mainTexture = finalTexture;
-        print(finalTexture.width + " " + finalTexture.height);
+        return mapData;
     }
 
     private MapData GenerateMapData(Vector2 centre)
@@ -48,6 +45,7 @@ public class MapGenerator : MonoBehaviour
             noiseScale, octaves, persistance, lacunarity, centre, normalizeMode);
 
         Color[] colourMap = new Color[mapSizeX * mapSizeY];
+        byte[] intMap = new byte[mapSizeX * mapSizeY];
         for (int x = 0; x < mapSizeX; x++)
         {
             for (int y = 0; y < mapSizeY; y++)
@@ -62,6 +60,7 @@ public class MapGenerator : MonoBehaviour
                     if (currentHeight >= regions[i].height)
                     {
                         colourMap[y * mapSizeX + x] = regions[i].color;
+                        intMap[y * mapSizeX + x] = (byte)i;
                     }
                     else
                     {
@@ -70,7 +69,7 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
-        return new MapData(noiseMap, colourMap);
+        return new MapData(noiseMap, colourMap, intMap);
     }
 }
 
@@ -99,9 +98,11 @@ public struct MapData
 {
     public readonly float[,] heightMap;
     public readonly Color[] colourMap;
-    public MapData(float[,] heightMap, Color[] colourMap)
+    public readonly byte[] intMap;
+    public MapData(float[,] heightMap, Color[] colourMap, byte[] intMap)
     {
         this.heightMap = heightMap;
         this.colourMap = colourMap;
+        this.intMap = intMap;
     }
 }

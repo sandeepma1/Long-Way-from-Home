@@ -6,7 +6,7 @@ public class SimpleTess : MonoBehaviour
 {
     public Text text;
     private readonly string idtentifier = "SimpleTess";
-    private byte widht = 32, height = 64;
+    private int widht = 32, height = 64;
 
     private void Start()
     {
@@ -15,16 +15,22 @@ public class SimpleTess : MonoBehaviour
 
     private void Save()
     {
-        byte[,] data = new byte[widht, height];
+        int[,] data = new int[widht, height];
 
         for (int i = 0; i < widht; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                data[i, j] = (byte)Random.Range(0, 255);
+                data[i, j] = Random.Range(0, 255);
             }
         }
-        Tess tess = new Tess(widht, height, 0, data.MultiToSingle(widht, height));
+        Tess tess = new Tess
+        {
+            width = widht,
+            height = height,
+            tessId = 0,
+            data = data.MultiToSingle(widht, height)
+        };
         SaveGame.Save<Tess>(idtentifier, tess);//, true, "pass", serializer, encoder, encoding, savePath);
         Load();
     }
@@ -37,18 +43,10 @@ public class SimpleTess : MonoBehaviour
 }
 
 [System.Serializable]
-public class Tess
+public struct Tess
 {
-    public byte width;
-    public byte height;
-    public byte tessId;
-    public byte[] data;
-    public Tess() { }
-    public Tess(byte _width, byte _height, byte _tessId, byte[] _data)
-    {
-        width = _width;
-        height = _height;
-        tessId = _tessId;
-        data = _data;
-    }
+    public int width;
+    public int height;
+    public int tessId;
+    public int[] data;
 }

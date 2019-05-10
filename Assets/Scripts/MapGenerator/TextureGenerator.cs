@@ -11,4 +11,5 @@ public static class TextureGenerator
         texture.Apply(false);
         return texture;
     }
+
 }

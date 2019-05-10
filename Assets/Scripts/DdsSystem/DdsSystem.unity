@@ -256,7 +256,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1911153945}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -374,7 +375,7 @@ GameObject:
   - component: {fileID: 1325306459}
   - component: {fileID: 1325306462}
   m_Layer: 5
-  m_Name: FurnacePanel
+  m_Name: FusPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -436,7 +437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -469,14 +470,85 @@ MonoBehaviour:
   m_GameObject: {fileID: 1325306457}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30bc22d35d0532c41b11fba072b6fc58, type: 3}
+  m_Script: {fileID: 11500000, guid: e6347bb827929f14e991c55a8fb23ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uiSlotPrefab: {fileID: 8904638982848229446, guid: f0ddbf713fa4b85468bbb9aff3f5f198,
     type: 3}
   uiSlotItemPrefab: {fileID: 1031333802318284616, guid: ed671b0bc41c0234db2118ae6d87e790,
     type: 3}
-  slotCount: 5
+  uiSlotItems: []
+  slotCount: 10
+  maxStack: 12
+--- !u!1 &1911153944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1911153945}
+  - component: {fileID: 1911153946}
+  m_Layer: 0
+  m_Name: Directional Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1911153945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911153944}
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalPosition: {x: 724.88007, y: 1704.0643, z: 31.088821}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 519420032}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!108 &1911153946
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911153944}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1 &2079197713
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,7 +563,7 @@ GameObject:
   - component: {fileID: 2079197715}
   - component: {fileID: 2079197718}
   m_Layer: 5
-  m_Name: InventoryPanel
+  m_Name: InuPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -553,7 +625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -586,11 +658,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2079197713}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1634518f9d6a30f42b1c3493e0122d2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 854ec70c39ae6984b92e488bd93c0a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uiSlotPrefab: {fileID: 8904638982848229446, guid: f0ddbf713fa4b85468bbb9aff3f5f198,
     type: 3}
   uiSlotItemPrefab: {fileID: 1031333802318284616, guid: ed671b0bc41c0234db2118ae6d87e790,
     type: 3}
+  uiSlotItems: []
   slotCount: 10
+  maxStack: 12
