@@ -15,30 +15,30 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     [SerializeField] private Text idText;
     [SerializeField] private Text countText;
     [SerializeField] private Image image;
-    [SerializeField] private InventoryIteo inuIteo; //make private later
+    [SerializeField] private InventoryItem inuItem; //make private later
 
-    public int IteoId
+    public int ItemId
     {
-        get { return inuIteo.item.id; }
-        set { inuIteo.item.id = value; }
+        get { return inuItem.item.id; }
+        set { inuItem.item.id = value; }
     }
-    public int IteoDuraCount
+    public int ItemDuraCount
     {
-        get { return inuIteo.item.duraCount; }
-        set { inuIteo.item.duraCount = value; }
+        get { return inuItem.item.duraCount; }
+        set { inuItem.item.duraCount = value; }
     }
-    public int IteoInuSlotId
+    public int ItemInuSlotId
     {
-        get { return inuIteo.invSlotId; }
-        set { inuIteo.invSlotId = value; }
+        get { return inuItem.invSlotId; }
+        set { inuItem.invSlotId = value; }
     }
 
-    public void Init(int maxStack, InventoryIteo inuIteo)
+    public void Init(int maxStack, InventoryItem inuItem)
     {
         this.maxStack = maxStack;
-        this.inuIteo = inuIteo;
+        this.inuItem = inuItem;
         lastDragDropBase = transform.parent.parent.GetComponent<DragDropBase>();
-        gameObject.name = IteoId + "-" + IteoDuraCount;
+        gameObject.name = ItemId + "-" + ItemDuraCount;
     }
 
     private void SetParent(Transform parent)
@@ -49,12 +49,12 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     public void SetParent(Transform parent, int slotId)
     {
         SetParent(parent);
-        IteoInuSlotId = slotId;
+        ItemInuSlotId = slotId;
     }
 
     public bool IsStackMax()
     {
-        return IteoDuraCount >= maxStack;
+        return ItemDuraCount >= maxStack;
     }
 
     public int IncrementDuraCount(int duraCount)
@@ -63,17 +63,17 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         {
             return -1;
         }
-        int add = IteoDuraCount + duraCount;
+        int add = ItemDuraCount + duraCount;
         if (add <= maxStack)
         {
-            IteoDuraCount = add;
+            ItemDuraCount = add;
             UpdateText();
             return 0;
         }
         else
         {
-            int canAdd = Mathf.Abs(maxStack - IteoDuraCount);
-            IteoDuraCount += canAdd;
+            int canAdd = Mathf.Abs(maxStack - ItemDuraCount);
+            ItemDuraCount += canAdd;
             int cannotAdd = Mathf.Abs(canAdd - duraCount);
             UpdateText();
             return cannotAdd;
@@ -92,7 +92,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         }
         else
         {
-            IteoDuraCount = duracount;
+            ItemDuraCount = duracount;
             UpdateText();
         }
     }
@@ -104,15 +104,15 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             return 0;
         }
 
-        if (IteoDuraCount > duracount)
+        if (ItemDuraCount > duracount)
         {
-            IteoDuraCount -= duracount;
+            ItemDuraCount -= duracount;
             UpdateText();
             return 0;
         }
-        else if (IteoDuraCount < duracount)
+        else if (ItemDuraCount < duracount)
         {
-            int remaining = duracount - IteoDuraCount;
+            int remaining = duracount - ItemDuraCount;
             DestroyAndRemoveFromList();
             return remaining;
         }
@@ -125,9 +125,9 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void UpdateText()
     {
-        idText.text = IteoId.ToString();
-        countText.text = IteoDuraCount.ToString();
-        gameObject.name = IteoId + "-" + IteoDuraCount;
+        idText.text = ItemId.ToString();
+        countText.text = ItemDuraCount.ToString();
+        gameObject.name = ItemId + "-" + ItemDuraCount;
     }
 
     public void OnDrag(PointerEventData eventData)

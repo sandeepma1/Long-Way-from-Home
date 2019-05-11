@@ -7,12 +7,12 @@ public class Inu : MonoBehaviour
 {
     [SerializeField] private InuBg inuBgPrefab;
     [SerializeField] private InuItem inuItemPrefab;
-    [SerializeField] private Transform iteoParent;
+    [SerializeField] private Transform itemParent;
     private InuBg[] inuBgs;
     private InuItem draggedItem = null;
     private const string inuName = "AllInu";
     private const int count = 18;
-    private const int staterIteos = 10;
+    private const int staterItems = 10;
     private const int stdStack = 20;
     private List<InuItem> inuItems = new List<InuItem>();
 
@@ -21,7 +21,7 @@ public class Inu : MonoBehaviour
         inuBgs = new InuBg[count];
         for (int i = 0; i < count; i++)
         {
-            InuBg inuBg = Instantiate(inuBgPrefab, iteoParent);
+            InuBg inuBg = Instantiate(inuBgPrefab, itemParent);
             inuBg.id = i;
             inuBg.OnBgDrop += OnBgDrop;
             inuBgs[i] = inuBg;
@@ -36,59 +36,59 @@ public class Inu : MonoBehaviour
 
     private void LoadInu()
     {
-        AllInuIteos loader = SaveGame.Load<AllInuIteos>(inuName);
-        if (loader.iteoInus == null)
+        AllInuItems loader = SaveGame.Load<AllInuItems>(inuName);
+        if (loader.itemInus == null)
         {
-            for (int i = 0; i < staterIteos; i++)
+            for (int i = 0; i < staterItems; i++)
             {
-                AddNewIteo(i, CreateRanIteo());
+                AddNewItem(i, CreateRanItem());
             }
         }
         else
         {
-            for (int i = 0; i < loader.iteoInus.Count; i++)
+            for (int i = 0; i < loader.itemInus.Count; i++)
             {
-                AddNewIteo(loader.iteoInus[i].invSlotId, loader.iteoInus[i].item);
+                AddNewItem(loader.itemInus[i].invSlotId, loader.itemInus[i].item);
             }
         }
     }
 
     private void SaveInu()
     {
-        AllInuIteos allInuIteos;
-        allInuIteos.iteoInus = new List<InventoryIteo>();
+        AllInuItems allInuItems;
+        allInuItems.itemInus = new List<InventoryItem>();
         for (int i = 0; i < inuItems.Count; i++)
         {
-            allInuIteos.iteoInus.Add(inuItems[i].inuIteo);
+            allInuItems.itemInus.Add(inuItems[i].inuItem);
         }
-        SaveGame.Save<AllInuIteos>(inuName, allInuIteos);
+        SaveGame.Save<AllInuItems>(inuName, allInuItems);
     }
 
-    private void IncrementIteo(int listId, int count)
+    private void IncrementItem(int listId, int count)
     {
-        inuItems[listId].inuIteo.item.duraCount += count;
+        inuItems[listId].inuItem.item.duraCount += count;
         inuItems[listId].UpdateTextValues();
     }
 
-    private void AddNewIteo(int bgId, Item iteo)
+    private void AddNewItem(int bgId, Item itemToAdd)
     {
         inuBgs[bgId].isOccupied = true;
         InuItem item = Instantiate(inuItemPrefab, inuBgs[bgId].transform);
-        item.inuIteo.item = iteo;
+        item.inuItem.item = itemToAdd;
         item.UpdateTextValues();
-        item.inuIteo.invSlotId = bgId;
+        item.inuItem.invSlotId = bgId;
         item.OnItemDrop += OnItemDrop;
         item.OnItemDrag += OnItemDrag;
         inuItems.Add(item);
     }
 
-    private void AddNewIteo(Item iteo)
+    private void AddNewItem(Item item)
     {
         //if already exists, then increment and/or add
         List<InuItem> sameItems = new List<InuItem>();
         for (int i = 0; i < inuItems.Count; i++)
         {
-            if (inuItems[i].inuIteo.item.id == iteo.id)
+            if (inuItems[i].inuItem.item.id == item.id)
             {
                 sameItems.Add(inuItems[i]);
             }
@@ -96,46 +96,46 @@ public class Inu : MonoBehaviour
         if (sameItems.Count > 0)
         {
             print("found same " + sameItems.Count);
-            CompareAndIncrementAndOrAdd(sameItems, iteo);
+            CompareAndIncrementAndOrAdd(sameItems, item);
         }
         //if does not exists, then add new
-        FindEmptyAndAdd(iteo);
+        FindEmptyAndAdd(item);
     }
 
-    private void CompareAndIncrementAndOrAdd(List<InuItem> sameList, Item iteoToAdd)
+    private void CompareAndIncrementAndOrAdd(List<InuItem> sameList, Item itemToAdd)
     {
-        //go through all same iteos and increment (if possible)
+        //go through all same items and increment (if possible)
         for (int i = 0; i < sameList.Count; i++)
         {
-            if (sameList[i].inuIteo.item.duraCount > stdStack)
+            if (sameList[i].inuItem.item.duraCount > stdStack)
             {
                 continue;
             }
             else
             {
-                int canAdd = stdStack - sameList[i].inuIteo.item.duraCount;
-                iteoToAdd.duraCount -= canAdd;
-                if (iteoToAdd.duraCount > 0)
+                int canAdd = stdStack - sameList[i].inuItem.item.duraCount;
+                itemToAdd.duraCount -= canAdd;
+                if (itemToAdd.duraCount > 0)
                 {
-                    sameList[i].inuIteo.item.duraCount = canAdd;
+                    sameList[i].inuItem.item.duraCount = canAdd;
                     continue;
                 }
             }
         }
         //else create new
-        if (iteoToAdd.duraCount > 0)
+        if (itemToAdd.duraCount > 0)
         {
-            FindEmptyAndAdd(iteoToAdd);
+            FindEmptyAndAdd(itemToAdd);
         }
     }
 
-    private void FindEmptyAndAdd(Item iteo)
+    private void FindEmptyAndAdd(Item item)
     {
         for (int i = 0; i < inuBgs.Length; i++)
         {
             if (!inuBgs[i].isOccupied)
             {
-                AddNewIteo(i, iteo);
+                AddNewItem(i, item);
                 return;
             }
         }
@@ -152,26 +152,26 @@ public class Inu : MonoBehaviour
 
     private void OnItemDrop(InuItem inuItem)
     {
-        int draggedBgId = draggedItem.inuIteo.invSlotId;
-        int currentBgId = inuItem.inuIteo.invSlotId;
-        int draggedItemId = draggedItem.inuIteo.item.id;
-        int currentItemId = inuItem.inuIteo.item.id;
-        int draggedDuraCount = draggedItem.inuIteo.item.duraCount;
-        int currentDuraCount = inuItem.inuIteo.item.duraCount;
+        int draggedBgId = draggedItem.inuItem.invSlotId;
+        int currentBgId = inuItem.inuItem.invSlotId;
+        int draggedItemId = draggedItem.inuItem.item.id;
+        int currentItemId = inuItem.inuItem.item.id;
+        int draggedDuraCount = draggedItem.inuItem.item.duraCount;
+        int currentDuraCount = inuItem.inuItem.item.duraCount;
 
         if (draggedItemId == currentItemId)//merge
         {
             if (draggedDuraCount + currentDuraCount > stdStack)
             {
                 int balanceAmt = (draggedDuraCount + currentDuraCount) - stdStack;
-                inuItem.inuIteo.item.duraCount = stdStack;
-                draggedItem.inuIteo.item.duraCount = balanceAmt;
+                inuItem.inuItem.item.duraCount = stdStack;
+                draggedItem.inuItem.item.duraCount = balanceAmt;
                 inuItem.UpdateTextValues();
                 draggedItem.UpdateTextValues();
             }
             else
             {
-                inuItem.inuIteo.item.duraCount += draggedItem.inuIteo.item.duraCount;
+                inuItem.inuItem.item.duraCount += draggedItem.inuItem.item.duraCount;
                 inuItem.UpdateTextValues();
                 inuItems.Remove(draggedItem);
                 inuBgs[draggedBgId].isOccupied = false;
@@ -181,42 +181,42 @@ public class Inu : MonoBehaviour
         else // swap
         {
             draggedItem.transform.SetParent(inuBgs[currentBgId].transform);
-            draggedItem.inuIteo.invSlotId = currentBgId;
+            draggedItem.inuItem.invSlotId = currentBgId;
             inuItem.transform.SetParent(inuBgs[draggedBgId].transform);
             inuItem.transform.localPosition = Vector3.zero;
-            inuItem.inuIteo.invSlotId = draggedBgId;
+            inuItem.inuItem.invSlotId = draggedBgId;
         }
     }
 
     private void OnBgDrop(int id)
     {
-        inuBgs[draggedItem.inuIteo.invSlotId].isOccupied = false;
+        inuBgs[draggedItem.inuItem.invSlotId].isOccupied = false;
         draggedItem.transform.SetParent(inuBgs[id].transform);
-        draggedItem.inuIteo.invSlotId = (byte)id;
+        draggedItem.inuItem.invSlotId = (byte)id;
     }
 
     #endregion
 
     #region Temp Functions
-    private Item CreateRanIteo()
+    private Item CreateRanItem()
     {
-        Item iteo = new Item(UnityEngine.Random.Range(0, 10), UnityEngine.Random.Range(2, 20));
-        print("id " + iteo.id + " val " + iteo.duraCount);
-        return iteo;
+        Item item = new Item(UnityEngine.Random.Range(0, 10), UnityEngine.Random.Range(2, 20));
+        print("id " + item.id + " val " + item.duraCount);
+        return item;
     }
 
     private void Update()
     {
         if (Input.GetKeyUp(KeyCode.A))
         {
-            AddNewIteo(CreateRanIteo());
+            AddNewItem(CreateRanItem());
         }
     }
     #endregion
 }
 
 [System.Serializable]
-public struct AllInuIteos
+public struct AllInuItems
 {
-    public List<InventoryIteo> iteoInus;
+    public List<InventoryItem> itemInus;
 }

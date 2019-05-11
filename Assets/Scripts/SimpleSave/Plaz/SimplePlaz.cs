@@ -16,15 +16,15 @@ public class SimplePlaz : MonoBehaviour
             stats1 = 1,
             stats2 = 2,
             stats3 = 3,
-            iteoInu = new InventoryIteo[40]
+            itemInu = new InventoryItem[40]
         };
-        for (int i = 0; i < plaz.iteoInu.Length; i++)
+        for (int i = 0; i < plaz.itemInu.Length; i++)
         {
-            //plaz.iteoInu[i] = new InuIteo
+            //plaz.itemInu[i] = new InuItem
             //{
             //    inuSlotId = Random.Range(0, 40),
             //};
-            //plaz.iteoInu[i].iteo = new Iteo(Random.Range(0, 255), Random.Range(10, 255));
+            //plaz.itemInu[i].item = new Item(Random.Range(0, 255), Random.Range(10, 255));
         }
         SaveGame.Save<Plaz>(id, plaz);
     }
@@ -36,7 +36,7 @@ public struct Plaz
     public int maqId;
     public Vector2Byte lastLoc;
     public int currentToom;
-    public InventoryIteo[] iteoInu;
+    public InventoryItem[] itemInu;
     public int stats1;
     public int stats2;
     public int stats3;//...

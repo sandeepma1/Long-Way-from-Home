@@ -54,16 +54,16 @@ public class SimpleMap : MonoBehaviour
 
     private void Save()
     {
-        MaqIteo[,] data = new MaqIteo[width, height];
+        MaqItem[,] data = new MaqItem[width, height];
 
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                data[i, j] = new MaqIteo
+                data[i, j] = new MaqItem
                 {
                     tessId = Random.Range(0, 255),
-                    iteo = new Item(Random.Range(0, 255), Random.Range(0, 255)),
+                    item = new Item(Random.Range(0, 255), Random.Range(0, 255)),
                     structtId = (short)Random.Range(0, 255)
                 };
             }
@@ -113,13 +113,13 @@ public struct Maq
     public int width;
     public int height;
     public int maqId;
-    public MaqIteo[] data;
+    public MaqItem[] data;
 }
 
 [System.Serializable]
-public struct MaqIteo
+public struct MaqItem
 {
     public int tessId;
-    public Item iteo;
+    public Item item;
     public int structtId;
 }

@@ -22,12 +22,21 @@ public class CreateMap : MonoBehaviour
         {
             for (int j = 0; j < mapHeight; j++)
             {
-                GameObject mapItem = Instantiate(biomesPrefab[intMap[j * mapWidth + i]], this.transform);
+                GameObject mapItem = InstantiateBlock(biomesPrefab[intMap[j * mapWidth + i]], this.transform);
                 mapItem.transform.localPosition = new Vector3(i, j);
             }
         }
         //SetCompositeCollider(true);
         StartCoroutine(Generat());
+    }
+
+    private GameObject InstantiateBlock(GameObject prefab, Transform parent)
+    {
+        GameObject mapItem = Instantiate(prefab, this.transform);
+        //adding random rotation Z to not appear texture pattern
+        float randomRotation = Random.Range(0, 360);
+        mapItem.transform.eulerAngles = new Vector3(mapItem.transform.eulerAngles.x, mapItem.transform.eulerAngles.y, randomRotation);
+        return mapItem;
     }
 
     private IEnumerator Generat()

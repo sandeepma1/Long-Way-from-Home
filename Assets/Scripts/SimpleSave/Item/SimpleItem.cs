@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SimpleIteo : MonoBehaviour
+public class SimpleItem : MonoBehaviour
 {
 
 }
@@ -19,19 +19,19 @@ public class Item
 
 
 [System.Serializable]
-public class InventoryIteo
+public class InventoryItem
 {
     public Item item;
     public int invSlotId;
-    public InventoryIteo(Item iteo, int invSlotId)
+    public InventoryItem(Item item, int invSlotId)
     {
-        this.item = iteo;
+        this.item = item;
         this.invSlotId = invSlotId;
     }
 
-    public InventoryIteo(int iteoId, int iteoDuraCount, int inuSlotId)
+    public InventoryItem(int itemId, int itemDuraCount, int inuSlotId)
     {
-        item = new Item(iteoId, iteoDuraCount);
+        item = new Item(itemId, itemDuraCount);
         this.invSlotId = inuSlotId;
     }
 }

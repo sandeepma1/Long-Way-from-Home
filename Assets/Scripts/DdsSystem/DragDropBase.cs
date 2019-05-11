@@ -28,15 +28,15 @@ public class DragDropBase : MonoBehaviour
         return uiSlot;
     }
 
-    protected bool CheckIfIteoAvailable(Item iteo)
+    protected bool CheckIfItemAvailable(Item item)
     {
         int available = 0;
         for (int i = 0; i < uiSlotItems.Count; i++)
         {
-            if (uiSlotItems[i].IteoId == iteo.id)
+            if (uiSlotItems[i].ItemId == item.id)
             {
-                available += uiSlotItems[i].IteoDuraCount;
-                if (available >= iteo.duraCount)
+                available += uiSlotItems[i].ItemDuraCount;
+                if (available >= item.duraCount)
                 {
                     return true;
                 }
@@ -45,16 +45,16 @@ public class DragDropBase : MonoBehaviour
         return false;
     }
 
-    protected Item RemoveSlotItemReturnNeeded(Item iteoToRemoved)
+    protected Item RemoveSlotItemReturnNeeded(Item itemToRemoved)
     {
-        Item iteo = new Item(iteoToRemoved.id, iteoToRemoved.duraCount);
+        Item item = new Item(itemToRemoved.id, itemToRemoved.duraCount);
         //reverse forloop as removing items from list in loop is not good
         for (int i = uiSlotItems.Count - 1; i >= 0; i--)
         {
-            if (uiSlotItems[i].IteoId == iteo.id)
+            if (uiSlotItems[i].ItemId == item.id)
             {
-                int remaining = uiSlotItems[i].DecrementDuraCount(iteo.duraCount);
-                iteo.duraCount = remaining;
+                int remaining = uiSlotItems[i].DecrementDuraCount(item.duraCount);
+                item.duraCount = remaining;
                 if (remaining > 0)
                 {
                     continue;
@@ -65,10 +65,10 @@ public class DragDropBase : MonoBehaviour
                 }
             }
         }
-        if (iteo.duraCount > 0)
+        if (item.duraCount > 0)
         {
-            print("not in inu " + iteo.duraCount);
-            return iteo;
+            print("not in inu " + item.duraCount);
+            return item;
         }
         else
         {
@@ -76,19 +76,19 @@ public class DragDropBase : MonoBehaviour
         }
     }
 
-    protected Item AddSlotItemReturnRemaining(Item iteoToAdd)
+    protected Item AddSlotItemReturnRemaining(Item itemToAdd)
     {
-        Item iteo = new Item(iteoToAdd.id, iteoToAdd.duraCount);
+        Item item = new Item(itemToAdd.id, itemToAdd.duraCount);
         for (int i = 0; i < uiSlotItems.Count; i++)
         {
-            if (uiSlotItems[i].IteoId == iteo.id)
+            if (uiSlotItems[i].ItemId == item.id)
             {
                 if (uiSlotItems[i].IsStackMax())
                 {
                     continue;
                 }
-                iteo.duraCount = uiSlotItems[i].IncrementDuraCount(iteo.duraCount);
-                if (iteo.duraCount == 0)
+                item.duraCount = uiSlotItems[i].IncrementDuraCount(item.duraCount);
+                if (item.duraCount == 0)
                 {
                     return null;
                 }
@@ -99,18 +99,18 @@ public class DragDropBase : MonoBehaviour
             if (uiSlots[i].transform.childCount == 0)
             {
                 UiSlotItem uiSlotItem = Instantiate(uiSlotItemPrefab, uiSlots[i].transform);
-                uiSlotItem.Init(maxStack, new InventoryIteo(iteo.id, 0, i));
+                uiSlotItem.Init(maxStack, new InventoryItem(item.id, 0, i));
                 uiSlotItem.OnSlotItemDrop += OnSlotItemDrop;
-                iteo.duraCount = uiSlotItem.IncrementDuraCount(iteo.duraCount);
+                item.duraCount = uiSlotItem.IncrementDuraCount(item.duraCount);
                 AddSlotItem(uiSlotItem);
-                if (iteo.duraCount == 0)
+                if (item.duraCount == 0)
                 {
                     return null;
                 }
             }
         }
-        print("No empty slots still have " + iteo.duraCount);
-        return iteo;
+        print("No empty slots still have " + item.duraCount);
+        return item;
     }
 
 
@@ -126,21 +126,21 @@ public class DragDropBase : MonoBehaviour
 
     private void OnSlotItemDrop(UiSlotItem dropedItem, UiSlotItem dragedItem)
     {
-        if (dragedItem.IteoId == dropedItem.IteoId)
+        if (dragedItem.ItemId == dropedItem.ItemId)
         {
-            dragedItem.DecrementDuraCountDragDrop(dropedItem.IncrementDuraCount(dragedItem.IteoDuraCount));
+            dragedItem.DecrementDuraCountDragDrop(dropedItem.IncrementDuraCount(dragedItem.ItemDuraCount));
         }
         else
         {
             DragDropBase tempDragDropBase = dragedItem.lastDragDropBase;
             Transform tempTransform = dragedItem.lastParent;
-            int tempInuSlotId = dragedItem.IteoInuSlotId;
+            int tempInuSlotId = dragedItem.ItemInuSlotId;
 
             dropedItem.RemovedFromThis();
 
             dragedItem.lastDragDropBase = dropedItem.lastDragDropBase;
             dragedItem.lastParent = dropedItem.lastParent;
-            dragedItem.IteoInuSlotId = dropedItem.IteoInuSlotId;
+            dragedItem.ItemInuSlotId = dropedItem.ItemInuSlotId;
 
             dropedItem.AddInThis(tempDragDropBase, tempTransform, tempInuSlotId);
         }
@@ -161,24 +161,24 @@ public class DragDropBase : MonoBehaviour
         uiSlotItem.UpdateText();
     }
 
-    protected Item CreateRanIteo(int minId = 1, int maxId = 5, int min = 1, int max = 10)
+    protected Item CreateRanItem(int minId = 1, int maxId = 5, int min = 1, int max = 10)
     {
-        Item iteo = new Item(UnityEngine.Random.Range(minId, maxId), UnityEngine.Random.Range(min, max));
-        return iteo;
+        Item item = new Item(UnityEngine.Random.Range(minId, maxId), UnityEngine.Random.Range(min, max));
+        return item;
     }
 
-    private Item CreateIteo(int id = 1, int durcount = 10, bool isRanCount = true)
+    private Item CreateItem(int id = 1, int durcount = 10, bool isRanCount = true)
     {
-        Item iteo = new Item(id, durcount);
+        Item item = new Item(id, durcount);
         if (isRanCount)
         {
-            iteo.duraCount = UnityEngine.Random.Range(1, durcount);
+            item.duraCount = UnityEngine.Random.Range(1, durcount);
         }
         else
         {
-            iteo.duraCount = durcount;
+            item.duraCount = durcount;
         }
-        return iteo;
+        return item;
     }
     #endregion
 }
