@@ -1,6 +1,6 @@
-﻿using System;
+﻿using BayatGames.SaveGameFree;
+using System;
 using System.Collections.Generic;
-using BayatGames.SaveGameFree;
 using UnityEngine;
 
 public class Inu : MonoBehaviour
@@ -48,7 +48,7 @@ public class Inu : MonoBehaviour
         {
             for (int i = 0; i < loader.iteoInus.Count; i++)
             {
-                AddNewIteo(loader.iteoInus[i].inuBgId, loader.iteoInus[i].iteo);
+                AddNewIteo(loader.iteoInus[i].invSlotId, loader.iteoInus[i].item);
             }
         }
     }
@@ -56,7 +56,7 @@ public class Inu : MonoBehaviour
     private void SaveInu()
     {
         AllInuIteos allInuIteos;
-        allInuIteos.iteoInus = new List<InuIteo>();
+        allInuIteos.iteoInus = new List<InventoryIteo>();
         for (int i = 0; i < inuItems.Count; i++)
         {
             allInuIteos.iteoInus.Add(inuItems[i].inuIteo);
@@ -66,29 +66,29 @@ public class Inu : MonoBehaviour
 
     private void IncrementIteo(int listId, int count)
     {
-        inuItems[listId].inuIteo.iteo.duraCount += count;
+        inuItems[listId].inuIteo.item.duraCount += count;
         inuItems[listId].UpdateTextValues();
     }
 
-    private void AddNewIteo(int bgId, Iteo iteo)
+    private void AddNewIteo(int bgId, Item iteo)
     {
         inuBgs[bgId].isOccupied = true;
         InuItem item = Instantiate(inuItemPrefab, inuBgs[bgId].transform);
-        item.inuIteo.iteo = iteo;
+        item.inuIteo.item = iteo;
         item.UpdateTextValues();
-        item.inuIteo.inuBgId = bgId;
+        item.inuIteo.invSlotId = bgId;
         item.OnItemDrop += OnItemDrop;
         item.OnItemDrag += OnItemDrag;
         inuItems.Add(item);
     }
 
-    private void AddNewIteo(Iteo iteo)
+    private void AddNewIteo(Item iteo)
     {
         //if already exists, then increment and/or add
         List<InuItem> sameItems = new List<InuItem>();
         for (int i = 0; i < inuItems.Count; i++)
         {
-            if (inuItems[i].inuIteo.iteo.id == iteo.id)
+            if (inuItems[i].inuIteo.item.id == iteo.id)
             {
                 sameItems.Add(inuItems[i]);
             }
@@ -102,22 +102,22 @@ public class Inu : MonoBehaviour
         FindEmptyAndAdd(iteo);
     }
 
-    private void CompareAndIncrementAndOrAdd(List<InuItem> sameList, Iteo iteoToAdd)
+    private void CompareAndIncrementAndOrAdd(List<InuItem> sameList, Item iteoToAdd)
     {
         //go through all same iteos and increment (if possible)
         for (int i = 0; i < sameList.Count; i++)
         {
-            if (sameList[i].inuIteo.iteo.duraCount > stdStack)
+            if (sameList[i].inuIteo.item.duraCount > stdStack)
             {
                 continue;
             }
             else
             {
-                int canAdd = stdStack - sameList[i].inuIteo.iteo.duraCount;
+                int canAdd = stdStack - sameList[i].inuIteo.item.duraCount;
                 iteoToAdd.duraCount -= canAdd;
                 if (iteoToAdd.duraCount > 0)
                 {
-                    sameList[i].inuIteo.iteo.duraCount = canAdd;
+                    sameList[i].inuIteo.item.duraCount = canAdd;
                     continue;
                 }
             }
@@ -129,7 +129,7 @@ public class Inu : MonoBehaviour
         }
     }
 
-    private void FindEmptyAndAdd(Iteo iteo)
+    private void FindEmptyAndAdd(Item iteo)
     {
         for (int i = 0; i < inuBgs.Length; i++)
         {
@@ -152,26 +152,26 @@ public class Inu : MonoBehaviour
 
     private void OnItemDrop(InuItem inuItem)
     {
-        int draggedBgId = draggedItem.inuIteo.inuBgId;
-        int currentBgId = inuItem.inuIteo.inuBgId;
-        int draggedItemId = draggedItem.inuIteo.iteo.id;
-        int currentItemId = inuItem.inuIteo.iteo.id;
-        int draggedDuraCount = draggedItem.inuIteo.iteo.duraCount;
-        int currentDuraCount = inuItem.inuIteo.iteo.duraCount;
+        int draggedBgId = draggedItem.inuIteo.invSlotId;
+        int currentBgId = inuItem.inuIteo.invSlotId;
+        int draggedItemId = draggedItem.inuIteo.item.id;
+        int currentItemId = inuItem.inuIteo.item.id;
+        int draggedDuraCount = draggedItem.inuIteo.item.duraCount;
+        int currentDuraCount = inuItem.inuIteo.item.duraCount;
 
         if (draggedItemId == currentItemId)//merge
         {
             if (draggedDuraCount + currentDuraCount > stdStack)
             {
                 int balanceAmt = (draggedDuraCount + currentDuraCount) - stdStack;
-                inuItem.inuIteo.iteo.duraCount = stdStack;
-                draggedItem.inuIteo.iteo.duraCount = balanceAmt;
+                inuItem.inuIteo.item.duraCount = stdStack;
+                draggedItem.inuIteo.item.duraCount = balanceAmt;
                 inuItem.UpdateTextValues();
                 draggedItem.UpdateTextValues();
             }
             else
             {
-                inuItem.inuIteo.iteo.duraCount += draggedItem.inuIteo.iteo.duraCount;
+                inuItem.inuIteo.item.duraCount += draggedItem.inuIteo.item.duraCount;
                 inuItem.UpdateTextValues();
                 inuItems.Remove(draggedItem);
                 inuBgs[draggedBgId].isOccupied = false;
@@ -181,30 +181,26 @@ public class Inu : MonoBehaviour
         else // swap
         {
             draggedItem.transform.SetParent(inuBgs[currentBgId].transform);
-            draggedItem.inuIteo.inuBgId = currentBgId;
+            draggedItem.inuIteo.invSlotId = currentBgId;
             inuItem.transform.SetParent(inuBgs[draggedBgId].transform);
             inuItem.transform.localPosition = Vector3.zero;
-            inuItem.inuIteo.inuBgId = draggedBgId;
+            inuItem.inuIteo.invSlotId = draggedBgId;
         }
     }
 
     private void OnBgDrop(int id)
     {
-        inuBgs[draggedItem.inuIteo.inuBgId].isOccupied = false;
+        inuBgs[draggedItem.inuIteo.invSlotId].isOccupied = false;
         draggedItem.transform.SetParent(inuBgs[id].transform);
-        draggedItem.inuIteo.inuBgId = (byte)id;
+        draggedItem.inuIteo.invSlotId = (byte)id;
     }
 
     #endregion
 
     #region Temp Functions
-    private Iteo CreateRanIteo()
+    private Item CreateRanIteo()
     {
-        Iteo iteo = new Iteo
-        {
-            id = (short)UnityEngine.Random.Range(0, 10),
-            duraCount = (short)UnityEngine.Random.Range(2, 20)
-        };
+        Item iteo = new Item(UnityEngine.Random.Range(0, 10), UnityEngine.Random.Range(2, 20));
         print("id " + iteo.id + " val " + iteo.duraCount);
         return iteo;
     }
@@ -220,14 +216,7 @@ public class Inu : MonoBehaviour
 }
 
 [System.Serializable]
-public struct InuIteo
-{
-    public Iteo iteo;
-    public int inuBgId;
-}
-
-[System.Serializable]
 public struct AllInuIteos
 {
-    public List<InuIteo> iteoInus;
+    public List<InventoryIteo> iteoInus;
 }

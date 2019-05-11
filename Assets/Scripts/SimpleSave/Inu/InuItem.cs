@@ -7,15 +7,15 @@ public class InuItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHand
 {
     public Action<InuItem> OnItemDrop;
     public Action<InuItem> OnItemDrag;
-    public InuIteo inuIteo;
+    public InventoryIteo inuIteo;
     [SerializeField] private Image thisImage = null;
     [SerializeField] private Text valText;
     [SerializeField] private Text idText;
 
     public void UpdateTextValues()
     {
-        valText.text = inuIteo.iteo.duraCount.ToString();
-        idText.text = inuIteo.iteo.id.ToString();
+        valText.text = inuIteo.item.duraCount.ToString();
+        idText.text = inuIteo.item.id.ToString();
     }
 
     public void OnBeginDrag(PointerEventData eventData)

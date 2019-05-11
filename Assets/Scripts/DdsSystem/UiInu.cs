@@ -3,23 +3,28 @@
 public class UiInu : DragDropBase
 {
     [SerializeField] private int slotCount = 5;
-    [SerializeField] private int maxStack = 12;
+    [SerializeField] private Item iteoToAdd;
 
     private void Start()
     {
         CreateUiSlots(slotCount, transform);
-        CreateUiSlotItem(maxStack);
-        CreateUiSlotItem(maxStack);
-        CreateUiSlotItem(maxStack);
-        CreateUiSlotItem(maxStack);
-        CreateUiSlotItem(maxStack);
+        AddSlotItemReturnRemaining(CreateRanIteo());
+        AddSlotItemReturnRemaining(CreateRanIteo());
+        AddSlotItemReturnRemaining(CreateRanIteo());
+        AddSlotItemReturnRemaining(CreateRanIteo());
+        AddSlotItemReturnRemaining(CreateRanIteo());
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            CreateUiSlotItem(maxStack);
+            AddSlotItemReturnRemaining(iteoToAdd);
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            print(CheckIfIteoAvailable(iteoToAdd));
         }
     }
 }

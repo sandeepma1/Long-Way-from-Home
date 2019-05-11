@@ -470,7 +470,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1325306457}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6347bb827929f14e991c55a8fb23ebf, type: 3}
+  m_Script: {fileID: 11500000, guid: 30bc22d35d0532c41b11fba072b6fc58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uiSlotPrefab: {fileID: 8904638982848229446, guid: f0ddbf713fa4b85468bbb9aff3f5f198,
@@ -478,8 +478,10 @@ MonoBehaviour:
   uiSlotItemPrefab: {fileID: 1031333802318284616, guid: ed671b0bc41c0234db2118ae6d87e790,
     type: 3}
   uiSlotItems: []
-  slotCount: 10
-  maxStack: 12
+  slotCount: 5
+  iteoToAdd:
+    id: 0
+    duraCount: 0
 --- !u!1 &1911153944
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,7 +660,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2079197713}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 854ec70c39ae6984b92e488bd93c0a55, type: 3}
+  m_Script: {fileID: 11500000, guid: 1634518f9d6a30f42b1c3493e0122d2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uiSlotPrefab: {fileID: 8904638982848229446, guid: f0ddbf713fa4b85468bbb9aff3f5f198,
@@ -667,4 +669,6 @@ MonoBehaviour:
     type: 3}
   uiSlotItems: []
   slotCount: 10
-  maxStack: 12
+  iteoToAdd:
+    id: 0
+    duraCount: 0

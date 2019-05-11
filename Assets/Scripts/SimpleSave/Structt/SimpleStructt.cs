@@ -18,9 +18,9 @@ public struct AllStructt
 public struct Structt
 {
     public StructtType structtType;
-    public InuIteo[] inputItemIds;
-    public InuIteo[] outputItemIds;
-    public short mediumItemId;
+    public InventoryIteo[] inputItemIds;
+    public InventoryIteo[] outputItemIds;
+    public int mediumItemId;
 }
 
 public enum StructtType

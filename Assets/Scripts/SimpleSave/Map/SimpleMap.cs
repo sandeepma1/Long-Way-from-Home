@@ -62,12 +62,8 @@ public class SimpleMap : MonoBehaviour
             {
                 data[i, j] = new MaqIteo
                 {
-                    tessId = (byte)Random.Range(0, 255),
-                    iteo = new Iteo
-                    {
-                        duraCount = (short)Random.Range(0, 255),
-                        id = (short)Random.Range(0, 255)
-                    },
+                    tessId = Random.Range(0, 255),
+                    iteo = new Item(Random.Range(0, 255), Random.Range(0, 255)),
                     structtId = (short)Random.Range(0, 255)
                 };
             }
@@ -124,6 +120,6 @@ public struct Maq
 public struct MaqIteo
 {
     public int tessId;
-    public Iteo iteo;
+    public Item iteo;
     public int structtId;
 }

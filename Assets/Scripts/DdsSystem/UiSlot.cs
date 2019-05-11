@@ -7,7 +7,6 @@ public class UiSlot : MonoBehaviour, IDropHandler
     public Action<UiSlot, UiSlotItem> OnSlotDrop;
     public int id;
     public bool isDropable = true;
-    public bool isOccupied = false;
     public DropType dropType = DropType.Any;
 
     public void OnDrop(PointerEventData eventData)

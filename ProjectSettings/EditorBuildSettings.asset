@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scripts/DdsSystem/DdsSystem.unity
+    guid: 4570e2aecdee217469146dee708e045f
   m_configObjects: {}

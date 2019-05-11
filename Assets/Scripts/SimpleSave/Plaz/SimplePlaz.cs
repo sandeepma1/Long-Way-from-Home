@@ -1,6 +1,6 @@
-﻿using BayatGames.SaveGameFree;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using BayatGames.SaveGameFree;
 using UnityEngine;
 
 public class SimplePlaz : MonoBehaviour
@@ -16,19 +16,15 @@ public class SimplePlaz : MonoBehaviour
             stats1 = 1,
             stats2 = 2,
             stats3 = 3,
-            iteoInu = new InuIteo[40]
+            iteoInu = new InventoryIteo[40]
         };
         for (int i = 0; i < plaz.iteoInu.Length; i++)
         {
-            plaz.iteoInu[i] = new InuIteo
-            {
-                inuBgId = (byte)Random.Range(0, 40),
-            };
-            plaz.iteoInu[i].iteo = new Iteo
-            {
-                id = (byte)Random.Range(0, 255),
-                duraCount = (byte)Random.Range(10, 255)
-            };
+            //plaz.iteoInu[i] = new InuIteo
+            //{
+            //    inuSlotId = Random.Range(0, 40),
+            //};
+            //plaz.iteoInu[i].iteo = new Iteo(Random.Range(0, 255), Random.Range(10, 255));
         }
         SaveGame.Save<Plaz>(id, plaz);
     }
@@ -37,11 +33,11 @@ public class SimplePlaz : MonoBehaviour
 [System.Serializable]
 public struct Plaz
 {
-    public byte maqId;
+    public int maqId;
     public Vector2Byte lastLoc;
-    public byte currentToom;
-    public InuIteo[] iteoInu;
-    public byte stats1;
-    public byte stats2;
-    public byte stats3;//...
+    public int currentToom;
+    public InventoryIteo[] iteoInu;
+    public int stats1;
+    public int stats2;
+    public int stats3;//...
 }
