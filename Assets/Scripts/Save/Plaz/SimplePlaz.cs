@@ -16,7 +16,7 @@ public class SimplePlaz : MonoBehaviour
             stats1 = 1,
             stats2 = 2,
             stats3 = 3,
-            itemInu = new InventoryItem[40]
+            itemInu = new SlotItems[40]
         };
         for (int i = 0; i < plaz.itemInu.Length; i++)
         {
@@ -36,7 +36,7 @@ public struct Plaz
     public int maqId;
     public Vector2Byte lastLoc;
     public int currentToom;
-    public InventoryItem[] itemInu;
+    public SlotItems[] itemInu;
     public int stats1;
     public int stats2;
     public int stats3;//...

@@ -56,7 +56,7 @@ public class Inu : MonoBehaviour
     private void SaveInu()
     {
         AllInuItems allInuItems;
-        allInuItems.itemInus = new List<InventoryItem>();
+        allInuItems.itemInus = new List<SlotItems>();
         for (int i = 0; i < inuItems.Count; i++)
         {
             allInuItems.itemInus.Add(inuItems[i].inuItem);
@@ -218,5 +218,5 @@ public class Inu : MonoBehaviour
 [System.Serializable]
 public struct AllInuItems
 {
-    public List<InventoryItem> itemInus;
+    public List<SlotItems> itemInus;
 }

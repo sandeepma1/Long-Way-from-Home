@@ -15,28 +15,28 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     [SerializeField] private Text idText;
     [SerializeField] private Text countText;
     [SerializeField] private Image image;
-    [SerializeField] private InventoryItem inuItem; //make private later
+    public SlotItems slotItem; //make private later
 
     public int ItemId
     {
-        get { return inuItem.item.id; }
-        set { inuItem.item.id = value; }
+        get { return slotItem.item.id; }
+        set { slotItem.item.id = value; }
     }
     public int ItemDuraCount
     {
-        get { return inuItem.item.duraCount; }
-        set { inuItem.item.duraCount = value; }
+        get { return slotItem.item.duraCount; }
+        set { slotItem.item.duraCount = value; }
     }
-    public int ItemInuSlotId
+    public int ItemSlotId
     {
-        get { return inuItem.invSlotId; }
-        set { inuItem.invSlotId = value; }
+        get { return slotItem.invSlotId; }
+        set { slotItem.invSlotId = value; }
     }
 
-    public void Init(int maxStack, InventoryItem inuItem)
+    public void Init(int maxStack, SlotItems inuItem)
     {
         this.maxStack = maxStack;
-        this.inuItem = inuItem;
+        this.slotItem = inuItem;
         lastDragDropBase = transform.parent.parent.GetComponent<DragDropBase>();
         gameObject.name = ItemId + "-" + ItemDuraCount;
     }
@@ -49,7 +49,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     public void SetParent(Transform parent, int slotId)
     {
         SetParent(parent);
-        ItemInuSlotId = slotId;
+        ItemSlotId = slotId;
     }
 
     public bool IsStackMax()

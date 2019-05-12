@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class UiSlot : MonoBehaviour, IDropHandler
 {
@@ -8,6 +9,14 @@ public class UiSlot : MonoBehaviour, IDropHandler
     public int id;
     public bool isDropable = true;
     public DropType dropType = DropType.Any;
+
+    private void Start()
+    {
+        if (!isDropable)
+        {
+            GetComponent<Image>().color = Color.gray;
+        }
+    }
 
     public void OnDrop(PointerEventData eventData)
     {
