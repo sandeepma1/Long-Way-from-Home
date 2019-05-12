@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DragDropBase : MonoBehaviour
 {
-    public static Action<PlayerSaveSlotItem> OnSaveDataSend;
+    public static Action<PlayerSaveSlotItem> OnSlotItemDataSend;
     private const int maxStack = 12;
     [SerializeField] private SlotItemsType slotItemsType = SlotItemsType.None;
     [SerializeField] private List<UiSlotItem> uiSlotItems = new List<UiSlotItem>(); //make it private
@@ -74,7 +74,7 @@ public class DragDropBase : MonoBehaviour
             slotItems.Add(uiSlotItems[i].slotItem);
         }
         playerItem = new PlayerSaveSlotItem(slotItemsType, 0, slotItems);
-        OnSaveDataSend?.Invoke(playerItem);
+        OnSlotItemDataSend?.Invoke(playerItem);
     }
 
     protected void CreateUiSlots(int slotCount, Transform parent)

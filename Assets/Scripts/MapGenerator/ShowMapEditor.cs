@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ShowMapEditor : MonoBehaviour
 {
-
     public void GenerateMap()
     {
         FindObjectOfType<MapGenerator>().CreateMaps();

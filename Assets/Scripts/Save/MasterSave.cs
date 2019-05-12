@@ -10,14 +10,15 @@ public class MasterSave : MonoBehaviour
     public static Action<PlayerSavePlayerInfo> OnPlayerInfoLoaded;
     public static Action<List<PlayerSaveSlotItem>> OnSlotItemsLoaded;
     public static Action<PlayerSaveStats> OnStatsLoaded;
-    public static Action<List<MapSaveIsland>> MapSaveIslandsLoadedData;
+    public static Action<MapSaveIsland> MapIslandsLoadedData;
     private AllGameSaveEntities allPlayerItems = new AllGameSaveEntities();
     private const string saveName = "PlayerName";
 
     private void Start()
     {
         LoadGame();
-        DragDropBase.OnSaveDataSend += OnSaveDataRequested;
+        DragDropBase.OnSlotItemDataSend += OnSaveDataRequested;
+        CreateMap.OnMapDataSend += OnMapDataSend;
     }
 
     private void Update()
@@ -51,7 +52,7 @@ public class MasterSave : MonoBehaviour
             OnSlotItemsLoaded?.Invoke(null);
             OnStatsLoaded?.Invoke(null);
             OnPlayerInfoLoaded?.Invoke(null);
-            MapSaveIslandsLoadedData?.Invoke(null);
+            MapIslandsLoadedData?.Invoke(null);
         }
         else
         {
@@ -62,7 +63,7 @@ public class MasterSave : MonoBehaviour
             OnSlotItemsLoaded?.Invoke(allPlayerItems.playerSaveItems);
             OnStatsLoaded?.Invoke(allPlayerItems.playerSaveStats);
             OnPlayerInfoLoaded?.Invoke(allPlayerItems.playerSavePlayerInfo);
-            MapSaveIslandsLoadedData?.Invoke(allPlayerItems.mapSaveIslands);
+            MapIslandsLoadedData?.Invoke(allPlayerItems.mapSaveIslands);
             print("game loaded");
         }
     }
@@ -91,6 +92,12 @@ public class MasterSave : MonoBehaviour
         print(saveName);
         allPlayerItems.playerSaveItems.Add(playerSaveItem);
     }
+
+    //Map Islands generator based items
+    private void OnMapDataSend(MapSaveIsland obj)
+    {
+        allPlayerItems.mapSaveIslands = obj;
+    }
 }
 
 public class AllGameSaveEntities
@@ -98,7 +105,7 @@ public class AllGameSaveEntities
     public PlayerSavePlayerInfo playerSavePlayerInfo = new PlayerSavePlayerInfo();
     public List<PlayerSaveSlotItem> playerSaveItems = new List<PlayerSaveSlotItem>();
     public PlayerSaveStats playerSaveStats = new PlayerSaveStats();
-    public List<MapSaveIsland> mapSaveIslands = new List<MapSaveIsland>();
+    public MapSaveIsland mapSaveIslands = new MapSaveIsland();
 }
 
 public class PlayerSavePlayerInfo
@@ -132,6 +139,11 @@ public class PlayerSaveStats
 public class MapSaveIsland
 {
     public int mapId;
-    public MapSaveIsland()
-    { mapId = 0; }
+    public MapData mapData;
+    public MapSaveIsland() { }
+    public MapSaveIsland(int mapId, MapData mapData)
+    {
+        this.mapId = mapId;
+        this.mapData = mapData;
+    }
 }

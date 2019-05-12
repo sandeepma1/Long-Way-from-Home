@@ -12,7 +12,7 @@ public class PrefabBank : MonoBehaviour
 
     private void LoadAllFromResource()
     {
-        uiSlotPrefab = Resources.Load<UiSlot>("Prefabs/UiSlot");
-        uiSlotItemPrefab = Resources.Load<UiSlotItem>("Prefabs/UiSlotitem");
+        uiSlotPrefab = Resources.Load<UiSlot>("Prefabs/UiPrefabs/UiSlot");
+        uiSlotItemPrefab = Resources.Load<UiSlotItem>("Prefabs/UiPrefabs/UiSlotitem");
     }
 }

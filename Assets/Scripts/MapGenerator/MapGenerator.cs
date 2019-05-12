@@ -31,21 +31,21 @@ public class MapGenerator : MonoBehaviour
     public MapData CreateMaps()
     {
         falloffMap = FalloffGenerator.GenerateFalloffMap(mapSizeX, mapSizeY, falloff);
-        MapData mapData = GenerateMapData(Vector2.zero);
-        Texture2D finalTexture = TextureGenerator.TextureFromColourMap(mapData.colourMap, mapSizeX, mapSizeY);
-        //mainRenderer.transform.localScale = new Vector3(finalTexture.width / 10, finalTexture.height / 10);
+        MapDataArray mapDataArray = GenerateMapData(Vector2.zero);
+        Texture2D finalTexture = TextureGenerator.TextureFromColourMap(mapDataArray.colourMap, mapSizeX, mapSizeY);
         mainRenderer.material.mainTexture = finalTexture;
+        MapData mapData = new MapData(mapSizeX, mapSizeY, mapDataArray.intMap);
         return mapData;
     }
 
-    private MapData GenerateMapData(Vector2 centre)
+    private MapDataArray GenerateMapData(Vector2 centre)
     {
         seed = (int)System.DateTime.Now.Ticks;
         float[,] noiseMap = Noise.GenerateNoiseMap(mapSizeX, mapSizeY, seed,
             noiseScale, octaves, persistance, lacunarity, centre, normalizeMode);
 
         Color[] colourMap = new Color[mapSizeX * mapSizeY];
-        byte[] intMap = new byte[mapSizeX * mapSizeY];
+        int[] intMap = new int[mapSizeX * mapSizeY];
         for (int x = 0; x < mapSizeX; x++)
         {
             for (int y = 0; y < mapSizeY; y++)
@@ -60,7 +60,7 @@ public class MapGenerator : MonoBehaviour
                     if (currentHeight >= regions[i].height)
                     {
                         colourMap[y * mapSizeX + x] = regions[i].color;
-                        intMap[y * mapSizeX + x] = (byte)i;
+                        intMap[y * mapSizeX + x] = i;
                     }
                     else
                     {
@@ -69,40 +69,63 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
-        return new MapData(noiseMap, colourMap, intMap);
+        return new MapDataArray(noiseMap, colourMap, intMap);
     }
 }
 
 [System.Serializable]
 public class BiomeType
 {
+    public float height;
+    public Color color;
     public BiomeType(float _height, Color _color)
     {
         height = _height;
         color = _color;
     }
-    public float height;
-    public Color color;
 }
 
-[System.Serializable]
-public struct TerrainType
-{
-    public string name;
-    public float height;
-    public Color colour;
-    public GameObject tile;
-}
-
-public struct MapData
+public class MapDataArray
 {
     public readonly float[,] heightMap;
     public readonly Color[] colourMap;
-    public readonly byte[] intMap;
-    public MapData(float[,] heightMap, Color[] colourMap, byte[] intMap)
+    public readonly int[] intMap;
+    public MapDataArray() { }
+    public MapDataArray(float[,] heightMap, Color[] colourMap, int[] intMap)
     {
         this.heightMap = heightMap;
         this.colourMap = colourMap;
         this.intMap = intMap;
     }
+}
+
+public class MapData
+{
+    public int mapWidth;
+    public int mapHeight;
+    public int[] terrianMap;
+    public int[] itemMap;
+    public int[] playeItemMap;
+    public MapData() { }
+    public MapData(int mapWidth, int mapHeight, int[] terrianMap, int[] itemMap, int[] playeItemMap)
+    {
+        this.mapWidth = mapWidth;
+        this.mapHeight = mapHeight;
+        this.terrianMap = terrianMap;
+        this.itemMap = itemMap;
+        this.playeItemMap = playeItemMap;
+    }
+    public MapData(int mapWidth, int mapHeight, int[] terrianMap)
+    {
+        this.mapWidth = mapWidth;
+        this.mapHeight = mapHeight;
+        this.terrianMap = terrianMap;
+    }
+}
+
+public class MapItems
+{
+    public int posX;
+    public int posY;
+    public int itemId;
 }
