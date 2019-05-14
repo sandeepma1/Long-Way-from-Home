@@ -103,23 +103,21 @@ public class MapData
 {
     public int mapWidth;
     public int mapHeight;
-    public int[] terrianMap;
-    public int[] itemMap;
-    public int[] playeItemMap;
+    public int[] terrianTiles;
+    public int[] mapItems;
     public MapData() { }
-    public MapData(int mapWidth, int mapHeight, int[] terrianMap, int[] itemMap, int[] playeItemMap)
+    public MapData(int mapWidth, int mapHeight, int[] terrianTiles, int[] mapItems)
     {
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
-        this.terrianMap = terrianMap;
-        this.itemMap = itemMap;
-        this.playeItemMap = playeItemMap;
+        this.terrianTiles = terrianTiles;
+        this.mapItems = mapItems;
     }
-    public MapData(int mapWidth, int mapHeight, int[] terrianMap)
+    public MapData(int mapWidth, int mapHeight, int[] terrianTiles)
     {
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
-        this.terrianMap = terrianMap;
+        this.terrianTiles = terrianTiles;
     }
 }
 

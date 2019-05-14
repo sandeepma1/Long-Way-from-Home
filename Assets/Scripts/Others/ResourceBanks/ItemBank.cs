@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemBank : MonoBehaviour
 {
     private TextAsset textAsset;
-    [SerializeField] private static ItemDatabase itemDatabase = new ItemDatabase();
+    [SerializeField] private ItemDatabase itemDatabase = new ItemDatabase();
     private fsSerializer mSerialiser = null;
 
     private void Awake()
@@ -24,10 +24,10 @@ public class ItemBank : MonoBehaviour
         itemDatabase = (ItemDatabase)deserializedData;
     }
 
-    public static ItemDb GetItemById(int id)
-    {
-        return itemDatabase.Items[id];
-    }
+    //public static ItemDb GetItemById(int id)
+    //{
+    //    //return itemDatabase.Items[id];
+    //}
 }
 
 [System.Serializable]

@@ -20,6 +20,16 @@ public class CreateMap : MonoBehaviour
     {
         MasterSave.RequestSaveData += RequestSaveData;
         MasterSave.MapIslandsLoadedData += MapIslandsLoadedData;
+        PinchZoom.OnMouseClick += OnMouseClick;
+    }
+
+    private void OnMouseClick(int x, int y)
+    {
+        int index = mapData.mapItems[y * mapWidth + x];
+        if (index >= 0)
+        {
+            print(mapItems[index].gameObject.name);
+        }
     }
 
     private void MapIslandsLoadedData(MapSaveIsland mapSaveIsland)
@@ -43,8 +53,7 @@ public class CreateMap : MonoBehaviour
         mapHeight = mapData.mapHeight;
         if (isNewGame)
         {
-            mapData.itemMap = new int[mapWidth * mapHeight];
-            mapData.playeItemMap = new int[mapWidth * mapHeight];
+            mapData.mapItems = new int[mapWidth * mapHeight];
         }
 
         for (int i = 0; i < mapWidth; i++)
@@ -52,28 +61,27 @@ public class CreateMap : MonoBehaviour
             for (int j = 0; j < mapHeight; j++)
             {
                 int oneDIndex = j * mapWidth + i;
-                int terrianId = mapData.terrianMap[oneDIndex];
+                int terrianId = mapData.terrianTiles[oneDIndex];
                 GameObject terrianTile = InstantiateTerrianTile(biomesPrefab[terrianId], transform);
                 if (isNewGame) // if new game/map
                 {
-                    mapData.playeItemMap[oneDIndex] = -1;
-                    mapData.itemMap[oneDIndex] = -1;
+                    mapData.mapItems[oneDIndex] = -1;
                     if (terrianId == 3) // instantiate only on land
                     {
                         int a = UnityEngine.Random.Range(0, 5); // that too probability is 1 in 5
                         if (a < 1)
                         {
                             int random = UnityEngine.Random.Range(0, mapItems.Length);
-                            mapData.itemMap[oneDIndex] = random;
+                            mapData.mapItems[oneDIndex] = random;
                             InstantiateMapItem(random, i, j);
                         }
                     }
                 }
                 else
                 {
-                    if (mapData.itemMap[oneDIndex] >= 0)
+                    if (mapData.mapItems[oneDIndex] >= 0)
                     {
-                        InstantiateMapItem(mapData.itemMap[oneDIndex], i, j);
+                        InstantiateMapItem(mapData.mapItems[oneDIndex], i, j);
                     }
                 }
                 terrianTile.transform.localPosition = new Vector3(i, j);

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scripts/MapGenerator/MapGenerator.unity
+    guid: 0cec754e63a49a1478ceedfcf6bcc1b8
+  - enabled: 1
     path: Assets/Scripts/DdsSystem/DdsSystem.unity
     guid: 4570e2aecdee217469146dee708e045f
   m_configObjects: {}
