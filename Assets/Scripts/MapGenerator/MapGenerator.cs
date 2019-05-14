@@ -121,9 +121,9 @@ public class MapData
     }
 }
 
-public class MapItems
-{
-    public int posX;
-    public int posY;
-    public int itemId;
-}
+//public class MapItems
+//{
+//    public int posX;
+//    public int posY;
+//    public int itemId;
+//}
