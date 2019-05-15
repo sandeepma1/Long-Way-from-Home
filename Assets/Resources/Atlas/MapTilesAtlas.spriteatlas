@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MapTilesAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
+    totalSpriteSurfaceArea: 7168
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: -6198743362464645044, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
+  - {fileID: -4844874109541757280, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
+  - {fileID: -5212746942993264660, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
+  - {fileID: -4977748342179093890, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
+  - {fileID: -72688641618332823, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
+  - {fileID: 9181920661823289503, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
+  - {fileID: -7254483145653062670, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - sand
+  - dry
+  - green
+  - darkgreen
+  - deepwater
+  - shallowwater
+  - rocky
+  m_Tag: MapTilesAtlas
+  m_IsVariant: 0

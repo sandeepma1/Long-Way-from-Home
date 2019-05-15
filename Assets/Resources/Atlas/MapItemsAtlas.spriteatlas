@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MapItemsAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 175bc5e2bc5c37e49881cc8ca6a3f667, type: 3}
+    totalSpriteSurfaceArea: 13136
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 8648822512753860137, guid: 175bc5e2bc5c37e49881cc8ca6a3f667, type: 3}
+  - {fileID: -4470659603181635923, guid: 175bc5e2bc5c37e49881cc8ca6a3f667, type: 3}
+  - {fileID: -3161459622353745449, guid: 175bc5e2bc5c37e49881cc8ca6a3f667, type: 3}
+  - {fileID: 8014377399714151034, guid: 175bc5e2bc5c37e49881cc8ca6a3f667, type: 3}
+  - {fileID: -1949760743246841575, guid: 175bc5e2bc5c37e49881cc8ca6a3f667, type: 3}
+  - {fileID: 2688979549554739694, guid: 175bc5e2bc5c37e49881cc8ca6a3f667, type: 3}
+  - {fileID: -358247152561162140, guid: 175bc5e2bc5c37e49881cc8ca6a3f667, type: 3}
+  - {fileID: -2779481455194183649, guid: 175bc5e2bc5c37e49881cc8ca6a3f667, type: 3}
+  - {fileID: -4837517295066362216, guid: 175bc5e2bc5c37e49881cc8ca6a3f667, type: 3}
+  - {fileID: 3031820995386168073, guid: 175bc5e2bc5c37e49881cc8ca6a3f667, type: 3}
+  - {fileID: -8484693723043007579, guid: 175bc5e2bc5c37e49881cc8ca6a3f667, type: 3}
+  - {fileID: 5401209469563074041, guid: 175bc5e2bc5c37e49881cc8ca6a3f667, type: 3}
+  - {fileID: 6547625948924247022, guid: 175bc5e2bc5c37e49881cc8ca6a3f667, type: 3}
+  - {fileID: 4589751714783062387, guid: 175bc5e2bc5c37e49881cc8ca6a3f667, type: 3}
+  - {fileID: -7581794852926713536, guid: 175bc5e2bc5c37e49881cc8ca6a3f667, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - grass
+  - berrybushsmall
+  - MapSprites_15
+  - smalltree
+  - stick
+  - berrybushmature
+  - rock2
+  - largetree
+  - maturetree
+  - flint
+  - fallenlog
+  - rock
+  - radishplant
+  - starfish
+  - mediumtree
+  m_Tag: MapItemsAtlas
+  m_IsVariant: 0

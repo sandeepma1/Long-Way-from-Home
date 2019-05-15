@@ -6,7 +6,6 @@ using UnityEngine;
 public class CreateMap : MonoBehaviour
 {
     public static Action<MapSaveIsland> OnMapDataSend;
-
     [SerializeField] private CompositeCollider2D compositeCollider2D;
     [SerializeField] private Rigidbody2D rigidbody2D;
     [SerializeField] private GameObject[] biomesPrefab;
@@ -55,13 +54,12 @@ public class CreateMap : MonoBehaviour
         {
             mapData.mapItems = new int[mapWidth * mapHeight];
         }
-
         for (int i = 0; i < mapWidth; i++)
         {
             for (int j = 0; j < mapHeight; j++)
             {
                 int oneDIndex = j * mapWidth + i;
-                int terrianId = mapData.terrianTiles[oneDIndex];
+                int terrianId = mapData.mapTiles[oneDIndex];
                 GameObject terrianTile = InstantiateTerrianTile(biomesPrefab[terrianId], transform);
                 if (isNewGame) // if new game/map
                 {
