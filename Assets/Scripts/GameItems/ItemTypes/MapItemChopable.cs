@@ -6,6 +6,6 @@ public class MapItemChopable : MapItemBase, IChopable
 {
     public void Chop(int damage)
     {
-        throw new System.NotImplementedException();
+        print("chop");
     }
 }

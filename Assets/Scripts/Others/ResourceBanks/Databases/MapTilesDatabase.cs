@@ -11,16 +11,49 @@ public class MapTilesDatabase : DatabaseBase
         base.LoadFromJson();
         mSerialiser.TryDeserialize(parsedData, typeof(MapTilesDb), ref deserializedData).AssertSuccessWithoutWarnings();
         MapTiles = (MapTilesDb)deserializedData;
+        if (MapTiles.MapTiles.Length <= 0)
+        {
+            Debug.LogError("MapTiles db not loaded or empty");
+        }
+        for (int i = 0; i < MapTiles.MapTiles.Length; i++)
+        {
+            for (int j = MapTiles.MapTiles[i].grows.Count - 1; j >= 0; j--)
+            {
+                if (MapTiles.MapTiles[i].grows[j].growId == null)
+                {
+                    MapTiles.MapTiles[i].grows.RemoveAt(j);
+                }
+            }
+        }
     }
 
     public static string GetSlugById(int id)
     {
         return MapTiles.MapTiles[id].slug;
+        return null;
     }
 
     public static MapTiles[] GetMapItemsArray()
     {
         return MapTiles.MapTiles;
+        return null;
+    }
+
+    public static List<Grows> GetAllGrowsById(int id)
+    {
+        return MapTiles.MapTiles[id].grows;
+    }
+
+    public static int? GetMapTileGrowsCountById(int id)
+    {
+        if (MapTiles.MapTiles[id].grows.Count > 0)
+        {
+            return MapTiles.MapTiles[id].grows.Count;
+        }
+        else
+        {
+            return null;
+        }
     }
 }
 
@@ -36,4 +69,12 @@ public class MapTiles
     public int id;
     public string name;
     public string slug;
+    public List<Grows> grows;
+}
+
+[System.Serializable]
+public class Grows
+{
+    public int? growId;
+    public float? prob;
 }

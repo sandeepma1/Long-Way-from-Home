@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4685762911418020093}
   - component: {fileID: -8122248054913696441}
   m_Layer: 0
-  m_Name: Pickable
+  m_Name: MapItemPickable
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,3 +109,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa48843f3a96794b9abeff83585ba2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 8980526658818470213}

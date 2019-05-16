@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
 
-public class ImageBank : MonoBehaviour
+public class AtlasBank : MonoBehaviour
 {
     private static SpriteAtlas uiAtlas;
     private static SpriteAtlas mapItemsAtlas;

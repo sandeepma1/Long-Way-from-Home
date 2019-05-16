@@ -11,6 +11,19 @@ public class MapItemsDatabase : DatabaseBase
         MapItems = (MapItemsDb)deserializedData;
     }
 
+    public static Actions GetActionById(int id)
+    {
+        if (id < MapItems.MapItems.Length)
+        {
+            return MapItems.MapItems[id].primaryAction;
+        }
+        else
+        {
+            print("id incorrect " + id);
+            return Actions.none;
+        }
+    }
+
     public static string GetSlugById(int id)
     {
         return MapItems.MapItems[id].slug;

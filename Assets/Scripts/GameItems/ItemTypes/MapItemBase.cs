@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class MapItemBase : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
     public void Init(int id)
     {
-        GetComponent<SpriteRenderer>().sprite = ImageBank.GetMapItemSpriteById(id);
+        spriteRenderer.sprite = AtlasBank.GetMapItemSpriteById(id);
     }
 }
 

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f8c0f10a84f654ab5d5eb0214b0c82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFilePath: Jsons/ItemDatabase - MapItems
+  jsonFileName: MapItems
 --- !u!114 &7387137431771114785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97aff97cb5e1a4849bd32fe77a6f5625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFilePath: Jsons/ItemDatabase - MapBiomes
+  jsonFileName: MapBiomes
   MapBiomes:
     MapBiomes: []
 --- !u!114 &7387137431771114786
@@ -74,7 +74,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9791e744ece22d943b01dae01961ce22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFilePath: Jsons/ItemDatabase - MapTiles
+  jsonFileName: MapTiles
+  MapTiles:
+    MapTiles: []
 --- !u!114 &7387137431771114787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,4 +89,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97b6ebc6ddf5398499cf161755c11a6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFilePath: Jsons/ItemDatabase - InventoryItems
+  jsonFileName: InventoryItems

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MapGenerator))]
@@ -30,28 +31,39 @@ public class CreateNewMap : MonoBehaviour
 
     private void CreateRandomMapItems()
     {
-        int mapWidth = mapData.mapWidth;
-        int mapHeight = mapData.mapHeight;
+        int mapLength = mapData.mapWidth * mapData.mapHeight;
+        mapData.mapItems = new int[mapLength];
 
-        mapData.mapItems = new int[mapWidth * mapHeight];
-
-        for (int i = 0; i < mapWidth; i++)
+        for (int i = 0; i < mapData.mapItems.Length; i++)
         {
-            for (int j = 0; j < mapHeight; j++)
+            int mapTileId = mapData.mapTiles[i];
+            mapData.mapItems[i] = CalculateMapItemByTile(mapTileId);
+        }
+
+        //for (int i = 0; i < mapWidth; i++)
+        //{
+        //    for (int j = 0; j < mapHeight; j++)
+        //    {
+        //        int oneDIndex = j * mapWidth + i;
+        //        int mapTileId = mapData.mapTiles[oneDIndex];
+        //        //mapData.mapItems[oneDIndex] = -1;
+        //        mapData.mapItems[oneDIndex] = CalculateMapItemByTile(mapTileId);
+        //    }
+        //}
+    }
+
+    private int CalculateMapItemByTile(int mapTileId)
+    {
+        List<Grows> allGrows = MapTilesDatabase.GetAllGrowsById(mapTileId);
+        if (allGrows.Count > 0)
+        {
+            int pickRandomIdIndex = UnityEngine.Random.Range(0, allGrows.Count);
+            float probability = UnityEngine.Random.Range(0.0f, 1.0f);
+            if (allGrows[pickRandomIdIndex].prob >= probability)
             {
-                int oneDIndex = j * mapWidth + i;
-                int mapTileId = mapData.mapTiles[oneDIndex];
-                mapData.mapItems[oneDIndex] = -1;
-                if (mapTileId == 3) // instantiate only on land
-                {
-                    int a = UnityEngine.Random.Range(0, 5); // that too probability is 1 in 5
-                    if (a < 1)
-                    {
-                        int random = UnityEngine.Random.Range(0, 12);//TODO: write better logic
-                        mapData.mapItems[oneDIndex] = random;
-                    }
-                }
+                return (int)allGrows[pickRandomIdIndex].growId;
             }
         }
+        return -1;
     }
 }

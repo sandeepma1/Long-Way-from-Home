@@ -8,6 +8,6 @@ public class MapTile : MonoBehaviour
 
     public void Init(int mapTileId)
     {
-        spriteRenderer.sprite = ImageBank.GetMapItemSpriteById(mapTileId);
+        spriteRenderer.sprite = AtlasBank.GetMapTileSpriteById(mapTileId);
     }
 }

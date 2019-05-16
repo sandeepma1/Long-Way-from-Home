@@ -1,1 +1,221 @@
-{"MapTiles":[{"id":0,"name":"Deep Water","slug":"deepwater"},{"id":1,"name":"Shallow Water","slug":"shallowwater"},{"id":2,"name":"Sand","slug":"sand"},{"id":3,"name":"Green","slug":"green"},{"id":4,"name":"Dark Green","slug":"darkgreen"},{"id":5,"name":"Dry","slug":"dry"},{"id":6,"name":"Rocky","slug":"rocky"}]}
+{
+  "MapTiles": [
+    {
+      "id": 0,
+      "name": "Deep Water",
+      "slug": "deepwater",
+      "grows": [
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Shallow Water",
+      "slug": "shallowwater",
+      "grows": [
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Sand",
+      "slug": "sand",
+      "grows": [
+        {
+          "growId": 0,
+          "prob": 0.1
+        },
+        {
+          "growId": 12,
+          "prob": 0.05
+        },
+        {
+          "growId": 4,
+          "prob": 0.1
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Green",
+      "slug": "green",
+      "grows": [
+        {
+          "growId": 3,
+          "prob": 0.1
+        },
+        {
+          "growId": 3,
+          "prob": 0.1
+        },
+        {
+          "growId": 9,
+          "prob": 0.1
+        },
+        {
+          "growId": 10,
+          "prob": 0.2
+        },
+        {
+          "growId": 11,
+          "prob": 0.1
+        },
+        {
+          "growId": 4,
+          "prob": 0.1
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Dark Green",
+      "slug": "darkgreen",
+      "grows": [
+        {
+          "growId": 3,
+          "prob": 0.1
+        },
+        {
+          "growId": 5,
+          "prob": 0.1
+        },
+        {
+          "growId": 6,
+          "prob": 0.1
+        },
+        {
+          "growId": 7,
+          "prob": 0.1
+        },
+        {
+          "growId": 8,
+          "prob": 0.1
+        },
+        {
+          "growId": 4,
+          "prob": 0.1
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Dry",
+      "slug": "dry",
+      "grows": [
+        {
+          "growId": 1,
+          "prob": 0.1
+        },
+        {
+          "growId": 2,
+          "prob": 0.1
+        },
+        {
+          "growId": 4,
+          "prob": 0.1
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Rocky",
+      "slug": "rocky",
+      "grows": [
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        }
+      ]
+    }
+  ]
+}

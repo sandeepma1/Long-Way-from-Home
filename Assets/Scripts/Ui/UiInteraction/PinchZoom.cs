@@ -10,7 +10,7 @@ public class PinchZoom : MonoBehaviour
     private Vector3 camPos;
     [SerializeField] private float maxZoom;
     [SerializeField] private float minZoom = 2;
-    [SerializeField] private float panSpeed = 0.1f;
+    [SerializeField] private float panSpeed = -0.3f;
     public float ScreenWidth;
     public float SideMenuWidth;
     public float topRightX;

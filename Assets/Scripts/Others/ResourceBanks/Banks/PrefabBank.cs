@@ -29,6 +29,5 @@ public class PrefabBank : MonoBehaviour
         mapItemMineablePrefab = Resources.Load<MapItemMineable>("Prefabs/MapItems/MapItemMineable");
         mapItemPickablePrefab = Resources.Load<MapItemPickable>("Prefabs/MapItems/MapItemPickable");
         mapTilePrefab = Resources.Load<MapTile>("Prefabs/MapItems/MapTile");
-        print(mapItemsAtlas.spriteCount);
     }
 }
