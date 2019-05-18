@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class MapItemsDatabase : DatabaseBase
 {
@@ -9,6 +11,7 @@ public class MapItemsDatabase : DatabaseBase
         base.LoadFromJson();
         mSerialiser.TryDeserialize(parsedData, typeof(MapItemsDb), ref deserializedData).AssertSuccessWithoutWarnings();
         MapItems = (MapItemsDb)deserializedData;
+        GEM.PrintDebug("MapItemDatabase loaded with" + MapItems.MapItems.Length + " items");
     }
 
     public static Actions GetActionById(int id)
@@ -19,7 +22,7 @@ public class MapItemsDatabase : DatabaseBase
         }
         else
         {
-            print("id incorrect " + id);
+            GEM.PrintDebug("GetActionById=> id incorrect " + id);
             return Actions.none;
         }
     }
@@ -37,6 +40,11 @@ public class MapItemsDatabase : DatabaseBase
     public static MapItemType GetMapItemTypeById(int id)
     {
         return MapItems.MapItems[id].mapItemType;
+    }
+
+    public static int GetHealthPointsById(int id)
+    {
+        return MapItems.MapItems[id].healthPoints;
     }
 }
 

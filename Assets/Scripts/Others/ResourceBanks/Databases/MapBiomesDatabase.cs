@@ -4,13 +4,26 @@ using UnityEngine;
 
 public class MapBiomesDatabase : DatabaseBase
 {
-    public MapBiomesDb MapBiomes = new MapBiomesDb();
+    public static MapBiomesDb MapBiomes = new MapBiomesDb();
 
     protected override void LoadFromJson()
     {
         base.LoadFromJson();
         mSerialiser.TryDeserialize(parsedData, typeof(MapBiomesDb), ref deserializedData).AssertSuccessWithoutWarnings();
         MapBiomes = (MapBiomesDb)deserializedData;
+    }
+
+    public static List<Regions> GetRegionsByBiomeName(BiomeName biomeName)
+    {
+        for (int i = 0; i < MapBiomes.MapBiomes.Length; i++)
+        {
+            if (MapBiomes.MapBiomes[i].biomeName == biomeName)
+            {
+                return MapBiomes.MapBiomes[i].regions;
+            }
+        }
+        Debug.Log("Biome with name " + biomeName + " not found");
+        return null;
     }
 }
 
@@ -24,8 +37,7 @@ public class MapBiomesDb
 public class MapBiomes
 {
     public int id;
-    public string name;
-    public string slug;
+    public BiomeName biomeName;
     public List<Regions> regions;
 }
 
@@ -34,4 +46,16 @@ public class Regions
 {
     public int tileId;
     public float height;
+}
+
+[System.Serializable]
+public enum BiomeName
+{
+    Normal,
+    Sandy,
+    Green,
+    Rocky,
+    Beachy,
+    Swampy,
+    Dry
 }

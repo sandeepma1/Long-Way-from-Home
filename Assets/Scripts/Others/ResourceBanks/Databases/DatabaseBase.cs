@@ -11,9 +11,10 @@ public class DatabaseBase : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(this.gameObject);
         if (jsonFileName == "")
         {
-            Debug.LogError("jsonFileName not mentioned");
+            GEM.PrintDebugError("jsonFileName not mentioned");
             return;
             //Debug.LogWarning("Json file name not given, trying to get it automagically!!!");
             //string name = GetComponent<MonoBehaviour>().GetType().Name;

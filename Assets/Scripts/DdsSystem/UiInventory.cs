@@ -21,6 +21,12 @@ public class UiInventory : DragDropBase
         base.CreateUiSlotsIfNotCreated();
     }
 
+    public static void AddItemToInventory(int id, int count)
+    {
+        Item itemToAdd = new Item(id, count);
+        //AddSlotItemReturnRemaining(itemToAdd);
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))

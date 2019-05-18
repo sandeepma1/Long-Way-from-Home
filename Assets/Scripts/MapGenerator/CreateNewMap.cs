@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(MapGenerator))]
 public class CreateNewMap : MonoBehaviour
 {
+    public BiomeName biomeName = BiomeName.Normal; // TODO: make it as per island traveled **imp feature
     private MapGenerator mapGenerator;
     private MapData mapData = new MapData();
 
@@ -17,7 +18,7 @@ public class CreateNewMap : MonoBehaviour
     private void CreateNewMapAndSave()
     {
         //Create procedural map
-        mapData = mapGenerator.CreateMaps();
+        mapData = mapGenerator.CreateMaps(biomeName);
         //Create random map itmes
         CreateRandomMapItems();
 
@@ -39,17 +40,6 @@ public class CreateNewMap : MonoBehaviour
             int mapTileId = mapData.mapTiles[i];
             mapData.mapItems[i] = CalculateMapItemByTile(mapTileId);
         }
-
-        //for (int i = 0; i < mapWidth; i++)
-        //{
-        //    for (int j = 0; j < mapHeight; j++)
-        //    {
-        //        int oneDIndex = j * mapWidth + i;
-        //        int mapTileId = mapData.mapTiles[oneDIndex];
-        //        //mapData.mapItems[oneDIndex] = -1;
-        //        mapData.mapItems[oneDIndex] = CalculateMapItemByTile(mapTileId);
-        //    }
-        //}
     }
 
     private int CalculateMapItemByTile(int mapTileId)

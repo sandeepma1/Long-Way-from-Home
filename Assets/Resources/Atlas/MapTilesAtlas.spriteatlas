@@ -31,11 +31,12 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 2800000, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
-    totalSpriteSurfaceArea: 7168
+    totalSpriteSurfaceArea: 9216
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: -6198743362464645044, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
+  - {fileID: 4255209756830244865, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
   - {fileID: -4844874109541757280, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
   - {fileID: -5212746942993264660, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
   - {fileID: -4977748342179093890, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
@@ -44,6 +45,7 @@ SpriteAtlas:
   - {fileID: -7254483145653062670, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
   m_PackedSpriteNamesToIndex:
   - sand
+  - deepwatertile
   - dry
   - green
   - darkgreen

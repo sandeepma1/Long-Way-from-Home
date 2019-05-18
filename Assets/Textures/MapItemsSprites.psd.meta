@@ -7,7 +7,7 @@ TextureImporter:
     second: rock
   - first:
       213: -358247152561162140
-    second: rock2
+    second: coalblock
   - first:
       213: 3031820995386168073
     second: flint
@@ -161,7 +161,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rock2
+      name: coalblock
       rect:
         serializedVersion: 2
         x: 16

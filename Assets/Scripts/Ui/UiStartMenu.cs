@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BayatGames.SaveGameFree;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,11 @@ public class UiStartMenu : MonoBehaviour
     private void Start()
     {
         newGameButton.onClick.AddListener(NewGameButtonClicked);
-        newGameButton.onClick.AddListener(ContinueGameButtonClicked);
+        continueGameButton.onClick.AddListener(ContinueGameButtonClicked);
+        if (!SaveGame.Exists(GEM.MapSaveName))
+        {
+            continueGameButton.interactable = false;
+        }
     }
 
     private void NewGameButtonClicked()
@@ -23,5 +28,6 @@ public class UiStartMenu : MonoBehaviour
     private void ContinueGameButtonClicked()
     {
         OnContinueGameClicked?.Invoke();
+        SceneLoader.LoadScene(SceneNames.MainGameScene);
     }
 }

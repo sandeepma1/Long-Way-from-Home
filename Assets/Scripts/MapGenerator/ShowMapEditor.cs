@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class ShowMapEditor : MonoBehaviour
 {
+    public BiomeName biomeName = BiomeName.Normal;
+
     public void GenerateMap()
     {
-        FindObjectOfType<MapGenerator>().CreateMaps();
+        FindObjectOfType<MapGenerator>().CreateMaps(biomeName);
     }
 }

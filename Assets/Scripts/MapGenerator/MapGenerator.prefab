@@ -13,9 +13,6 @@ GameObject:
   - component: {fileID: 3903939517919233231}
   - component: {fileID: 3903939517919233230}
   - component: {fileID: 3903939517919233218}
-  - component: {fileID: 1689679796}
-  - component: {fileID: 3903939518077553307}
-  - component: {fileID: 3903939518077553306}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -102,7 +99,7 @@ MonoBehaviour:
   octaves: 8
   persistance: 0
   lacunarity: 1
-  seed: -2127760174
+  seed: -2143304897
   falloff: {x: 2, y: 6}
   useFalloff: 1
   regions:
@@ -130,67 +127,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b680bfec7c09a5746b589c402d7cd85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1689679796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3903939517919233229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ee32f8f180eb94f8381ed5b139afc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  compositeCollider2D: {fileID: 3903939518077553306}
-  rigidbody2D: {fileID: 3903939518077553307}
-  biomesPrefab:
-  - {fileID: 143802, guid: a8624683448bc244cbe39605efd51144, type: 3}
-  - {fileID: 165082, guid: d2e5cef228adef645915821874657f90, type: 3}
-  - {fileID: 143004, guid: 5db905538204be34b8901ea7b475510a, type: 3}
-  - {fileID: 192096, guid: 7ac0537dc700d5342a0316d9b0b9e679, type: 3}
-  - {fileID: 137868, guid: 4da0b48f9f37f3248b55e01713cf79de, type: 3}
-  - {fileID: 158948, guid: 37d4b3f49277bcb46b3e7d53be4a95b9, type: 3}
-  mapGenerator: {fileID: 3903939517919233230}
---- !u!50 &3903939518077553307
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3903939517919233229}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!66 &3903939518077553306
-CompositeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3903939517919233229}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
-  m_GenerationType: 1
-  m_EdgeRadius: 0
-  m_ColliderPaths: []
-  m_CompositePaths:
-    m_Paths: []
-  m_VertexDistance: 0.0005

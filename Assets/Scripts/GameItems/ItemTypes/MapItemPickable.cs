@@ -6,6 +6,7 @@ public class MapItemPickable : MapItemBase, IPickable
 {
     public void Pick()
     {
-        print("picked item");
+        print("Added to inventory / Dropped on floor item" + item.id);
+        MapItemDone();
     }
 }

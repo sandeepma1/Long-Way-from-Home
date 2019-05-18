@@ -1,1 +1,214 @@
-{"MapBiomes":[{"id":0,"name":"Normal","slug":"normal","regions":[{"tileId":0,"height":0},{"tileId":1,"height":0.2},{"tileId":2,"height":0.3},{"tileId":3,"height":0.4},{"tileId":4,"height":0.7},{"tileId":5,"height":1}]},{"id":1,"name":"Sandy","slug":"sandy","regions":[{"tileId":0,"height":0},{"tileId":1,"height":0.2},{"tileId":2,"height":0.3},{"tileId":3,"height":0.4},{"tileId":4,"height":0.7},{"tileId":5,"height":1}]},{"id":2,"name":"Green","slug":"green","regions":[{"tileId":0,"height":0},{"tileId":1,"height":0.2},{"tileId":2,"height":0.3},{"tileId":3,"height":0.4},{"tileId":4,"height":0.7},{"tileId":5,"height":1}]},{"id":3,"name":"Rocky","slug":"rocky","regions":[{"tileId":0,"height":0},{"tileId":1,"height":0.2},{"tileId":2,"height":0.3},{"tileId":3,"height":0.4},{"tileId":4,"height":0.7},{"tileId":5,"height":1}]},{"id":4,"name":"Beachy","slug":"beachy","regions":[{"tileId":0,"height":0},{"tileId":1,"height":0.2},{"tileId":2,"height":0.3},{"tileId":3,"height":0.4},{"tileId":4,"height":0.7},{"tileId":5,"height":1}]},{"id":5,"name":"Swampy","slug":"swampy","regions":[{"tileId":0,"height":0},{"tileId":1,"height":0.2},{"tileId":2,"height":0.3},{"tileId":3,"height":0.4},{"tileId":4,"height":0.7},{"tileId":5,"height":1}]},{"id":6,"name":"Dry","slug":"dry","regions":[{"tileId":0,"height":0},{"tileId":1,"height":0.2},{"tileId":2,"height":0.3},{"tileId":3,"height":0.4},{"tileId":4,"height":0.7},{"tileId":5,"height":1}]},{"id":7,"name":"Sandy","slug":"sandy","regions":[{"tileId":0,"height":0},{"tileId":1,"height":0.2},{"tileId":2,"height":0.3},{"tileId":3,"height":0.4},{"tileId":4,"height":0.7},{"tileId":5,"height":1}]}]}
+{
+  "MapBiomes": [
+    {
+      "id": 0,
+      "biomeName": "Normal",
+      "regions": [
+        {
+          "tileId": 0,
+          "height": 0
+        },
+        {
+          "tileId": 1,
+          "height": 0.2
+        },
+        {
+          "tileId": 2,
+          "height": 0.3
+        },
+        {
+          "tileId": 3,
+          "height": 0.4
+        },
+        {
+          "tileId": 4,
+          "height": 0.7
+        },
+        {
+          "tileId": 5,
+          "height": 1
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "biomeName": "Sandy",
+      "regions": [
+        {
+          "tileId": 0,
+          "height": 0
+        },
+        {
+          "tileId": 1,
+          "height": 0.2
+        },
+        {
+          "tileId": 2,
+          "height": 0.3
+        },
+        {
+          "tileId": 3,
+          "height": 0.4
+        },
+        {
+          "tileId": 4,
+          "height": 0.7
+        },
+        {
+          "tileId": 5,
+          "height": 1
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "biomeName": "Green",
+      "regions": [
+        {
+          "tileId": 0,
+          "height": 0
+        },
+        {
+          "tileId": 1,
+          "height": 0.2
+        },
+        {
+          "tileId": 2,
+          "height": 0.3
+        },
+        {
+          "tileId": 3,
+          "height": 0.4
+        },
+        {
+          "tileId": 4,
+          "height": 0.7
+        },
+        {
+          "tileId": 5,
+          "height": 1
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "biomeName": "Rocky",
+      "regions": [
+        {
+          "tileId": 0,
+          "height": 0
+        },
+        {
+          "tileId": 1,
+          "height": 0.2
+        },
+        {
+          "tileId": 2,
+          "height": 0.3
+        },
+        {
+          "tileId": 3,
+          "height": 0.4
+        },
+        {
+          "tileId": 4,
+          "height": 0.7
+        },
+        {
+          "tileId": 5,
+          "height": 1
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "biomeName": "Beachy",
+      "regions": [
+        {
+          "tileId": 0,
+          "height": 0
+        },
+        {
+          "tileId": 1,
+          "height": 0.2
+        },
+        {
+          "tileId": 2,
+          "height": 0.3
+        },
+        {
+          "tileId": 3,
+          "height": 0.4
+        },
+        {
+          "tileId": 4,
+          "height": 0.7
+        },
+        {
+          "tileId": 5,
+          "height": 1
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "biomeName": "Swampy",
+      "regions": [
+        {
+          "tileId": 0,
+          "height": 0
+        },
+        {
+          "tileId": 1,
+          "height": 0.2
+        },
+        {
+          "tileId": 2,
+          "height": 0.3
+        },
+        {
+          "tileId": 3,
+          "height": 0.4
+        },
+        {
+          "tileId": 4,
+          "height": 0.7
+        },
+        {
+          "tileId": 5,
+          "height": 1
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "biomeName": "Dry",
+      "regions": [
+        {
+          "tileId": 0,
+          "height": 0
+        },
+        {
+          "tileId": 1,
+          "height": 0.2
+        },
+        {
+          "tileId": 2,
+          "height": 0.3
+        },
+        {
+          "tileId": 3,
+          "height": 0.4
+        },
+        {
+          "tileId": 4,
+          "height": 0.7
+        },
+        {
+          "tileId": 5,
+          "height": 1
+        }
+      ]
+    }
+  ]
+}

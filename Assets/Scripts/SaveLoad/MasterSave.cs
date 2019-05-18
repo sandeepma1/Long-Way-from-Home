@@ -14,7 +14,6 @@ public class MasterSave : MonoBehaviour
     private const string playerInfoSaveName = "PlayerName";
 
     //*******
-    private const string mapSaveName = "MapSaves";
     private MapSaveIsland mapSaveIslands = new MapSaveIsland();
     public static Action<MapSaveIsland> OnSendMapDataToSave;
     public static Action<MapSaveIsland> MapIslandsLoadedData;
@@ -33,14 +32,13 @@ public class MasterSave : MonoBehaviour
     {
         LoadGame();
         DragDropBase.OnSlotItemDataSend += OnSaveDataRequested;
-        CreateMap.OnMapDataSend += OnMapDataSend;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            RequestForSaveData();
+            //RequestForSaveData();
         }
     }
 
@@ -105,19 +103,16 @@ public class MasterSave : MonoBehaviour
     #region Map Save/Load
     private void OnSendMapDataToSaveEventHandler(MapSaveIsland mapSaveData)
     {
-        SaveGame.Save<MapSaveIsland>(mapSaveName, mapSaveData);
+        SaveGame.Save<MapSaveIsland>(GEM.MapSaveName, mapSaveData);
         print("Map Save Complete");
     }
 
     public static MapSaveIsland LoadMapIslandData()
     {
         print("Loading map data...");
-        return SaveGame.Load<MapSaveIsland>(mapSaveName);
+        return SaveGame.Load<MapSaveIsland>(GEM.MapSaveName);
     }
     #endregion
-
-
-
 
 
     // DropDrag based items
@@ -128,10 +123,10 @@ public class MasterSave : MonoBehaviour
     }
 
     //Map Islands generator based items
-    private void OnMapDataSend(MapSaveIsland obj)
-    {
-        allGameSaves.mapSaveIslands = obj;
-    }
+    //private void OnMapDataSend(MapSaveIsland obj)
+    //{
+    //    allGameSaves.mapSaveIslands = obj;
+    //}
 }
 
 public class AllGameSaveEntities

@@ -28,6 +28,22 @@
         {
           "growId": null,
           "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
         }
       ]
     },
@@ -36,6 +52,22 @@
       "name": "Shallow Water",
       "slug": "shallowwater",
       "grows": [
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
         {
           "growId": null,
           "prob": null
@@ -90,6 +122,22 @@
         {
           "growId": null,
           "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
         }
       ]
     },
@@ -103,7 +151,7 @@
           "prob": 0.1
         },
         {
-          "growId": 3,
+          "growId": 4,
           "prob": 0.1
         },
         {
@@ -116,21 +164,6 @@
         },
         {
           "growId": 11,
-          "prob": 0.1
-        },
-        {
-          "growId": 4,
-          "prob": 0.1
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "name": "Dark Green",
-      "slug": "darkgreen",
-      "grows": [
-        {
-          "growId": 3,
           "prob": 0.1
         },
         {
@@ -150,8 +183,55 @@
           "prob": 0.1
         },
         {
-          "growId": 4,
+          "growId": 1,
           "prob": 0.1
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Dark Green",
+      "slug": "darkgreen",
+      "grows": [
+        {
+          "growId": 0,
+          "prob": 0.1
+        },
+        {
+          "growId": 1,
+          "prob": 0.1
+        },
+        {
+          "growId": 2,
+          "prob": 0.1
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
         }
       ]
     },
@@ -183,6 +263,22 @@
         {
           "growId": null,
           "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
         }
       ]
     },
@@ -191,6 +287,22 @@
       "name": "Rocky",
       "slug": "rocky",
       "grows": [
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
+        {
+          "growId": null,
+          "prob": null
+        },
         {
           "growId": null,
           "prob": null

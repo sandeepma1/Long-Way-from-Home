@@ -6,6 +6,12 @@ public class MapItemMineable : MapItemBase, IMineable
 {
     public void Mine(int damage)
     {
-        throw new System.NotImplementedException();
+        print("Mine with damage " + damage);
+        item.duraCount -= damage;
+        if (item.duraCount <= 0)
+        {
+            print("item mined");
+            MapItemDone();
+        }
     }
 }

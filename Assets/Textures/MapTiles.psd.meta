@@ -56,6 +56,9 @@ TextureImporter:
   - first:
       213: -72688641618332823
     second: deepwater
+  - first:
+      213: 4255209756830244865
+    second: deepwatertile
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -283,7 +286,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -291,6 +294,27 @@ TextureImporter:
       bones: []
       spriteID: 318fd3f47ea650643a33259d7cd7d4c5
       internalID: -72688641618332823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deepwatertile
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66c88dca3c1dcf441b3bebfcc032ff45
+      internalID: 4255209756830244865
       vertices: []
       indices: 
       edges: []

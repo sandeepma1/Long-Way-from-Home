@@ -1,28 +1,47 @@
-﻿using System.Collections;
+﻿using BayatGames.SaveGameFree;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MainGameMapManager : MonoBehaviour
 {
-    private MapSaveIsland mapSaveIsland = new MapSaveIsland();
-    private int mapWidth;
-    private int mapHeight;
+    private static MapSaveIsland mapSaveIsland = new MapSaveIsland();
+    private static int mapWidth;
+    private static int mapHeight;
+    private static GameObject[,] mapItemsGO;
 
     private void Start()
     {
         LoadMap();
     }
 
+
+    #region MapLoading and MapGeneration stuff
     private void LoadMap()
     {
-        mapSaveIsland = MasterSave.LoadMapIslandData();
-        GenerateMap();
+        if (!SaveGame.Exists(GEM.MapSaveName))
+        {
+            SceneLoader.LoadScene(SceneNames.StartMenuScene);
+        }
+        else
+        {
+            mapSaveIsland = MasterSave.LoadMapIslandData();
+            GenerateMap();
+            StartCoroutine(GenerateGeometryWithDelay());
+        }
+    }
+
+    private IEnumerator GenerateGeometryWithDelay()
+    {
+        yield return new WaitForEndOfFrame();
+        GetComponent<CompositeCollider2D>().GenerateGeometry();
     }
 
     private void GenerateMap()
     {
         mapWidth = mapSaveIsland.mapData.mapWidth;
         mapHeight = mapSaveIsland.mapData.mapHeight;
+        mapItemsGO = new GameObject[mapWidth, mapHeight];
         for (int i = 0; i < mapWidth; i++)
         {
             for (int j = 0; j < mapHeight; j++)
@@ -40,18 +59,16 @@ public class MainGameMapManager : MonoBehaviour
         }
     }
 
-    private MapTile InstantiateTerrianTile(int id, int posX, int posY)
+    private void InstantiateTerrianTile(int id, int posX, int posY)
     {
         int mapTileId = mapSaveIsland.mapData.mapTiles[id];
+        if (mapTileId == 0)
+        {
+            return;
+        }
         MapTile mapItems = Instantiate(PrefabBank.mapTilePrefab, transform);
-        mapItems.Init(mapTileId);
-        mapItems.transform.localPosition = new Vector3(posX, posY);
-        //adding random rotation Z to not appear texture pattern
-        float randomRotation = UnityEngine.Random.Range(0, 360);
-        mapItems.transform.eulerAngles = new Vector3(mapItems.transform.eulerAngles.x, mapItems.transform.eulerAngles.y, randomRotation);
-        return mapItems;
+        mapItems.Init(mapTileId, posX, posY);
     }
-
 
     private void InstantiateMapItem(int id, int posX, int posY)
     {
@@ -63,14 +80,14 @@ public class MainGameMapManager : MonoBehaviour
         switch (action)
         {
             case Actions.chopable:
-                MapItemChopable mapItem = Instantiate(PrefabBank.mapItemChopablePrefab, this.transform);
-                mapItem.Init(id);
-                mapItem.transform.position = new Vector2(posX, posY);
+                MapItemChopable mapItemChopable = Instantiate(PrefabBank.mapItemChopablePrefab, this.transform);
+                mapItemChopable.Init(id, posX, posY, mapHeight);
+                mapItemsGO[posX, posY] = mapItemChopable.gameObject;
                 break;
             case Actions.mineable:
                 MapItemMineable mapItemMineable = Instantiate(PrefabBank.mapItemMineablePrefab, this.transform);
-                mapItemMineable.Init(id);
-                mapItemMineable.transform.position = new Vector2(posX, posY);
+                mapItemMineable.Init(id, posX, posY, mapHeight);
+                mapItemsGO[posX, posY] = mapItemMineable.gameObject;
                 break;
             case Actions.hitable:
                 break;
@@ -82,8 +99,8 @@ public class MainGameMapManager : MonoBehaviour
                 break;
             case Actions.pickable:
                 MapItemPickable mapItemPickable = Instantiate(PrefabBank.mapItemPickablePrefab, this.transform);
-                mapItemPickable.Init(id);
-                mapItemPickable.transform.position = new Vector2(posX, posY);
+                mapItemPickable.Init(id, posX, posY, mapHeight);
+                mapItemsGO[posX, posY] = mapItemPickable.gameObject;
                 break;
             case Actions.interactable:
                 break;
@@ -104,11 +121,19 @@ public class MainGameMapManager : MonoBehaviour
             default:
                 break;
         }
-        //MapItemBase mapItems = Instantiate(PrefabBank.mapTilePrefab, transform);
-        //mapItems.Init(mapItemId);
-        //mapItems.transform.localPosition = new Vector3(posX, posY);
-        //GameObject mapItem = Instantiate(mapSaveIsland.mapData.mapItems[prefabIndex], transform);
-        //mapItem.transform.localPosition = new Vector3(x, y);
+    }
+    #endregion
+
+
+    #region Static helper function
+    public static GameObject GetMapItemGameObjectByPosition(Vector2 pos)
+    {
+        return mapItemsGO[(int)pos.x, (int)pos.y];
     }
 
+    public static void MapItemDone(int x, int y)
+    {
+        mapItemsGO[x, y] = null;
+    }
+    #endregion
 }

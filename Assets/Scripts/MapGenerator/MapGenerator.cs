@@ -15,36 +15,35 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private int seed;
     [SerializeField] private Vector2 falloff = new Vector2(2, 6);
     [SerializeField] private bool useFalloff = true;
-    [SerializeField] private BiomeType[] regions = new BiomeType[6];
+    //[SerializeField] private BiomeType[] regions = new BiomeType[6];
     private float[,] falloffMap;
 
-    private void Start()
-    {
-        regions[0] = new BiomeType(0, Color.blue);
-        regions[1] = new BiomeType(0.1f, Color.cyan);
-        regions[2] = new BiomeType(0.285f, Color.yellow);
-        regions[3] = new BiomeType(0.4f, Color.green);
-        regions[4] = new BiomeType(0.8f, Color.red);
-        regions[5] = new BiomeType(1, Color.gray);
-    }
+    //private void Start()
+    //{
+    //    regions[0] = new BiomeType(0, Color.blue);
+    //    regions[1] = new BiomeType(0.1f, Color.cyan);
+    //    regions[2] = new BiomeType(0.285f, Color.yellow);
+    //    regions[3] = new BiomeType(0.4f, Color.green);
+    //    regions[4] = new BiomeType(0.8f, Color.red);
+    //    regions[5] = new BiomeType(1, Color.gray);
+    //}
 
-    public MapData CreateMaps()
+    public MapData CreateMaps(BiomeName biomeName)
     {
         falloffMap = FalloffGenerator.GenerateFalloffMap(mapSizeX, mapSizeY, falloff);
-        MapDataArray mapDataArray = GenerateMapData(Vector2.zero);
-        Texture2D finalTexture = TextureGenerator.TextureFromColourMap(mapDataArray.colourMap, mapSizeX, mapSizeY);
-        mainRenderer.material.mainTexture = finalTexture;
+        MapDataArray mapDataArray = GenerateMapData(Vector2.zero, biomeName);
+        //Texture2D finalTexture = TextureGenerator.TextureFromColourMap(mapDataArray.colourMap, mapSizeX, mapSizeY);
+        //mainRenderer.material.mainTexture = finalTexture;
         MapData mapData = new MapData(mapSizeX, mapSizeY, mapDataArray.intMap);
         return mapData;
     }
 
-    private MapDataArray GenerateMapData(Vector2 centre)
+    private MapDataArray GenerateMapData(Vector2 centre, BiomeName biomeName)
     {
+        List<Regions> regions = MapBiomesDatabase.GetRegionsByBiomeName(biomeName);
         seed = (int)System.DateTime.Now.Ticks;
         float[,] noiseMap = Noise.GenerateNoiseMap(mapSizeX, mapSizeY, seed,
             noiseScale, octaves, persistance, lacunarity, centre, normalizeMode);
-
-        Color[] colourMap = new Color[mapSizeX * mapSizeY];
         int[] intMap = new int[mapSizeX * mapSizeY];
         for (int x = 0; x < mapSizeX; x++)
         {
@@ -55,11 +54,10 @@ public class MapGenerator : MonoBehaviour
                     noiseMap[x, y] = Mathf.Clamp01(noiseMap[x, y] - falloffMap[x, y]);
                 }
                 float currentHeight = noiseMap[x, y];
-                for (int i = 0; i < regions.Length; i++)
+                for (int i = 0; i < regions.Count; i++)
                 {
                     if (currentHeight >= regions[i].height)
                     {
-                        colourMap[y * mapSizeX + x] = regions[i].color;
                         intMap[y * mapSizeX + x] = i;
                     }
                     else
@@ -69,32 +67,30 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
-        return new MapDataArray(noiseMap, colourMap, intMap);
+        return new MapDataArray(noiseMap, intMap);
     }
 }
 
-[System.Serializable]
-public class BiomeType
-{
-    public float height;
-    public Color color;
-    public BiomeType(float _height, Color _color)
-    {
-        height = _height;
-        color = _color;
-    }
-}
+//[System.Serializable]
+//public class BiomeType
+//{
+//    public float height;
+//    public Color color;
+//    public BiomeType(float _height, Color _color)
+//    {
+//        height = _height;
+//        color = _color;
+//    }
+//}
 
 public class MapDataArray
 {
     public readonly float[,] heightMap;
-    public readonly Color[] colourMap;
     public readonly int[] intMap;
     public MapDataArray() { }
-    public MapDataArray(float[,] heightMap, Color[] colourMap, int[] intMap)
+    public MapDataArray(float[,] heightMap, int[] intMap)
     {
         this.heightMap = heightMap;
-        this.colourMap = colourMap;
         this.intMap = intMap;
     }
 }
