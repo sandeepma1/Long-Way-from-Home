@@ -5,21 +5,13 @@ public class UiChest : DragDropBase
     [SerializeField] private int slotCount = 20;
     [SerializeField] private Item itemToAdd;  //debug
 
-    private void Start()
+    protected override void CreateUiSlots()
     {
-        if (!areUiSlotsCreated)
-        {
-            CreateUiSlots(slotCount, transform);
-        }
+        base.CreateUiSlots();
+        print("base class called UiChest");
+        CreateUiSlots(slotCount, transform);
     }
 
-    protected override void CreateUiSlotsIfNotCreated()
-    {
-        Start();
-        base.CreateUiSlotsIfNotCreated();
-    }
-
-    //debug
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public static class GEM
 {
+    #region Tags
+    public static string MapItemDroppedTagName = "MapItemDropped";
+    #endregion
+
     #region Sprite sorting layer names
     public static readonly string MapTilesSortingLayer = "L0MapTiles";
     public static readonly string MapItemsSortingLayer = "L1MapItems";
@@ -12,6 +16,8 @@ public static class GEM
 
     #region Save names identifiers
     public static string MapSaveName = "MapSave";
+    public static string PlayerInfoSaveName = "PlayerInfoSave";
+    public static string UiSlotItemsSaveName = "UiSlotItemsSave";
     #endregion
 
     #region  Player Profile
@@ -26,19 +32,28 @@ public static class GEM
     #endregion
 
     #region Debug Stuff
-    public static bool ShowDebugInfo = true;
+    public static bool ShowDebug = true;
+    public static bool ShowDebugError = true;
+    public static bool ShowDebugWarning = true;
     public static void PrintDebug(string text)
     {
-        if (ShowDebugInfo)
+        if (ShowDebug)
         {
             Debug.Log(text);
         }
     }
     public static void PrintDebugError(string text)
     {
-        if (ShowDebugInfo)
+        if (ShowDebugError)
         {
             Debug.LogError(text);
+        }
+    }
+    public static void PrintDebugWarning(string text)
+    {
+        if (ShowDebugWarning)
+        {
+            Debug.LogWarning(text);
         }
     }
     #endregion

@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: InventoryItemsAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+    totalSpriteSurfaceArea: 2304
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 8648822512753860137, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: -61507124638633176, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: -1949760743246841575, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: -4204080491989574595, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: -5468925804600028722, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: -5334877633514597255, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: 3031820995386168073, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: 4706875603367313408, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: 4589751714783062387, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - grass
+  - stone
+  - stick
+  - coal
+  - berries
+  - radish
+  - flint
+  - log
+  - starfish
+  m_Tag: InventoryItemsAtlas
+  m_IsVariant: 0

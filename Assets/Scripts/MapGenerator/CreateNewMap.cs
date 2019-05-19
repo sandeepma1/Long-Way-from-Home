@@ -17,6 +17,8 @@ public class CreateNewMap : MonoBehaviour
 
     private void CreateNewMapAndSave()
     {
+        //Delete all save before creating new game
+        MasterSave.CreatingNewGame();
         //Create procedural map
         mapData = mapGenerator.CreateMaps(biomeName);
         //Create random map itmes
@@ -25,7 +27,7 @@ public class CreateNewMap : MonoBehaviour
         //Start saving complete map
         MapSaveIsland mapSaveIsland = new MapSaveIsland(0, mapData);
         print("new map create " + mapData.mapHeight);
-        MasterSave.OnSendMapDataToSave?.Invoke(mapSaveIsland);
+        MasterSave.SaveMapData(mapSaveIsland);
         //Load main scene
         SceneLoader.LoadScene(SceneNames.MainGameScene);
     }

@@ -1,4 +1,5 @@
 ﻿using BayatGames.SaveGameFree;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,8 +14,13 @@ public class MainGameMapManager : MonoBehaviour
     private void Start()
     {
         LoadMap();
+        MasterSave.RequestSaveData += RequestSaveData;
     }
 
+    private void RequestSaveData()
+    {
+        MasterSave.SaveMapData(mapSaveIsland);
+    }
 
     #region MapLoading and MapGeneration stuff
     private void LoadMap()
@@ -25,7 +31,7 @@ public class MainGameMapManager : MonoBehaviour
         }
         else
         {
-            mapSaveIsland = MasterSave.LoadMapIslandData();
+            mapSaveIsland = MasterSave.LoadMapData();
             GenerateMap();
             StartCoroutine(GenerateGeometryWithDelay());
         }
@@ -128,11 +134,15 @@ public class MainGameMapManager : MonoBehaviour
     #region Static helper function
     public static GameObject GetMapItemGameObjectByPosition(Vector2 pos)
     {
-        return mapItemsGO[(int)pos.x, (int)pos.y];
+        return mapItemsGO?[(int)pos.x, (int)pos.y];
     }
 
     public static void MapItemDone(int x, int y)
     {
+        int oneDIndex = y * mapWidth + x;
+        int mapItem = mapSaveIsland.mapData.mapItems[oneDIndex];
+        print(MapItemsDatabase.GetSlugById(mapItem) + "removed");
+        mapSaveIsland.mapData.mapItems[oneDIndex] = -1;
         mapItemsGO[x, y] = null;
     }
     #endregion

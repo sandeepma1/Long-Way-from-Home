@@ -21,12 +21,12 @@ public class ActionManager : MonoBehaviour
             GameObject clickedGo = MainGameMapManager.GetMapItemGameObjectByPosition(clickPosition);
             if (clickedGo != null)
             {
-                PerformActionOnSelectedMapItem(clickedGo);
+                PerformActionOnMapItem(clickedGo);
             }
         }
     }
 
-    private void PerformActionOnSelectedMapItem(GameObject clickedGo)
+    private void PerformActionOnMapItem(GameObject clickedGo)
     {
         int clickedItemId = clickedGo.GetComponent<MapItemBase>().item.id;
         Actions currentAction = MapItemsDatabase.GetActionById(clickedItemId);

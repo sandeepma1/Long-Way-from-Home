@@ -27,35 +27,23 @@ public class DragDropBase : MonoBehaviour
         AddSlotItemReturnRemaining(CreateRanItem());
     }
 
-    protected virtual void CreateUiSlotsIfNotCreated()
-    {
-        print("Ui slots created");
-    }
-
     private void PlayerItemLoadedData(List<PlayerSaveSlotItem> playerSaveItem)
     {
-        if (!areUiSlotsCreated)
-        {
-            CreateUiSlotsIfNotCreated();
-        }
-        if (playerSaveItem == null)
-        {
-            InitRandomItems();
-        }
-        else
+        if (playerSaveItem != null)
         {
             for (int i = 0; i < playerSaveItem.Count; i++)
             {
                 if (playerSaveItem[i].slotItemsType == slotItemsType)
                 {
-                    LoadThisData(playerSaveItem[i].slotItems);
+                    LoadThisSaveData(playerSaveItem[i].slotItems);
                 }
             }
         }
     }
 
-    protected void LoadThisData(List<SlotItems> slotItems)
+    protected void LoadThisSaveData(List<SlotItems> slotItems)
     {
+        CreateUiSlots();
         for (int i = 0; i < slotItems.Count; i++)
         {
             int slotID = slotItems[i].invSlotId;
@@ -75,6 +63,12 @@ public class DragDropBase : MonoBehaviour
         }
         playerItem = new PlayerSaveSlotItem(slotItemsType, 0, slotItems);
         OnSlotItemDataSend?.Invoke(playerItem);
+    }
+
+    protected virtual void CreateUiSlots()
+    {
+        print("virtual class called CreateUiSlots");
+        //Used to call all base class to create their own slots
     }
 
     protected void CreateUiSlots(int slotCount, Transform parent)

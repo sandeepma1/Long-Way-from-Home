@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class UiFurnace : DragDropBase
 {
-    [SerializeField] private Item itemToAdd;
-
     private void Start()
+    {
+        InitUiSlots();
+    }
+
+    private void InitUiSlots()
     {
         for (int i = 0; i < uiSlots.Length; i++)
         {

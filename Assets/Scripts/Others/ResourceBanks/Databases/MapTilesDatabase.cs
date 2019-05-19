@@ -30,13 +30,11 @@ public class MapTilesDatabase : DatabaseBase
     public static string GetSlugById(int id)
     {
         return MapTiles.MapTiles[id].slug;
-        return null;
     }
 
     public static MapTiles[] GetMapItemsArray()
     {
         return MapTiles.MapTiles;
-        return null;
     }
 
     public static List<Grows> GetAllGrowsById(int id)

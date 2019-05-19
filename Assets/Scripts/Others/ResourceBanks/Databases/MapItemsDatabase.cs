@@ -27,6 +27,11 @@ public class MapItemsDatabase : DatabaseBase
         }
     }
 
+    public static List<Drops> GetDropsById(int id)
+    {
+        return MapItems.MapItems[id].drops;
+    }
+
     public static string GetSlugById(int id)
     {
         return MapItems.MapItems[id].slug;
@@ -100,7 +105,7 @@ public enum Actions
 [System.Serializable]
 public class Drops
 {
-    public int dropId;
-    public int min;
-    public int max;
+    public int? dropId;
+    public int? min;
+    public int? max;
 }

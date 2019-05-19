@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,8 +13,8 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     public DropType dropType;
     public DragDropBase lastDragDropBase;
     public Transform lastParent;
-    [SerializeField] private Text idText;
-    [SerializeField] private Text countText;
+    [SerializeField] private Image itemImage;
+    [SerializeField] private TextMeshProUGUI countText;
     [SerializeField] private Image image;
     public SlotItems slotItem; //make private later
 
@@ -125,7 +126,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void UpdateText()
     {
-        idText.text = ItemId.ToString();
+        itemImage.sprite = AtlasBank.GetInventoryItemSpriteById(ItemId);
         countText.text = ItemDuraCount.ToString();
         gameObject.name = ItemId + "-" + ItemDuraCount;
     }

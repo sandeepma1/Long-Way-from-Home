@@ -15,17 +15,12 @@ public class MasterSave : MonoBehaviour
 
     //*******
     private MapSaveIsland mapSaveIslands = new MapSaveIsland();
-    public static Action<MapSaveIsland> OnSendMapDataToSave;
-    public static Action<MapSaveIsland> MapIslandsLoadedData;
-
-    public static Action<PlayerSavePlayerInfo> OnSendPlayerInfoToSave;
     public static Action<PlayerSaveSlotItem> OnSendSlotItemsToSave;
     public static Action<PlayerSavePlayerStats> OnSendPlayerStatsToSave;
 
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-        OnSendMapDataToSave += OnSendMapDataToSaveEventHandler;
     }
 
     private void Start()
@@ -55,17 +50,24 @@ public class MasterSave : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Delete all old save games as new game is been created
+    /// </summary>
+    public static void CreatingNewGame()
+    {
+        SaveGame.DeleteAll();
+    }
+
     #region Load Game
     private void LoadGame()
     {
         allGameSaves = SaveGame.Load<AllGameSaveEntities>(playerInfoSaveName);
         if (allGameSaves == null)
         {
-            print("no save found");
+            GEM.PrintDebugWarning("no save found");
             OnSlotItemsLoaded?.Invoke(null);
             OnStatsLoaded?.Invoke(null);
             OnPlayerInfoLoaded?.Invoke(null);
-            MapIslandsLoadedData?.Invoke(null);
         }
         else
         {
@@ -76,18 +78,17 @@ public class MasterSave : MonoBehaviour
             OnSlotItemsLoaded?.Invoke(allGameSaves.playerSaveItems);
             OnStatsLoaded?.Invoke(allGameSaves.playerSaveStats);
             OnPlayerInfoLoaded?.Invoke(allGameSaves.playerSavePlayerInfo);
-            MapIslandsLoadedData?.Invoke(allGameSaves.mapSaveIslands);
-            print("game loaded");
+            GEM.PrintDebug("game loaded");
         }
     }
     #endregion
 
     private void RequestForSaveData()
     {
-        print("requesting save data");
+        GEM.PrintDebug("requesting save data");
         allGameSaves = new AllGameSaveEntities();
         RequestSaveData?.Invoke();
-        print("all save received");
+        GEM.PrintDebug("all save received");
         SaveCompleteGame();
     }
 
@@ -95,38 +96,50 @@ public class MasterSave : MonoBehaviour
     private void SaveCompleteGame()
     {
         SaveGame.Save<AllGameSaveEntities>(playerInfoSaveName, allGameSaves);
-        print("Save Game Complete");
+        GEM.PrintDebug("Save Game Complete");
     }
     #endregion
 
 
     #region Map Save/Load
-    private void OnSendMapDataToSaveEventHandler(MapSaveIsland mapSaveData)
+    public static void SaveMapData(MapSaveIsland mapSaveData)
     {
         SaveGame.Save<MapSaveIsland>(GEM.MapSaveName, mapSaveData);
-        print("Map Save Complete");
+        GEM.PrintDebug("Map Save Complete");
     }
 
-    public static MapSaveIsland LoadMapIslandData()
+    public static MapSaveIsland LoadMapData()
     {
-        print("Loading map data...");
+        GEM.PrintDebug("Loading map data...");
         return SaveGame.Load<MapSaveIsland>(GEM.MapSaveName);
     }
     #endregion
 
+    #region PlayerInfo Save/Load
+    public static void SavePlayerInfo(PlayerSavePlayerInfo playerInfoSaveData)
+    {
+        SaveGame.Save<PlayerSavePlayerInfo>(GEM.PlayerInfoSaveName, playerInfoSaveData);
+        GEM.PrintDebug("PlayerInfo Save Complete");
+    }
+
+    public static PlayerSavePlayerInfo LoadPlayerInfo()
+    {
+        print("Loading PlayerInfo data...");
+        if (!SaveGame.Exists(GEM.PlayerInfoSaveName))
+        {
+            GEM.PrintDebugWarning("PlayerInfo not found, creating new default data and saving");
+            SavePlayerInfo(new PlayerSavePlayerInfo());
+        }
+        return SaveGame.Load<PlayerSavePlayerInfo>(GEM.PlayerInfoSaveName);
+    }
+    #endregion
 
     // DropDrag based items
     private void OnSaveDataRequested(PlayerSaveSlotItem playerSaveItem)
     {
-        print(playerInfoSaveName);
+        GEM.PrintDebug(playerInfoSaveName);
         allGameSaves.playerSaveItems.Add(playerSaveItem);
     }
-
-    //Map Islands generator based items
-    //private void OnMapDataSend(MapSaveIsland obj)
-    //{
-    //    allGameSaves.mapSaveIslands = obj;
-    //}
 }
 
 public class AllGameSaveEntities
@@ -139,10 +152,12 @@ public class AllGameSaveEntities
 
 public class PlayerSavePlayerInfo
 {
-    public int locX;
-    public int locY;
+    public int posX;
+    public int posY;
     public PlayerSavePlayerInfo()
-    { locX = 20; locY = 20; }
+    { posX = 20; posY = 20; }
+    public PlayerSavePlayerInfo(int posX, int posY)
+    { this.posX = posX; this.posY = posY; }
 }
 
 public class PlayerSaveSlotItem

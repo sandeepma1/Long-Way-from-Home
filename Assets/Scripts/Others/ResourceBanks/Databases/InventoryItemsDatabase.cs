@@ -13,7 +13,7 @@ public class InventoryItemsDatabase : DatabaseBase
 
     public static string GetSlugById(int id)
     {
-        return InventoryItems.InventoryItems[id].slug;
+        return InventoryItems.InventoryItems?[id].slug;
     }
 
     public static InventoryItems[] GetMapItemsArray()
