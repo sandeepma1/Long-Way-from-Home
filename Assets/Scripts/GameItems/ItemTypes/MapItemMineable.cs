@@ -7,8 +7,8 @@ public class MapItemMineable : MapItemBase, IMineable
     public void Mine(int damage)
     {
         print("Mine with damage " + damage);
-        item.duraCount -= damage;
-        if (item.duraCount <= 0)
+        mapItem.healthPoints -= damage;
+        if (mapItem.healthPoints <= 0)
         {
             print("item mined");
             MapItemDone();

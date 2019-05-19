@@ -71,18 +71,6 @@ public class MapGenerator : MonoBehaviour
     }
 }
 
-//[System.Serializable]
-//public class BiomeType
-//{
-//    public float height;
-//    public Color color;
-//    public BiomeType(float _height, Color _color)
-//    {
-//        height = _height;
-//        color = _color;
-//    }
-//}
-
 public class MapDataArray
 {
     public readonly float[,] heightMap;
@@ -100,19 +88,19 @@ public class MapData
     public int mapWidth;
     public int mapHeight;
     public int[] mapTiles;
-    public int[] mapItems;
+    public List<MapItem> mapItems;
     public MapData() { }
-    public MapData(int mapWidth, int mapHeight, int[] terrianTiles, int[] mapItems)
+    public MapData(int mapWidth, int mapHeight, int[] mapTiles, List<MapItem> mapItems)
     {
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
-        this.mapTiles = terrianTiles;
+        this.mapTiles = mapTiles;
         this.mapItems = mapItems;
     }
-    public MapData(int mapWidth, int mapHeight, int[] terrianTiles)
+    public MapData(int mapWidth, int mapHeight, int[] mapTiles)
     {
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
-        this.mapTiles = terrianTiles;
+        this.mapTiles = mapTiles;
     }
 }

@@ -18,7 +18,7 @@ public class ActionManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 clickPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            GameObject clickedGo = MainGameMapManager.GetMapItemGameObjectByPosition(clickPosition);
+            MapItemBase clickedGo = MainGameMapManager.GetMapItemGameObjectByPosition(clickPosition);
             if (clickedGo != null)
             {
                 PerformActionOnMapItem(clickedGo);
@@ -26,11 +26,10 @@ public class ActionManager : MonoBehaviour
         }
     }
 
-    private void PerformActionOnMapItem(GameObject clickedGo)
+    private void PerformActionOnMapItem(MapItemBase clickedGo)
     {
-        int clickedItemId = clickedGo.GetComponent<MapItemBase>().item.id;
-        Actions currentAction = MapItemsDatabase.GetActionById(clickedItemId);
-        //Check if tool available in inventory to perform action
+        Actions currentAction = MapItemsDatabase.GetActionById(clickedGo.mapItem.mapItemId);
+        //TODO: Check if tool available in inventory to perform action
         //if yes
         switch (currentAction)
         {

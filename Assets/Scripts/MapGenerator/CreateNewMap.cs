@@ -8,6 +8,7 @@ public class CreateNewMap : MonoBehaviour
     public BiomeName biomeName = BiomeName.Normal; // TODO: make it as per island traveled **imp feature
     private MapGenerator mapGenerator;
     private MapData mapData = new MapData();
+    private int[,] mapTiles2d;
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class CreateNewMap : MonoBehaviour
         MasterSave.CreatingNewGame();
         //Create procedural map
         mapData = mapGenerator.CreateMaps(biomeName);
+        mapTiles2d = Make2DArray(mapData.mapTiles, mapData.mapWidth, mapData.mapHeight);
         //Create random map itmes
         CreateRandomMapItems();
 
@@ -34,28 +36,48 @@ public class CreateNewMap : MonoBehaviour
 
     private void CreateRandomMapItems()
     {
-        int mapLength = mapData.mapWidth * mapData.mapHeight;
-        mapData.mapItems = new int[mapLength];
-
-        for (int i = 0; i < mapData.mapItems.Length; i++)
+        mapData.mapItems = new List<MapItem>();
+        for (int i = 0; i < mapData.mapWidth; i++)
         {
-            int mapTileId = mapData.mapTiles[i];
-            mapData.mapItems[i] = CalculateMapItemByTile(mapTileId);
+            for (int j = 0; j < mapData.mapHeight; j++)
+            {
+                int mapTileId = mapTiles2d[i, j];
+                List<Grows> allGrows = MapTilesDatabase.GetAllGrowsById(mapTileId);
+                if (allGrows.Count > 0)
+                {
+                    int? mapItemId = CalculateMapItemByTile(allGrows);
+                    if (mapItemId != null)
+                    {
+                        mapData.mapItems.Add(new MapItem((int)mapItemId, i, j, -1));
+                    }
+                }
+            }
         }
     }
 
-    private int CalculateMapItemByTile(int mapTileId)
+    //TODO: implement a good probability distribution system.
+    private int? CalculateMapItemByTile(List<Grows> allGrows)
     {
-        List<Grows> allGrows = MapTilesDatabase.GetAllGrowsById(mapTileId);
-        if (allGrows.Count > 0)
+        int pickRandomIdIndex = UnityEngine.Random.Range(0, allGrows.Count);
+        float probability = UnityEngine.Random.Range(0.0f, 1.0f);
+        if (allGrows[pickRandomIdIndex].prob >= probability)
         {
-            int pickRandomIdIndex = UnityEngine.Random.Range(0, allGrows.Count);
-            float probability = UnityEngine.Random.Range(0.0f, 1.0f);
-            if (allGrows[pickRandomIdIndex].prob >= probability)
+            return allGrows[pickRandomIdIndex].growId;
+        }
+        return null;
+    }
+
+    //TODO: research on  buffer.blockcopy() as it is fast
+    private T[,] Make2DArray<T>(T[] input, int height, int width)
+    {
+        T[,] output = new T[width, height];
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
             {
-                return (int)allGrows[pickRandomIdIndex].growId;
+                output[i, j] = input[j * height + i];
             }
         }
-        return -1;
+        return output;
     }
 }

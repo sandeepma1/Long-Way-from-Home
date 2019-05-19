@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
             tempPosX = currentPosX;
             tempPosY = currentPosY;
             OnStep?.Invoke(currentPosX, currentPosY);
-            spriteRenderer.sortingOrder = 64 - currentPosY + 1;
+            spriteRenderer.sortingOrder = MainGameMapManager.CurrentMapHeight - currentPosY + 1;
         }
     }
 

@@ -37,7 +37,7 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: -6198743362464645044, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
   - {fileID: 4255209756830244865, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
-  - {fileID: -4844874109541757280, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
+  - {fileID: 2204721834826680093, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
   - {fileID: -5212746942993264660, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
   - {fileID: -4977748342179093890, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}
   - {fileID: -72688641618332823, guid: 3b5efd674c8dbca4ba4a725f2ffe8089, type: 3}

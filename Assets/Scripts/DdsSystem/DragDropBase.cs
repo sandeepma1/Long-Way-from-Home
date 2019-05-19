@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class DragDropBase : MonoBehaviour
 {
-    public static Action<PlayerSaveSlotItem> OnSlotItemDataSend;
     private const int maxStack = 12;
     [SerializeField] private SlotItemsType slotItemsType = SlotItemsType.None;
     [SerializeField] private List<UiSlotItem> uiSlotItems = new List<UiSlotItem>(); //make it private
     [SerializeField] protected UiSlot[] uiSlots;
-    private PlayerSaveSlotItem playerItem;
+    protected PlayerSaveSlotItem playerItem;
     protected bool areUiSlotsCreated = false;
 
     private void Awake()
     {
         MasterSave.RequestSaveData += RequestSaveData;
-        MasterSave.OnSlotItemsLoaded += PlayerItemLoadedData;
+    }
+
+    private void Start()
+    {
+        LoadUiSlotItemData();
     }
 
     protected void InitRandomItems()
@@ -25,6 +28,11 @@ public class DragDropBase : MonoBehaviour
         AddSlotItemReturnRemaining(CreateRanItem());
         AddSlotItemReturnRemaining(CreateRanItem());
         AddSlotItemReturnRemaining(CreateRanItem());
+    }
+
+    private void LoadUiSlotItemData()
+    {
+
     }
 
     private void PlayerItemLoadedData(List<PlayerSaveSlotItem> playerSaveItem)
@@ -61,8 +69,8 @@ public class DragDropBase : MonoBehaviour
         {
             slotItems.Add(uiSlotItems[i].slotItem);
         }
-        playerItem = new PlayerSaveSlotItem(slotItemsType, 0, slotItems);
-        OnSlotItemDataSend?.Invoke(playerItem);
+        playerItem = new PlayerSaveSlotItem(slotItemsType, 0, 0, slotItems);
+        playerItem.slotItems = slotItems;
     }
 
     protected virtual void CreateUiSlots()
@@ -256,9 +264,9 @@ public class DragDropBase : MonoBehaviour
 public enum DropType
 {
     Any,
-    TypeA,
-    TypeB,
-    TypeC
+    Weapon,
+    Armor,
+    Food
 }
 
 public enum SlotItemsType
