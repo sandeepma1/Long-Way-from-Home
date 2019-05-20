@@ -17,7 +17,7 @@ public static class GEM
     #region Save names identifiers
     public static string MapSaveName = "MapSave";
     public static string PlayerInfoSaveName = "PlayerInfoSave";
-    public static string SlotItemsSaveName = "UiSlotItemsSave";
+    public static string AllFurnituresSaveName = "AllFurnituresSave";
     #endregion
 
     #region  Player Profile

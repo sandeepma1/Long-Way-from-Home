@@ -9,7 +9,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 {
     public Action<UiSlotItem, UiSlotItem> OnSlotItemDrop;
     public Action<PointerEventData> OnSlotEndDrag;
-    public int maxStack;
+    public int maxStackable;
     public DropType dropType;
     public DragDropBase lastDragDropBase;
     public Transform lastParent;
@@ -34,10 +34,10 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         set { slotItem.invSlotId = value; }
     }
 
-    public void Init(int maxStack, SlotItems inuItem)
+    public void Init(SlotItems slotItem)
     {
-        this.maxStack = maxStack;
-        this.slotItem = inuItem;
+        maxStackable = InventoryItemsDatabase.GetMaxStackableById(slotItem.item.id);
+        this.slotItem = slotItem;
         lastDragDropBase = transform.parent.parent.GetComponent<DragDropBase>();
         gameObject.name = ItemId + "-" + ItemDuraCount;
     }
@@ -55,7 +55,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public bool IsStackMax()
     {
-        return ItemDuraCount >= maxStack;
+        return ItemDuraCount >= maxStackable;
     }
 
     public int IncrementDuraCount(int duraCount)
@@ -65,7 +65,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             return -1;
         }
         int add = ItemDuraCount + duraCount;
-        if (add <= maxStack)
+        if (add <= maxStackable)
         {
             ItemDuraCount = add;
             UpdateText();
@@ -73,7 +73,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         }
         else
         {
-            int canAdd = Mathf.Abs(maxStack - ItemDuraCount);
+            int canAdd = Mathf.Abs(maxStackable - ItemDuraCount);
             ItemDuraCount += canAdd;
             int cannotAdd = Mathf.Abs(canAdd - duraCount);
             UpdateText();

@@ -15,6 +15,11 @@ public class UiInventory : DragDropBase
         {
             CreateUiSlots(slotCount, transform);
         }
+        PlayerSaveFurniture playerSaveFurniture = MasterSave.LoadInventory();
+        if (playerSaveFurniture != null)
+        {
+            LoadFurnitureData(MasterSave.LoadInventory().slotItems);
+        }
     }
 
     protected override void CreateUiSlots()
@@ -22,6 +27,20 @@ public class UiInventory : DragDropBase
         base.CreateUiSlots();
         print("base class called UiInventory");
         CreateUiSlots(slotCount, transform);
+    }
+
+    protected override void RequestSaveData()
+    {
+        base.RequestSaveData();
+        List<SlotItems> slotItems = new List<SlotItems>();
+        for (int i = 0; i < uiSlotItems.Count; i++)
+        {
+            slotItems.Add(uiSlotItems[i].slotItem);
+        }
+        furniture = new PlayerSaveFurniture(slotItemsType, 0, 0, slotItems);
+        furniture.slotItems = slotItems;
+        MasterSave.SaveInventory(furniture);
+        print("called derived");
     }
 
     public void OnAddItemToInventory(Item itemToAdd)

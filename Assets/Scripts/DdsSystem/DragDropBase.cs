@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class DragDropBase : MonoBehaviour
 {
-    private const int maxStack = 12;
-    [SerializeField] private SlotItemsType slotItemsType = SlotItemsType.None;
-    [SerializeField] private List<UiSlotItem> uiSlotItems = new List<UiSlotItem>(); //make it private
+    [SerializeField] protected FurnitureType slotItemsType = FurnitureType.None;
+    [SerializeField] protected List<UiSlotItem> uiSlotItems = new List<UiSlotItem>(); //make it private
     [SerializeField] protected UiSlot[] uiSlots;
-    protected PlayerSaveSlotItem playerItem;
+    protected PlayerSaveFurniture furniture;
     protected bool areUiSlotsCreated = false;
 
     private void Awake()
@@ -16,42 +15,12 @@ public class DragDropBase : MonoBehaviour
         MasterSave.RequestSaveData += RequestSaveData;
     }
 
-    private void Start()
+    protected void LoadFurnitureData(List<SlotItems> slotItems)
     {
-        LoadUiSlotItemData();
-    }
-
-    protected void InitRandomItems()
-    {
-        AddSlotItemReturnRemaining(CreateRanItem());
-        AddSlotItemReturnRemaining(CreateRanItem());
-        AddSlotItemReturnRemaining(CreateRanItem());
-        AddSlotItemReturnRemaining(CreateRanItem());
-        AddSlotItemReturnRemaining(CreateRanItem());
-    }
-
-    private void LoadUiSlotItemData()
-    {
-
-    }
-
-    private void PlayerItemLoadedData(List<PlayerSaveSlotItem> playerSaveItem)
-    {
-        if (playerSaveItem != null)
+        if (!areUiSlotsCreated)
         {
-            for (int i = 0; i < playerSaveItem.Count; i++)
-            {
-                if (playerSaveItem[i].slotItemsType == slotItemsType)
-                {
-                    LoadThisSaveData(playerSaveItem[i].slotItems);
-                }
-            }
+            CreateUiSlots();
         }
-    }
-
-    protected void LoadThisSaveData(List<SlotItems> slotItems)
-    {
-        CreateUiSlots();
         for (int i = 0; i < slotItems.Count; i++)
         {
             int slotID = slotItems[i].invSlotId;
@@ -62,15 +31,10 @@ public class DragDropBase : MonoBehaviour
         }
     }
 
-    private void RequestSaveData()
+    protected virtual void RequestSaveData()
     {
-        List<SlotItems> slotItems = new List<SlotItems>();
-        for (int i = 0; i < uiSlotItems.Count; i++)
-        {
-            slotItems.Add(uiSlotItems[i].slotItem);
-        }
-        playerItem = new PlayerSaveSlotItem(slotItemsType, 0, 0, slotItems);
-        playerItem.slotItems = slotItems;
+        //This will call all the base class requesting save.
+        print("called base");
     }
 
     protected virtual void CreateUiSlots()
@@ -169,8 +133,6 @@ public class DragDropBase : MonoBehaviour
             if (uiSlots[i].transform.childCount == 0)
             {
                 UiSlotItem uiSlotItem = InstantiateUiSlotItem(uiSlots[i].transform, new SlotItems(item.id, 0, i));
-                //UiSlotItem uiSlotItem = Instantiate(uiSlotItemPrefab, uiSlots[i].transform);
-                //uiSlotItem.Init(maxStack, new InventoryItem(item.id, 0, i));
                 uiSlotItem.OnSlotItemDrop += OnSlotItemDrop;
                 item.duraCount = uiSlotItem.IncrementDuraCount(item.duraCount);
                 AddSlotItem(uiSlotItem);
@@ -187,7 +149,7 @@ public class DragDropBase : MonoBehaviour
     private UiSlotItem InstantiateUiSlotItem(Transform parent, SlotItems slotItems)
     {
         UiSlotItem uiSlotItem = Instantiate(PrefabBank.uiSlotItemPrefab, parent);
-        uiSlotItem.Init(maxStack, slotItems);
+        uiSlotItem.Init(slotItems);
         return uiSlotItem;
     }
 
@@ -269,10 +231,11 @@ public enum DropType
     Food
 }
 
-public enum SlotItemsType
+public enum FurnitureType
 {
     None,
     Inventory,
     Chest,
     Furnace
+    //TODO: look here to refactor names, this can be Workstation, Storage, Decoration, Transport, Defence
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapTilesDatabase : DatabaseBase
+public class MapTilesDatabase : DatabaseBase<MapTilesDatabase>
 {
     private static MapTilesDb MapTiles = new MapTilesDb();
 

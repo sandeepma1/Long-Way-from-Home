@@ -1,7 +1,7 @@
 ﻿using FullSerializer;
 using UnityEngine;
 
-public class DatabaseBase : MonoBehaviour
+public abstract class DatabaseBase<T> : Singleton<T> where T : DatabaseBase<T>
 {
     protected TextAsset textAsset;
     protected fsSerializer mSerialiser = null;
@@ -9,9 +9,13 @@ public class DatabaseBase : MonoBehaviour
     protected object deserializedData = null;
     [SerializeField] protected string jsonFileName = "";
 
-    private void Awake()
+    protected override void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        ReadJsonFiles();
+    }
+
+    private void ReadJsonFiles()
+    {
         if (jsonFileName == "")
         {
             GEM.PrintDebugError("jsonFileName not mentioned");
@@ -36,7 +40,6 @@ public class DatabaseBase : MonoBehaviour
         parsedData = fsJsonParser.Parse(textAsset.text);
         LoadFromJson();
     }
-
 
     protected virtual void LoadFromJson()
     {

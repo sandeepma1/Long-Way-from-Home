@@ -4,8 +4,11 @@ public static class SceneLoader
 {
     public static void LoadScene(string sceneName)
     {
-        SceneManager.LoadSceneAsync(sceneName);
-        //Tell save manager to save game before switching scenes
+        if (sceneName == SceneNames.StartMenuScene)
+        {
+            MasterSave.RequestForSaveData();
+        }
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 }
 

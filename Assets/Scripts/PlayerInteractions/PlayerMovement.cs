@@ -19,11 +19,13 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerSavePlayerInfo playerSavePlayerInfo = MasterSave.LoadPlayerInfo();
         transform.position = new Vector2(playerSavePlayerInfo.posX, playerSavePlayerInfo.posY);
+        currentPosY = (int)transform.position.y;
+        SetSortingOrder();
     }
 
     private void RequestSaveData()
     {
-        MasterSave.SavePlayerInfo(new PlayerSavePlayerInfo(currentPosX, currentPosY));
+        MasterSave.SavePlayerInfo(new PlayerSavePlayerInfo(transform.position.x, transform.position.y));
     }
 
     private void FixedUpdate()
@@ -46,8 +48,13 @@ public class PlayerMovement : MonoBehaviour
             tempPosX = currentPosX;
             tempPosY = currentPosY;
             OnStep?.Invoke(currentPosX, currentPosY);
-            spriteRenderer.sortingOrder = MainGameMapManager.CurrentMapHeight - currentPosY + 1;
+            SetSortingOrder();
         }
+    }
+
+    private void SetSortingOrder()
+    {
+        spriteRenderer.sortingOrder = MainGameMapManager.CurrentMapHeight - currentPosY + 1;
     }
 
     private void OnTriggerStay2D(Collider2D collision)

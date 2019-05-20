@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapItemsDatabase : DatabaseBase
+public class MapItemsDatabase : DatabaseBase<MapItemsDatabase>
 {
     public static MapItemsDb MapItems = new MapItemsDb();
 

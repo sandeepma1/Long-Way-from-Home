@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class InventoryItemsDatabase : DatabaseBase
+public class InventoryItemsDatabase : DatabaseBase<InventoryItemsDatabase>
 {
     private static InventoryItemsDb InventoryItems = new InventoryItemsDb();
 
@@ -19,6 +19,11 @@ public class InventoryItemsDatabase : DatabaseBase
     public static InventoryItems[] GetMapItemsArray()
     {
         return InventoryItems.InventoryItems;
+    }
+
+    public static int GetMaxStackableById(int id)
+    {
+        return InventoryItems.InventoryItems[id].maxStackable;
     }
 }
 

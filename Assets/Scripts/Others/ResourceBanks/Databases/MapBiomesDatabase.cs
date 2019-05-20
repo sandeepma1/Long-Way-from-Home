@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapBiomesDatabase : DatabaseBase
+public class MapBiomesDatabase : DatabaseBase<MapBiomesDatabase>
 {
     public static MapBiomesDb MapBiomes = new MapBiomesDb();
 
