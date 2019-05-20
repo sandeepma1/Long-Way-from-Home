@@ -29,7 +29,7 @@ public class MapItemDropedItem : MonoBehaviour
 
     public void TouchedByPlayer()
     {
-        UiInventory.AddItemToInventory(item);
+        UiInventory.AddItemToInventory?.Invoke(item);
         //TODO: if inventory not full then destroy, else drop again with remaining items
         Destroy(this.gameObject);
     }

@@ -8,18 +8,25 @@ public class UiInventory : DragDropBase
     [SerializeField] private int slotCount = 5;
     [SerializeField] private Item itemToAdd;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         AddItemToInventory += OnAddItemToInventory;
         if (!areUiSlotsCreated)
         {
+            print("CreateUiSlots UiInventory");
             CreateUiSlots(slotCount, transform);
         }
         PlayerSaveFurniture playerSaveFurniture = MasterSave.LoadInventory();
         if (playerSaveFurniture != null)
         {
-            LoadFurnitureData(MasterSave.LoadInventory().slotItems);
+            LoadFurnitureData(playerSaveFurniture.slotItems);
         }
+    }
+
+    private void OnDestroy()
+    {
+        AddItemToInventory -= OnAddItemToInventory;
     }
 
     protected override void CreateUiSlots()

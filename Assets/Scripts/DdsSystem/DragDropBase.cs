@@ -10,9 +10,14 @@ public class DragDropBase : MonoBehaviour
     protected PlayerSaveFurniture furniture;
     protected bool areUiSlotsCreated = false;
 
-    private void Awake()
+    protected virtual void Start()
     {
         MasterSave.RequestSaveData += RequestSaveData;
+    }
+
+    private void OnDestroy()
+    {
+        MasterSave.RequestSaveData -= RequestSaveData;
     }
 
     protected void LoadFurnitureData(List<SlotItems> slotItems)
@@ -112,6 +117,7 @@ public class DragDropBase : MonoBehaviour
 
     protected Item AddSlotItemReturnRemaining(Item itemToAdd)
     {
+        print("DDS name" + gameObject.name + " parent " + transform.parent.name);
         Item item = new Item(itemToAdd.id, itemToAdd.duraCount);
         for (int i = 0; i < uiSlotItems.Count; i++)
         {

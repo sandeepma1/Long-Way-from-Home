@@ -7,9 +7,8 @@ using UnityEngine;
 
 public class MainGameMapManager : MonoBehaviour
 {
-    private static MapSaveIsland mapSaveIsland = new MapSaveIsland();
-    public static int CurrentMapWidth { get; private set; }
-    public static int CurrentMapHeight { get; private set; }
+    private static MapSave mapSave = new MapSave();
+    public static int CurrentMapSize { get; private set; }
     private static MapItemBase[,] mapItemsGO;
 
     private void Start()
@@ -18,22 +17,14 @@ public class MainGameMapManager : MonoBehaviour
         MasterSave.RequestSaveData += RequestSaveData;
     }
 
+    private void OnDestroy()
+    {
+        MasterSave.RequestSaveData -= RequestSaveData;
+    }
+
     private void RequestSaveData()
     {
-        Stopwatch stopwatch = new Stopwatch();
-        stopwatch.Start();
-        mapSaveIsland.mapData.mapItems = new List<MapItem>();
-        for (int i = 0; i < CurrentMapHeight; i++)
-        {
-            for (int j = 0; j < CurrentMapWidth; j++)
-            {
-                if (mapItemsGO[i, j] != null)
-                {
-                    mapSaveIsland.mapData.mapItems.Add(mapItemsGO[i, j].mapItem);
-                }
-            }
-        }
-        MasterSave.SaveMapData(mapSaveIsland);
+        MasterSave.SaveMapData(mapSave);
     }
 
 
@@ -46,7 +37,9 @@ public class MainGameMapManager : MonoBehaviour
         }
         else
         {
-            mapSaveIsland = MasterSave.LoadMapData();
+            mapSave = MasterSave.LoadMapData();
+            CurrentMapSize = mapSave.mapSize;
+            mapItemsGO = new MapItemBase[CurrentMapSize, CurrentMapSize];
             GenerateMapTiles();
             GenerateMapItems();
             StartCoroutine(GenerateGeometryWithDelay());
@@ -61,22 +54,19 @@ public class MainGameMapManager : MonoBehaviour
 
     private void GenerateMapTiles()
     {
-        CurrentMapWidth = mapSaveIsland.mapData.mapWidth;
-        CurrentMapHeight = mapSaveIsland.mapData.mapHeight;
-        mapItemsGO = new MapItemBase[CurrentMapWidth, CurrentMapHeight];
-        for (int i = 0; i < CurrentMapWidth; i++)
+        for (int i = 0; i < CurrentMapSize; i++)
         {
-            for (int j = 0; j < CurrentMapHeight; j++)
+            for (int j = 0; j < CurrentMapSize; j++)
             {
-                int oneDIndex = j * CurrentMapWidth + i;
-                InstantiateTerrianTile(oneDIndex, i, j);
+                int oneDIndex = i + (j * CurrentMapSize);
+                InstantiateMapTile(oneDIndex, i, j);
             }
         }
     }
 
-    private void InstantiateTerrianTile(int id, int posX, int posY)
+    private void InstantiateMapTile(int id, int posX, int posY)
     {
-        int mapTileId = mapSaveIsland.mapData.mapTiles[id];
+        int mapTileId = mapSave.mapTiles[id];
         if (mapTileId == 0) //Dont intantiate DeepWater tiles
         {
             return;
@@ -87,13 +77,16 @@ public class MainGameMapManager : MonoBehaviour
 
     private void GenerateMapItems()
     {
-        for (int i = 0; i < mapSaveIsland.mapData.mapItems.Count; i++)
+        mapItemsGO = new MapItemBase[CurrentMapSize, CurrentMapSize];
+        foreach (KeyValuePair<int, MapItem> mapItem in mapSave.mapItems)
         {
-            InstantiateMapItem(mapSaveIsland.mapData.mapItems[i]);
+            int x = mapItem.Key % CurrentMapSize;
+            int y = mapItem.Key / CurrentMapSize;
+            InstantiateMapItem(x, y, mapItem.Value);
         }
     }
 
-    private void InstantiateMapItem(MapItem mapItem)
+    private void InstantiateMapItem(int posX, int posY, MapItem mapItem)
     {
         Actions action = MapItemsDatabase.GetActionById(mapItem.mapItemId);
         if (action == Actions.none)
@@ -104,13 +97,13 @@ public class MainGameMapManager : MonoBehaviour
         {
             case Actions.chopable:
                 MapItemChopable mapItemChopable = Instantiate(PrefabBank.mapItemChopablePrefab, this.transform);
-                mapItemChopable.Init(mapItem, CurrentMapHeight);
-                mapItemsGO[mapItem.posX, mapItem.posY] = mapItemChopable;
+                mapItemChopable.Init(posX, posY, mapItem, CurrentMapSize);
+                mapItemsGO[posX, posY] = mapItemChopable;
                 break;
             case Actions.mineable:
                 MapItemMineable mapItemMineable = Instantiate(PrefabBank.mapItemMineablePrefab, this.transform);
-                mapItemMineable.Init(mapItem, CurrentMapHeight);
-                mapItemsGO[mapItem.posX, mapItem.posY] = mapItemMineable;
+                mapItemMineable.Init(posX, posY, mapItem, CurrentMapSize);
+                mapItemsGO[posX, posY] = mapItemMineable;
                 break;
             case Actions.hitable:
                 break;
@@ -122,8 +115,8 @@ public class MainGameMapManager : MonoBehaviour
                 break;
             case Actions.pickable:
                 MapItemPickable mapItemPickable = Instantiate(PrefabBank.mapItemPickablePrefab, this.transform);
-                mapItemPickable.Init(mapItem, CurrentMapHeight);
-                mapItemsGO[mapItem.posX, mapItem.posY] = mapItemPickable;
+                mapItemPickable.Init(posX, posY, mapItem, CurrentMapSize);
+                mapItemsGO[posX, posY] = mapItemPickable;
                 break;
             case Actions.interactable:
                 break;
@@ -149,13 +142,19 @@ public class MainGameMapManager : MonoBehaviour
 
 
     #region Static helper function
-    public static MapItemBase GetMapItemGameObjectByPosition(Vector2 pos)
+    public static MapItemBase GetMapItemPosition(Vector2 pos)
     {
         return mapItemsGO?[(int)pos.x, (int)pos.y];
     }
 
     public static void MapItemDone(int x, int y)
     {
+        int key = x + (y * mapSave.mapSize);
+
+        if (mapSave.mapItems.ContainsKey(key))
+        {
+            mapSave.mapItems.Remove(key);
+        }
         mapItemsGO[x, y] = null;
     }
     #endregion

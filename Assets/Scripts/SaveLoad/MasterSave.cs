@@ -7,12 +7,14 @@ using UnityEngine;
 public class MasterSave : Singleton<MasterSave>
 {
     public static Action RequestSaveData;
-    private static PlayerSaveAllFurnitures playerSaveAllFurnitures = new PlayerSaveAllFurnitures();
+    private static PlayerSaveAllFurnitures playerSaveAllFurnitures;
     private static int maxFurnitureSaves = 3;
     private static int furnitureSavesCounter = 0;
 
     protected override void Awake()
     {
+        playerSaveAllFurnitures = new PlayerSaveAllFurnitures();
+        print("MasterSave Awake");
         if (SaveGame.Exists(GEM.AllFurnituresSaveName))
         {
             playerSaveAllFurnitures = SaveGame.Load<PlayerSaveAllFurnitures>(GEM.AllFurnituresSaveName);
@@ -61,16 +63,16 @@ public class MasterSave : Singleton<MasterSave>
 
 
     #region Map Save/Load
-    public static void SaveMapData(MapSaveIsland mapSaveData)
+    public static void SaveMapData(MapSave mapSaveData)
     {
-        SaveGame.Save<MapSaveIsland>(GEM.MapSaveName, mapSaveData);
+        SaveGame.Save<MapSave>(GEM.MapSaveName, mapSaveData);
         GEM.PrintDebug("Map Save Complete");
     }
 
-    public static MapSaveIsland LoadMapData()
+    public static MapSave LoadMapData()
     {
         GEM.PrintDebug("Loading map data...");
-        return SaveGame.Load<MapSaveIsland>(GEM.MapSaveName);
+        return SaveGame.Load<MapSave>(GEM.MapSaveName);
     }
     #endregion
 
@@ -95,7 +97,7 @@ public class MasterSave : Singleton<MasterSave>
     #endregion
 
 
-    #region SlotItems Save/Load
+    #region Furniture SlotItems Save/Load
     public static void SaveInventory(PlayerSaveFurniture playerSaveFurniture)
     {
         playerSaveAllFurnitures.playerInventory = playerSaveFurniture;
@@ -204,15 +206,19 @@ public class PlayerSavePlayerStats
     { health = 100; }
 }
 
-public class MapSaveIsland
+public class MapSave
 {
     public int mapId;
-    public MapData mapData;
-    public MapSaveIsland() { }
-    public MapSaveIsland(int mapId, MapData mapData)
+    public int mapSize;
+    public int[] mapTiles;
+    public Dictionary<int, MapItem> mapItems;
+    public MapSave() { }
+    public MapSave(int mapId, int mapSize, int[] mapTiles, Dictionary<int, MapItem> mapItems)
     {
         this.mapId = mapId;
-        this.mapData = mapData;
+        this.mapSize = mapSize;
+        this.mapTiles = mapTiles;
+        this.mapItems = mapItems;
     }
 }
 
@@ -220,15 +226,12 @@ public class MapSaveIsland
 public class MapItem
 {
     public int mapItemId;
+    public int furnitureId;
     public int healthPoints;
-    public int posX;
-    public int posY;
-    public int structId;
-    public MapItem(int mapItemId, int posX, int posY, int structId)
+    public MapItem(int mapItemId, int furnitureId, int healthPoints)
     {
         this.mapItemId = mapItemId;
-        this.posX = posX;
-        this.posY = posY;
-        this.structId = structId;
+        this.furnitureId = furnitureId;
+        this.healthPoints = healthPoints;
     }
 }

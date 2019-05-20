@@ -18,7 +18,7 @@ public class ActionManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 clickPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            MapItemBase clickedGo = MainGameMapManager.GetMapItemGameObjectByPosition(clickPosition);
+            MapItemBase clickedGo = MainGameMapManager.GetMapItemPosition(clickPosition);
             if (clickedGo != null)
             {
                 PerformActionOnMapItem(clickedGo);

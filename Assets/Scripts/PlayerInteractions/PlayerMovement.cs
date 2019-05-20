@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public static Action<int, int> OnStep;
+    //public static Action<int, int> OnStep;
     public float speed = 0.1f;
     private int tempPosX, tempPosY, currentPosX, currentPosY;
     private SpriteRenderer spriteRenderer;
@@ -13,6 +13,11 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         MasterSave.RequestSaveData += RequestSaveData;
         LoadPlayerInfoData();
+    }
+
+    private void OnDestroy()
+    {
+        MasterSave.RequestSaveData -= RequestSaveData;
     }
 
     private void LoadPlayerInfoData()
@@ -47,14 +52,14 @@ public class PlayerMovement : MonoBehaviour
         {
             tempPosX = currentPosX;
             tempPosY = currentPosY;
-            OnStep?.Invoke(currentPosX, currentPosY);
+            //OnStep?.Invoke(currentPosX, currentPosY);
             SetSortingOrder();
         }
     }
 
     private void SetSortingOrder()
     {
-        spriteRenderer.sortingOrder = MainGameMapManager.CurrentMapHeight - currentPosY + 1;
+        spriteRenderer.sortingOrder = MainGameMapManager.CurrentMapSize - currentPosY + 1;
     }
 
     private void OnTriggerStay2D(Collider2D collision)

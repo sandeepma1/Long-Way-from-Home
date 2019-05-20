@@ -5,17 +5,15 @@ using UnityEngine;
 public class MapItemBase : MonoBehaviour
 {
     public MapItem mapItem;
-    public int structId;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
-    public void Init(MapItem mapItem, int mapHeight)
+    public void Init(int posX, int posY, MapItem mapItem, int mapHeight)
     {
         this.mapItem = mapItem;
-        structId = mapItem.structId;
         spriteRenderer.sprite = AtlasBank.GetMapItemSpriteById(mapItem.mapItemId);
-        this.transform.localPosition = new Vector2(mapItem.posX, mapItem.posY);
+        this.transform.localPosition = new Vector2(posX, posY);
         spriteRenderer.sortingLayerName = GEM.MapItemsSortingLayer;
-        spriteRenderer.sortingOrder = (mapHeight + 1) - mapItem.posY;
+        spriteRenderer.sortingOrder = (mapHeight + 1) - posY;
     }
 
     protected virtual void MapItemDone()
@@ -39,14 +37,4 @@ public class MapItemBase : MonoBehaviour
             }
         }
     }
-}
-
-public enum MapItemSize
-{
-    grid16x16,
-    grid16x32,
-    grid32x32,
-    grid16x48,
-    grid32x48,
-    grid48x48 // fill later
 }

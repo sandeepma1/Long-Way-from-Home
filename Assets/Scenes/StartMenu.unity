@@ -338,8 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainRenderer: {fileID: 869622329}
   normalizeMode: 0
-  mapSizeX: 64
-  mapSizeY: 64
+  mapSize: 100
   noiseScale: 15
   octaves: 8
   persistance: 0

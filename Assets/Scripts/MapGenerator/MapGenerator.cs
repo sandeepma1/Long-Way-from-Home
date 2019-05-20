@@ -6,8 +6,7 @@ public class MapGenerator : MonoBehaviour
 {
     [SerializeField] private Renderer mainRenderer;
     [SerializeField] private Noise.NormalizeMode normalizeMode;
-    [SerializeField] private int mapSizeX = 64;
-    [SerializeField] private int mapSizeY = 64;
+    [SerializeField] private int mapSize = 64;
     [SerializeField] private float noiseScale = 15;
     [SerializeField] private int octaves = 8;
     [Range(0, 1)] [SerializeField] private float persistance = 0;
@@ -30,11 +29,11 @@ public class MapGenerator : MonoBehaviour
 
     public MapData CreateMaps(BiomeName biomeName)
     {
-        falloffMap = FalloffGenerator.GenerateFalloffMap(mapSizeX, mapSizeY, falloff);
+        falloffMap = FalloffGenerator.GenerateFalloffMap(mapSize, mapSize, falloff);
         MapDataArray mapDataArray = GenerateMapData(Vector2.zero, biomeName);
         //Texture2D finalTexture = TextureGenerator.TextureFromColourMap(mapDataArray.colourMap, mapSizeX, mapSizeY);
         //mainRenderer.material.mainTexture = finalTexture;
-        MapData mapData = new MapData(mapSizeX, mapSizeY, mapDataArray.intMap);
+        MapData mapData = new MapData(mapSize, mapDataArray.mapTiles);
         return mapData;
     }
 
@@ -42,12 +41,12 @@ public class MapGenerator : MonoBehaviour
     {
         List<Regions> regions = MapBiomesDatabase.GetRegionsByBiomeName(biomeName);
         seed = (int)System.DateTime.Now.Ticks;
-        float[,] noiseMap = Noise.GenerateNoiseMap(mapSizeX, mapSizeY, seed,
+        float[,] noiseMap = Noise.GenerateNoiseMap(mapSize, mapSize, seed,
             noiseScale, octaves, persistance, lacunarity, centre, normalizeMode);
-        int[] intMap = new int[mapSizeX * mapSizeY];
-        for (int x = 0; x < mapSizeX; x++)
+        int[] intMap = new int[mapSize * mapSize];
+        for (int x = 0; x < mapSize; x++)
         {
-            for (int y = 0; y < mapSizeY; y++)
+            for (int y = 0; y < mapSize; y++)
             {
                 if (useFalloff)
                 {
@@ -58,7 +57,7 @@ public class MapGenerator : MonoBehaviour
                 {
                     if (currentHeight >= regions[i].height)
                     {
-                        intMap[y * mapSizeX + x] = i;
+                        intMap[y * mapSize + x] = i;
                     }
                     else
                     {
@@ -74,33 +73,23 @@ public class MapGenerator : MonoBehaviour
 public class MapDataArray
 {
     public readonly float[,] heightMap;
-    public readonly int[] intMap;
+    public readonly int[] mapTiles;
     public MapDataArray() { }
-    public MapDataArray(float[,] heightMap, int[] intMap)
+    public MapDataArray(float[,] heightMap, int[] mapTiles)
     {
         this.heightMap = heightMap;
-        this.intMap = intMap;
+        this.mapTiles = mapTiles;
     }
 }
 
 public class MapData
 {
-    public int mapWidth;
-    public int mapHeight;
+    public int mapSize;
     public int[] mapTiles;
-    public List<MapItem> mapItems;
     public MapData() { }
-    public MapData(int mapWidth, int mapHeight, int[] mapTiles, List<MapItem> mapItems)
+    public MapData(int mapSize, int[] mapTiles)
     {
-        this.mapWidth = mapWidth;
-        this.mapHeight = mapHeight;
-        this.mapTiles = mapTiles;
-        this.mapItems = mapItems;
-    }
-    public MapData(int mapWidth, int mapHeight, int[] mapTiles)
-    {
-        this.mapWidth = mapWidth;
-        this.mapHeight = mapHeight;
+        this.mapSize = mapSize;
         this.mapTiles = mapTiles;
     }
 }
