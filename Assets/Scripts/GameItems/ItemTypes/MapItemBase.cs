@@ -7,13 +7,13 @@ public class MapItemBase : MonoBehaviour
     public MapItem mapItem;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
-    public void Init(int posX, int posY, MapItem mapItem, int mapHeight)
+    public void Init(int posX, int posY, MapItem mapItem, int mapSize)
     {
         this.mapItem = mapItem;
         spriteRenderer.sprite = AtlasBank.GetMapItemSpriteById(mapItem.mapItemId);
         this.transform.localPosition = new Vector2(posX, posY);
         spriteRenderer.sortingLayerName = GEM.MapItemsSortingLayer;
-        spriteRenderer.sortingOrder = (mapHeight + 1) - posY;
+        spriteRenderer.sortingOrder = (mapSize + 1) - posY;
     }
 
     protected virtual void MapItemDone()
