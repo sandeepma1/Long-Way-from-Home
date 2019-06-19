@@ -8,6 +8,10 @@ public static class GEM
     public static string MapItemDroppedTagName = "MapItemDropped";
     #endregion
 
+    #region Layers
+    public static string MapItemLayerName = "MapItem";
+    #endregion
+
     #region Sprite sorting layer names
     public static readonly string MapTilesSortingLayer = "L0MapTiles";
     public static readonly string MapItemsSortingLayer = "L1MapItems";

@@ -4,5 +4,11 @@ using UnityEngine;
 
 public class DroppedItemCollector : MonoBehaviour
 {
-    
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag(GEM.MapItemDroppedTagName))
+        {
+            collision.gameObject.GetComponent<MapItemDropedItem>().TouchedByPlayer();
+        }
+    }
 }

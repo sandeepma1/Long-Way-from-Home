@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static Action<int, int> OnPlayerMovedPerGrid;
+    public static Action OnPlayerMoved;
     [SerializeField] private Animator anim;
     [SerializeField] private GameObject characterGO;
     [SerializeField] private SpriteRenderer playerHead;
@@ -41,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
         }
         WalkingCalculation(moveHorizontal, moveVertical);
         SetSortingOrder();
+        OnPlayerMoved?.Invoke();
     }
 
     public void WalkingCalculation(float x, float y)
@@ -68,28 +71,31 @@ public class PlayerMovement : MonoBehaviour
             anim.SetFloat("WalkingY", y);
         }
         transform.position += new Vector3(x, y, 0).normalized * Time.deltaTime * speed;
+        currentPosX = (int)transform.position.x;
+        currentPosY = (int)transform.position.y;
     }
 
     private void SetSortingOrder()
     {
-        currentPosX = (int)transform.position.x;
-        currentPosY = (int)transform.position.y;
-        if (tempPosX != currentPosX || tempPosY != currentPosY)
+        if (tempPosX == currentPosX || tempPosY == currentPosY)
         {
-            tempPosX = currentPosX;
-            tempPosY = currentPosY;
-            int order = (MainGameMapManager.CurrentMapSize + 1) - currentPosY;
-            playerHead.sortingOrder = order + 1;
-            playerBody.sortingOrder = order;
-            playerEyes.sortingOrder = order + 1;
-            playerLimbLeft.sortingOrder = order + 1;
-            playerLimbRight.sortingOrder = order - 1;
-            playerRightWeapon.sortingOrder = order - 1;
-            playerLegLeft.sortingOrder = order + 1;
-            playerLegRight.sortingOrder = order - 1;
+            return;
         }
+        OnPlayerMovedPerGrid?.Invoke(currentPosX, currentPosY);
+        tempPosX = currentPosX;
+        tempPosY = currentPosY;
+        int order = (MainGameMapManager.CurrentMapSize + 1) - currentPosY;
+        playerHead.sortingOrder = order;
+        playerBody.sortingOrder = order;
+        playerEyes.sortingOrder = order + 1;
+        playerLimbLeft.sortingOrder = order + 1;
+        playerLimbRight.sortingOrder = order - 1;
+        playerRightWeapon.sortingOrder = order - 1;
+        playerLegLeft.sortingOrder = order + 1;
+        playerLegRight.sortingOrder = order - 1;
     }
 
+    #region --Save Load Stuff--
     private void LoadPlayerInfoData()
     {
         PlayerSavePlayerInfo playerSavePlayerInfo = MasterSave.LoadPlayerInfo();
@@ -100,14 +106,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void RequestSaveData()
     {
-        MasterSave.SavePlayerInfo(new PlayerSavePlayerInfo(transform.position.x, transform.position.y));
+        MasterSave.SavePlayerInfo(new PlayerSavePlayerInfo(currentPosX, currentPosY));
     }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag(GEM.MapItemDroppedTagName))
-        {
-            collision.gameObject.GetComponent<MapItemDropedItem>().TouchedByPlayer();
-        }
-    }
+    #endregion
 }

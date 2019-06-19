@@ -9,6 +9,7 @@ public class MapItemBase : MonoBehaviour
 
     public void Init(int posX, int posY, MapItem mapItem, int mapSize)
     {
+        gameObject.layer = LayerMask.NameToLayer(GEM.MapItemLayerName);
         this.mapItem = mapItem;
         spriteRenderer.sprite = AtlasBank.GetMapItemSpriteById(mapItem.mapItemId);
         this.transform.localPosition = new Vector2(posX, posY);
