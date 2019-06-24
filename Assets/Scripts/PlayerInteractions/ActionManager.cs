@@ -1,16 +1,45 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Bronz.Ui;
+using System;
 using UnityEngine;
 
 public class ActionManager : MonoBehaviour
 {
     public static Action<Vector2> OnMouseClick;
     private Camera mainCamera;
+    private bool isActionButtonDown;
+    private float buttonDownDuration = 0.5f;
+    private float buttonDownCounter = 0.0f;
+    private const float itemMinDistance = 2.0f;
 
     private void Start()
     {
+        UiPlayerControlCanvas.OnActionButtonPointerDown += OnActionButtonPointerDown;
+        UiPlayerControlCanvas.OnActionButtonPointerUp += OnActionButtonPointerUp;
+        UiPlayerControlCanvas.OnMoreButtonClicked += OnMoreButtonClicked;
         mainCamera = Camera.main;
+    }
+
+    private void OnDestroy()
+    {
+        UiPlayerControlCanvas.OnActionButtonPointerDown -= OnActionButtonPointerDown;
+        UiPlayerControlCanvas.OnActionButtonPointerUp -= OnActionButtonPointerUp;
+        UiPlayerControlCanvas.OnMoreButtonClicked -= OnMoreButtonClicked;
+    }
+
+    private void OnMoreButtonClicked()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void OnActionButtonPointerUp()
+    {
+        isActionButtonDown = false;
+        buttonDownCounter = buttonDownDuration;
+    }
+
+    private void OnActionButtonPointerDown()
+    {
+        isActionButtonDown = true;
     }
 
     private void Update()
@@ -18,56 +47,85 @@ public class ActionManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 clickPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            MapItemBase clickedGo = MainGameMapManager.GetMapItemPosition(clickPosition);
+            MapItemBase clickedGo = MainGameMapManager.GetMapItemByPosition(clickPosition);
             if (clickedGo != null)
             {
                 PerformActionOnMapItem(clickedGo);
+            }
+        }
+
+        if (isActionButtonDown)
+        {
+            if (GetObjectsAround.closestItem == null) { return; }
+            if (!IsPlayerNearMapItem()) { return; }
+
+            if (buttonDownCounter >= buttonDownDuration)
+            {
+                int itemId = GetObjectsAround.closestItem.mapItem.mapItemId;
+                PlayerMovement.SetTriggerAnimation(MapItemsDatabase.GetActionById(itemId));
+            }
+            buttonDownCounter -= Time.deltaTime;
+            if (buttonDownCounter <= 0)
+            {
+                buttonDownCounter = buttonDownDuration;
+                PerformActionOnMapItem(GetObjectsAround.closestItem);
             }
         }
     }
 
     private void PerformActionOnMapItem(MapItemBase clickedGo)
     {
-        Actions currentAction = MapItemsDatabase.GetActionById(clickedGo.mapItem.mapItemId);
+        PlayerActions currentAction = MapItemsDatabase.GetActionById(clickedGo.mapItem.mapItemId);
         //TODO: Check if tool available in inventory to perform action
         //if yes
         switch (currentAction)
         {
-            case Actions.chopable:
-                clickedGo.GetComponent<IChopable>().Chop(10);
+            case PlayerActions.chopable:
+                clickedGo.GetComponent<IChopable>().Chop(2);
                 break;
-            case Actions.mineable:
-                clickedGo.GetComponent<IMineable>().Mine(10);
+            case PlayerActions.mineable:
+                clickedGo.GetComponent<IMineable>().Mine(2);
                 break;
-            case Actions.hitable:
+            case PlayerActions.hitable:
                 break;
-            case Actions.fishable:
+            case PlayerActions.fishable:
                 break;
-            case Actions.breakable:
+            case PlayerActions.breakable:
                 break;
-            case Actions.openable:
+            case PlayerActions.openable:
                 break;
-            case Actions.pickable:
+            case PlayerActions.pickable:
                 clickedGo.GetComponent<IPickable>().Pick();
                 break;
-            case Actions.interactable:
+            case PlayerActions.interactable:
                 break;
-            case Actions.moveable:
+            case PlayerActions.moveable:
                 break;
-            case Actions.shakeable:
+            case PlayerActions.shakeable:
                 break;
-            case Actions.placeable:
+            case PlayerActions.placeable:
                 break;
-            case Actions.shoveable:
+            case PlayerActions.shoveable:
                 break;
-            case Actions.cutable:
+            case PlayerActions.cutable:
                 break;
-            case Actions.none:
+            case PlayerActions.none:
                 break;
-            case Actions.harvestable:
+            case PlayerActions.harvestable:
                 break;
             default:
                 break;
         }
+    }
+
+    private bool IsPlayerNearMapItem()
+    {
+        float distance = Vector3.Distance(transform.position, GetObjectsAround.closestItem.transform.position);
+        DebugText.PrintDebugText(distance.ToString());
+        if (distance <= itemMinDistance)
+        {
+            return true;
+        }
+        return false;
     }
 }

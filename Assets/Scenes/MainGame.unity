@@ -1222,7 +1222,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1144512018}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 22, y: 22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 471137849}
@@ -1263,7 +1263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5960285b87ba70c43b6c2deb911504b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 1185756985}
   characterGO: {fileID: 1185756983}
   playerHead: {fileID: 1048701856}
   playerEyes: {fileID: 714221619}
@@ -1303,7 +1302,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
-  autoPickupItemRadius: 4
+  itemPickupRadius: 4
 --- !u!1 &1185756983
 GameObject:
   m_ObjectHideFlags: 0

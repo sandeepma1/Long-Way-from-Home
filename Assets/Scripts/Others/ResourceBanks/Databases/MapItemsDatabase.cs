@@ -14,7 +14,7 @@ public class MapItemsDatabase : DatabaseBase<MapItemsDatabase>
         GEM.PrintDebug("MapItemDatabase loaded with" + MapItems.MapItems.Length + " items");
     }
 
-    public static Actions GetActionById(int id)
+    public static PlayerActions GetActionById(int id)
     {
         if (id < MapItems.MapItems.Length)
         {
@@ -23,7 +23,7 @@ public class MapItemsDatabase : DatabaseBase<MapItemsDatabase>
         else
         {
             GEM.PrintDebug("GetActionById=> id incorrect " + id);
-            return Actions.none;
+            return PlayerActions.none;
         }
     }
 
@@ -65,8 +65,8 @@ public class MapItems
     public int id;
     public string name;
     public string slug;
-    public Actions primaryAction;
-    public Actions secondaryAction;
+    public PlayerActions primaryAction;
+    public PlayerActions secondaryAction;
     public MapItemType mapItemType;
     public int healthPoints;
     public bool hasLifeCycle;
@@ -83,7 +83,7 @@ public enum MapItemType
     manMade
 }
 
-public enum Actions
+public enum PlayerActions
 {
     chopable,
     mineable,

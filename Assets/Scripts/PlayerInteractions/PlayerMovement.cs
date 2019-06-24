@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
     public static Action<int, int> OnPlayerMovedPerGrid;
     public static Action OnPlayerMoved;
-    [SerializeField] private Animator anim;
     [SerializeField] private GameObject characterGO;
     [SerializeField] private SpriteRenderer playerHead;
     [SerializeField] private SpriteRenderer playerEyes;
@@ -16,12 +15,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer playerLegLeft;
     [SerializeField] private SpriteRenderer playerLegRight;
     [SerializeField] private SpriteRenderer playerRightWeapon;
+    private static Animator anim;
     public bool isPlayerRunning = false;
     public float speed = 0.1f;
     private int tempPosX, tempPosY, currentPosX, currentPosY;
 
     private void Start()
     {
+        anim = GetComponentInChildren<Animator>();
         MasterSave.RequestSaveData += RequestSaveData;
         LoadPlayerInfoData();
     }
@@ -38,12 +39,21 @@ public class PlayerMovement : MonoBehaviour
         if (moveHorizontal == 0 && moveVertical == 0)
         {
             anim.SetBool("isWalking", false);
-            anim.SetBool("isRunning", false);
             return;
         }
         WalkingCalculation(moveHorizontal, moveVertical);
         SetSortingOrder();
         OnPlayerMoved?.Invoke();
+    }
+
+    public static void SetTriggerAnimation(PlayerActions playerAction)
+    {
+        anim.SetTrigger(playerAction.ToString());
+    }
+
+    public static void SetBoolAnimation(PlayerActions playerAction, bool flag)
+    {
+        anim.SetBool(playerAction.ToString(), flag);
     }
 
     public void WalkingCalculation(float x, float y)
@@ -109,4 +119,17 @@ public class PlayerMovement : MonoBehaviour
         MasterSave.SavePlayerInfo(new PlayerSavePlayerInfo(currentPosX, currentPosY));
     }
     #endregion
+}
+
+public enum PlayerAnimationStates
+{
+    isWalking,
+    isRunning,
+    isAttacking,
+    isIdle,
+    isPickingUp,
+    PickingUp,
+    Slashing,
+    isSlashing,
+    DigUp
 }

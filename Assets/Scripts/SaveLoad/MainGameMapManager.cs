@@ -86,51 +86,51 @@ public class MainGameMapManager : MonoBehaviour
 
     private void InstantiateMapItem(int posX, int posY, MapItem mapItem)
     {
-        Actions action = MapItemsDatabase.GetActionById(mapItem.mapItemId);
-        if (action == Actions.none)
+        PlayerActions action = MapItemsDatabase.GetActionById(mapItem.mapItemId);
+        if (action == PlayerActions.none)
         {
             return;
         }
         switch (action)
         {
-            case Actions.chopable:
+            case PlayerActions.chopable:
                 MapItemChopable mapItemChopable = Instantiate(PrefabBank.mapItemChopablePrefab, this.transform);
                 mapItemChopable.Init(posX, posY, mapItem, CurrentMapSize);
                 mapItemsGO[posX, posY] = mapItemChopable;
                 break;
-            case Actions.mineable:
+            case PlayerActions.mineable:
                 MapItemMineable mapItemMineable = Instantiate(PrefabBank.mapItemMineablePrefab, this.transform);
                 mapItemMineable.Init(posX, posY, mapItem, CurrentMapSize);
                 mapItemsGO[posX, posY] = mapItemMineable;
                 break;
-            case Actions.hitable:
+            case PlayerActions.hitable:
                 break;
-            case Actions.fishable:
+            case PlayerActions.fishable:
                 break;
-            case Actions.breakable:
+            case PlayerActions.breakable:
                 break;
-            case Actions.openable:
+            case PlayerActions.openable:
                 break;
-            case Actions.pickable:
+            case PlayerActions.pickable:
                 MapItemPickable mapItemPickable = Instantiate(PrefabBank.mapItemPickablePrefab, this.transform);
                 mapItemPickable.Init(posX, posY, mapItem, CurrentMapSize);
                 mapItemsGO[posX, posY] = mapItemPickable;
                 break;
-            case Actions.interactable:
+            case PlayerActions.interactable:
                 break;
-            case Actions.moveable:
+            case PlayerActions.moveable:
                 break;
-            case Actions.shakeable:
+            case PlayerActions.shakeable:
                 break;
-            case Actions.placeable:
+            case PlayerActions.placeable:
                 break;
-            case Actions.shoveable:
+            case PlayerActions.shoveable:
                 break;
-            case Actions.cutable:
+            case PlayerActions.cutable:
                 break;
-            case Actions.none:
+            case PlayerActions.none:
                 break;
-            case Actions.harvestable:
+            case PlayerActions.harvestable:
                 break;
             default:
                 break;
@@ -140,7 +140,7 @@ public class MainGameMapManager : MonoBehaviour
 
 
     #region Static helper function
-    public static MapItemBase GetMapItemPosition(Vector2 pos)
+    public static MapItemBase GetMapItemByPosition(Vector2 pos)
     {
         return mapItemsGO?[(int)pos.x, (int)pos.y];
     }

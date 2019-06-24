@@ -7,9 +7,9 @@ public class GetObjectsAround : MonoBehaviour
     [SerializeField] private Transform closestItemMarker;
     [SerializeField] private LayerMask layerMask;
     private Vector3 nearestItemPosition;
-    private MapItemBase closestItem;
+    public static MapItemBase closestItem;
     private MapItemBase closestItemLast;
-    [SerializeField] private float autoPickupItemRadius = 4f;
+    [SerializeField] private float itemPickupRadius = 4f;
 
     private void Start()
     {
@@ -23,24 +23,27 @@ public class GetObjectsAround : MonoBehaviour
 
     private void OnPlayerMoved()
     {
+        // CalculateNearestItem();
+    }
+
+    private void Update()
+    {
         CalculateNearestItem();
     }
 
     private void CalculateNearestItem()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, autoPickupItemRadius, layerMask);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, itemPickupRadius, layerMask);
         if (colliders.Length == 0)
         {
             nearestItemPosition = Vector3.zero;
             closestItem = null;
-            DebugText.PrintDebugText("");
         }
         else
         {
             closestItem = GetClosestItem(colliders);
             if (closestItem != null)
             {
-                DebugText.PrintDebugText(closestItem.gameObject.name);
                 nearestItemPosition = closestItem.transform.position;
             }
         }
