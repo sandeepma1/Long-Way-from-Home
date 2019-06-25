@@ -64,8 +64,8 @@ public class PlayerMovement_old : Singleton<PlayerMovement_old>
         //IsCursorEnable (false);
         CircleCollider2D[] cols = GetComponents<CircleCollider2D>();
         CalculateNearestItem(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), false);
-        UiPlayerControlCanvas.OnActionButtonPointerDown += ActionButtonDown;
-        UiPlayerControlCanvas.OnActionButtonPointerUp += ActionButtonUp;
+        UiPlayerControlCanvas.OnActionButtonDown += ActionButtonDown;
+        UiPlayerControlCanvas.OnActionButtonUp += ActionButtonUp;
     }
 
     private void Update()

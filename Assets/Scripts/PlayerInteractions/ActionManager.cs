@@ -1,5 +1,6 @@
 ﻿using Bronz.Ui;
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class ActionManager : MonoBehaviour
@@ -7,23 +8,33 @@ public class ActionManager : MonoBehaviour
     public static Action<Vector2> OnMouseClick;
     private Camera mainCamera;
     private bool isActionButtonDown;
-    private float buttonDownDuration = 0.5f;
-    private float buttonDownCounter = 0.0f;
-    private const float itemMinDistance = 2.0f;
+    private const float actionInterval = 0.5f;
+    private const float itemMinDistance = 1.5f;
+    private bool isActionInProgress = false;
 
     private void Start()
     {
-        UiPlayerControlCanvas.OnActionButtonPointerDown += OnActionButtonPointerDown;
-        UiPlayerControlCanvas.OnActionButtonPointerUp += OnActionButtonPointerUp;
+        UiPlayerControlCanvas.OnActionButtonClicked += OnActionButtonClicked;
+        UiPlayerControlCanvas.OnActionButtonDown += OnActionButtonDown;
+        UiPlayerControlCanvas.OnActionButtonUp += OnActionButtonUp;
         UiPlayerControlCanvas.OnMoreButtonClicked += OnMoreButtonClicked;
         mainCamera = Camera.main;
     }
 
     private void OnDestroy()
     {
-        UiPlayerControlCanvas.OnActionButtonPointerDown -= OnActionButtonPointerDown;
-        UiPlayerControlCanvas.OnActionButtonPointerUp -= OnActionButtonPointerUp;
+        UiPlayerControlCanvas.OnActionButtonClicked -= OnActionButtonClicked;
+        UiPlayerControlCanvas.OnActionButtonDown -= OnActionButtonDown;
+        UiPlayerControlCanvas.OnActionButtonUp -= OnActionButtonUp;
         UiPlayerControlCanvas.OnMoreButtonClicked -= OnMoreButtonClicked;
+    }
+
+
+    #region -- UiPlayerControlCanvas Actions --
+
+    private void OnActionButtonClicked()
+    {
+        ActionButtonPressed();
     }
 
     private void OnMoreButtonClicked()
@@ -31,60 +42,70 @@ public class ActionManager : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    private void OnActionButtonPointerUp()
+    private void OnActionButtonUp()
     {
         isActionButtonDown = false;
-        buttonDownCounter = buttonDownDuration;
     }
 
-    private void OnActionButtonPointerDown()
+    private void OnActionButtonDown()
     {
         isActionButtonDown = true;
     }
+    #endregion
+
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            Vector2 clickPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            MapItemBase clickedGo = MainGameMapManager.GetMapItemByPosition(clickPosition);
-            if (clickedGo != null)
-            {
-                PerformActionOnMapItem(clickedGo);
-            }
+            isActionButtonDown = true;
         }
-
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            isActionButtonDown = false;
+        }
         if (isActionButtonDown)
         {
-            if (GetObjectsAround.closestItem == null) { return; }
-            if (!IsPlayerNearMapItem()) { return; }
-
-            if (buttonDownCounter >= buttonDownDuration)
-            {
-                int itemId = GetObjectsAround.closestItem.mapItem.mapItemId;
-                PlayerMovement.SetTriggerAnimation(MapItemsDatabase.GetActionById(itemId));
-            }
-            buttonDownCounter -= Time.deltaTime;
-            if (buttonDownCounter <= 0)
-            {
-                buttonDownCounter = buttonDownDuration;
-                PerformActionOnMapItem(GetObjectsAround.closestItem);
-            }
+            ActionButtonPressed();
         }
     }
 
-    private void PerformActionOnMapItem(MapItemBase clickedGo)
+    private void ActionButtonPressed()
     {
-        PlayerActions currentAction = MapItemsDatabase.GetActionById(clickedGo.mapItem.mapItemId);
-        //TODO: Check if tool available in inventory to perform action
-        //if yes
+        if (GetObjectsAround.closestItem == null) { return; }
+        if (!IsPlayerNearMapItem())
+        {
+            MovePlayerToMapItem();
+            return;
+        }
+        if (!isActionInProgress)
+        {
+            StartCoroutine(PerformActionAfterDelay(actionInterval));
+        }
+    }
+
+    private IEnumerator PerformActionAfterDelay(float duration)
+    {
+        isActionInProgress = true;
+        int itemId = GetObjectsAround.closestItem.mapItem.mapItemId;
+        PlayerMovement.SetTriggerAnimation(MapItemsDatabase.GetActionById(itemId));
+        yield return new WaitForSeconds(duration);
+        PerformActionOnMapItem(GetObjectsAround.closestItem);
+        isActionInProgress = false;
+    }
+
+    private void PerformActionOnMapItem(MapItemBase clickedMapItem)
+    {
+        PlayerActions currentAction = MapItemsDatabase.GetActionById(clickedMapItem.mapItem.mapItemId);
+        //TODO: Check if tool available in inventory to perform action       
         switch (currentAction)
         {
             case PlayerActions.chopable:
-                clickedGo.GetComponent<IChopable>().Chop(2);
+                //TODO: add weapon damage 
+                clickedMapItem.GetComponent<IChopable>().Chop(2);
                 break;
             case PlayerActions.mineable:
-                clickedGo.GetComponent<IMineable>().Mine(2);
+                clickedMapItem.GetComponent<IMineable>().Mine(2);
                 break;
             case PlayerActions.hitable:
                 break;
@@ -95,7 +116,7 @@ public class ActionManager : MonoBehaviour
             case PlayerActions.openable:
                 break;
             case PlayerActions.pickable:
-                clickedGo.GetComponent<IPickable>().Pick();
+                clickedMapItem.GetComponent<IPickable>().Pick();
                 break;
             case PlayerActions.interactable:
                 break;
@@ -127,5 +148,11 @@ public class ActionManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void MovePlayerToMapItem()
+    {
+        float step = 3 * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, GetObjectsAround.closestItem.transform.position, step);
     }
 }

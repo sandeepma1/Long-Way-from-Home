@@ -14,7 +14,7 @@ public class UiInventory : DragDropBase
         AddItemToInventory += OnAddItemToInventory;
         if (!areUiSlotsCreated)
         {
-            print("CreateUiSlots UiInventory");
+            GEM.PrintDebug("CreateUiSlots UiInventory");
             CreateUiSlots(slotCount, transform);
         }
         PlayerSaveFurniture playerSaveFurniture = MasterSave.LoadInventory();
@@ -32,7 +32,7 @@ public class UiInventory : DragDropBase
     protected override void CreateUiSlots()
     {
         base.CreateUiSlots();
-        print("base class called UiInventory");
+        GEM.PrintDebug("base class called UiInventory");
         CreateUiSlots(slotCount, transform);
     }
 
@@ -47,7 +47,7 @@ public class UiInventory : DragDropBase
         furniture = new PlayerSaveFurniture(slotItemsType, 0, 0, slotItems);
         furniture.slotItems = slotItems;
         MasterSave.SaveInventory(furniture);
-        print("called derived");
+        GEM.PrintDebug("called derived");
     }
 
     public void OnAddItemToInventory(Item itemToAdd)

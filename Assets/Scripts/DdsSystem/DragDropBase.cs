@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class DragDropBase : MonoBehaviour
@@ -39,7 +38,7 @@ public class DragDropBase : MonoBehaviour
     protected virtual void RequestSaveData()
     {
         //This will call all the base class requesting save.
-        print("called base");
+        //print("called base");
     }
 
     protected virtual void CreateUiSlots()
@@ -117,7 +116,7 @@ public class DragDropBase : MonoBehaviour
 
     protected Item AddSlotItemReturnRemaining(Item itemToAdd)
     {
-        print("DDS name" + gameObject.name + " parent " + transform.parent.name);
+        //print("DDS name" + gameObject.name + " parent " + transform.parent.name);
         Item item = new Item(itemToAdd.id, itemToAdd.duraCount);
         for (int i = 0; i < uiSlotItems.Count; i++)
         {

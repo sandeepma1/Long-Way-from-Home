@@ -141,19 +141,19 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         RemovedFromThis();
     }
 
-    private void DestroyAndRemoveFromList()
-    {
-        lastDragDropBase.RemoveSlotItem(this);
-        Destroy(this.gameObject);
-    }
-
     public void RemovedFromThis()
     {
         lastDragDropBase = transform.parent.parent.GetComponent<DragDropBase>();
         lastParent = transform.parent;
         lastDragDropBase.RemoveSlotItem(this);
-        SetParent(transform.root);
+        SetParent(UiMainCanvas.mainCanvas);
         image.raycastTarget = false;
+    }
+
+    private void DestroyAndRemoveFromList()
+    {
+        lastDragDropBase.RemoveSlotItem(this);
+        Destroy(this.gameObject);
     }
 
     public void AddInThis(DragDropBase tempDragDropBase, Transform tempTransform, int slotId)

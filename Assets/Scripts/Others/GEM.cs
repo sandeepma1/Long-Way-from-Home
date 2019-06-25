@@ -36,7 +36,7 @@ public static class GEM
     #endregion
 
     #region Debug Stuff
-    public static bool ShowDebug = true;
+    public static bool ShowDebug = false;
     public static bool ShowDebugError = true;
     public static bool ShowDebugWarning = true;
     public static void PrintDebug(string text)

@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer playerRightWeapon;
     private static Animator anim;
     public bool isPlayerRunning = false;
-    public float speed = 0.1f;
+    public float speed = 3;
     private int tempPosX, tempPosY, currentPosX, currentPosY;
 
     private void Start()
@@ -116,20 +116,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void RequestSaveData()
     {
-        MasterSave.SavePlayerInfo(new PlayerSavePlayerInfo(currentPosX, currentPosY));
+        MasterSave.SavePlayerInfo(new PlayerSavePlayerInfo(transform.position.x, transform.position.y));
     }
     #endregion
-}
-
-public enum PlayerAnimationStates
-{
-    isWalking,
-    isRunning,
-    isAttacking,
-    isIdle,
-    isPickingUp,
-    PickingUp,
-    Slashing,
-    isSlashing,
-    DigUp
 }
