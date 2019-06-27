@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public class MapItemsDatabase : DatabaseBase<MapItemsDatabase>
 {
@@ -11,7 +9,7 @@ public class MapItemsDatabase : DatabaseBase<MapItemsDatabase>
         base.LoadFromJson();
         mSerialiser.TryDeserialize(parsedData, typeof(MapItemsDb), ref deserializedData).AssertSuccessWithoutWarnings();
         MapItems = (MapItemsDb)deserializedData;
-        GEM.PrintDebug("MapItemDatabase loaded with" + MapItems.MapItems.Length + " items");
+        GEM.PrintDebug("MapItemDatabase loaded with " + MapItems.MapItems.Length + " items");
     }
 
     public static PlayerActions GetActionById(int id)

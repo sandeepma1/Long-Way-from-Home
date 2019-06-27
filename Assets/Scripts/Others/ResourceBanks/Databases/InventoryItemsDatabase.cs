@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-
+﻿
 public class InventoryItemsDatabase : DatabaseBase<InventoryItemsDatabase>
 {
-    private static InventoryItemsDb InventoryItems = new InventoryItemsDb();
+    public static InventoryItemsDb InventoryItems = new InventoryItemsDb();
 
     protected override void LoadFromJson()
     {
@@ -40,4 +39,5 @@ public class InventoryItems
     public string name;
     public string slug;
     public int maxStackable;
+    public int hitPoints;
 }

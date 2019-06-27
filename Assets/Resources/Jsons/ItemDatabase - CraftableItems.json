@@ -1,0 +1,1 @@
+{"CraftableItems":[{"id":0,"name":"Stone Axe","slug":"stoneaxe","requires":[{"itemId":4,"count":2},{"itemId":0,"count":1},{"itemId":null,"count":null},{"itemId":null,"count":null}]},{"id":1,"name":"Stone Pickaxe","slug":"stonepickaxe","requires":[{"itemId":4,"count":2},{"itemId":0,"count":2},{"itemId":null,"count":null},{"itemId":null,"count":null}]}]}

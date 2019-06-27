@@ -143,7 +143,8 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void RemovedFromThis()
     {
-        lastDragDropBase = transform.parent.parent.GetComponent<DragDropBase>();
+        //TODO: What the hell is this, refactor it
+        lastDragDropBase = transform.parent.parent.parent.GetComponent<DragDropBase>();
         lastParent = transform.parent;
         lastDragDropBase.RemoveSlotItem(this);
         SetParent(UiMainCanvas.mainCanvas);

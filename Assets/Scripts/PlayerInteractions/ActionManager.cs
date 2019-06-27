@@ -29,6 +29,22 @@ public class ActionManager : MonoBehaviour
         UiPlayerControlCanvas.OnMoreButtonClicked -= OnMoreButtonClicked;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            isActionButtonDown = true;
+        }
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            isActionButtonDown = false;
+        }
+        if (isActionButtonDown)
+        {
+            ActionButtonPressed();
+        }
+    }
+
 
     #region -- UiPlayerControlCanvas Actions --
 
@@ -53,22 +69,6 @@ public class ActionManager : MonoBehaviour
     }
     #endregion
 
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            isActionButtonDown = true;
-        }
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            isActionButtonDown = false;
-        }
-        if (isActionButtonDown)
-        {
-            ActionButtonPressed();
-        }
-    }
 
     private void ActionButtonPressed()
     {

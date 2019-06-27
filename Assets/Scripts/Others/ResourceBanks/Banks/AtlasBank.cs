@@ -30,6 +30,11 @@ public class AtlasBank : MonoBehaviour
         return GetSprite(InventoryItemsDatabase.GetSlugById(itemId), AtlasType.InventoryItems);
     }
 
+    public static Sprite GetInventoryItemSpriteBySlug(string slug)
+    {
+        return GetSprite(slug, AtlasType.InventoryItems);
+    }
+
     public static Sprite GetMapTileSpriteById(int itemId)
     {
         return GetSprite(MapTilesDatabase.GetSlugById(itemId), AtlasType.MapTiles);

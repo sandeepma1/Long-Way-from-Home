@@ -19,9 +19,11 @@ public class PlayerMovement : MonoBehaviour
     public bool isPlayerRunning = false;
     public float speed = 3;
     private int tempPosX, tempPosY, currentPosX, currentPosY;
+    public static GameObject player;
 
     private void Start()
     {
+        player = this.gameObject;
         anim = GetComponentInChildren<Animator>();
         MasterSave.RequestSaveData += RequestSaveData;
         LoadPlayerInfoData();
