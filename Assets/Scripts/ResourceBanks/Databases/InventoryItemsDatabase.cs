@@ -1,4 +1,5 @@
-﻿
+﻿using UnityEngine;
+
 public class InventoryItemsDatabase : DatabaseBase<InventoryItemsDatabase>
 {
     public static InventoryItemsDb InventoryItems = new InventoryItemsDb();
@@ -8,6 +9,15 @@ public class InventoryItemsDatabase : DatabaseBase<InventoryItemsDatabase>
         base.LoadFromJson();
         mSerialiser.TryDeserialize(parsedData, typeof(InventoryItemsDb), ref deserializedData).AssertSuccessWithoutWarnings();
         InventoryItems = (InventoryItemsDb)deserializedData;
+
+        if (InventoryItems.InventoryItems.Length <= 0)
+        {
+            Debug.LogError("InventoryItems db not loaded or empty");
+        }
+        else
+        {
+            GEM.PrintDebug("InventoryItems loaded with " + InventoryItems.InventoryItems.Length + " items");
+        }
     }
 
     public static string GetSlugById(int id)

@@ -10,6 +10,17 @@ public class MapItemsDatabase : DatabaseBase<MapItemsDatabase>
         mSerialiser.TryDeserialize(parsedData, typeof(MapItemsDb), ref deserializedData).AssertSuccessWithoutWarnings();
         MapItems = (MapItemsDb)deserializedData;
         GEM.PrintDebug("MapItemDatabase loaded with " + MapItems.MapItems.Length + " items");
+        for (int i = 0; i < MapItems.MapItems.Length; i++)
+        {
+            for (int j = MapItems.MapItems[i].drops.Count - 1; j >= 0; j--)
+            {
+                if (MapItems.MapItems[i].drops[j].dropId == null)
+                {
+                    print(MapItems.MapItems[i].drops[j].dropId);
+                    MapItems.MapItems[i].drops.RemoveAt(j);
+                }
+            }
+        }
     }
 
     public static PlayerActions GetActionById(int id)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -57,7 +58,7 @@ namespace Bronz.Ui
             craftableItemNameText.text = craftableItem.name;
             for (int i = 0; i < craftableItem.requires.Count; i++)
             {
-                if (craftableItem.requires[i].itemId == null)
+                if (craftableItem.requires[i].id < 0)
                 {
                     uiCraftingRequiredItems[i].gameObject.SetActive(false);
                     continue;
@@ -65,7 +66,11 @@ namespace Bronz.Ui
                 uiCraftingRequiredItems[i].gameObject.SetActive(true);
                 uiCraftingRequiredItems[i].Init(craftableItem.requires[i]);
             }
-            // UiInventory.check
+            //List<Item> re = UiInventory.CheckIfItemsAvailable(craftableItem);
+            //for (int i = 0; i < re.Count; i++)
+            //{
+            //    print(re[i].id + " " + re[i].duraCount);
+            //}
         }
     }
 }

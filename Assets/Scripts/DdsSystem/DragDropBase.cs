@@ -66,6 +66,19 @@ public class DragDropBase : MonoBehaviour
         return uiSlot;
     }
 
+    protected List<Item> CheckIfItemsAvailable(CraftableItem craftableItem)
+    {
+        List<Item> requiresItems = new List<Item>();
+        for (int i = 0; i < craftableItem.requires.Count; i++)
+        {
+            if (CheckIfItemAvailable(craftableItem.requires[i]))
+            {
+                requiresItems.Add(craftableItem.requires[i]);
+            }
+        }
+        return requiresItems;
+    }
+
     protected bool CheckIfItemAvailable(Item item)
     {
         int available = 0;
@@ -91,7 +104,7 @@ public class DragDropBase : MonoBehaviour
         {
             if (uiSlotItems[i].ItemId == item.id)
             {
-                int remaining = uiSlotItems[i].DecrementDuraCount(item.duraCount);
+                int remaining = uiSlotItems[i].DecrementDuraCount((int)item.duraCount);
                 item.duraCount = remaining;
                 if (remaining > 0)
                 {
@@ -126,7 +139,7 @@ public class DragDropBase : MonoBehaviour
                 {
                     continue;
                 }
-                item.duraCount = uiSlotItems[i].IncrementDuraCount(item.duraCount);
+                item.duraCount = uiSlotItems[i].IncrementDuraCount((int)item.duraCount);
                 if (item.duraCount == 0)
                 {
                     return null;
@@ -137,9 +150,9 @@ public class DragDropBase : MonoBehaviour
         {
             if (uiSlots[i].transform.childCount == 0)
             {
-                UiSlotItem uiSlotItem = InstantiateUiSlotItem(uiSlots[i].transform, new SlotItems(item.id, 0, i));
+                UiSlotItem uiSlotItem = InstantiateUiSlotItem(uiSlots[i].transform, new SlotItems((int)item.id, 0, i));
                 uiSlotItem.OnSlotItemDrop += OnSlotItemDrop;
-                item.duraCount = uiSlotItem.IncrementDuraCount(item.duraCount);
+                item.duraCount = uiSlotItem.IncrementDuraCount((int)item.duraCount);
                 AddSlotItem(uiSlotItem);
                 if (item.duraCount == 0)
                 {

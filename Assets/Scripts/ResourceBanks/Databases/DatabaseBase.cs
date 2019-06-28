@@ -20,16 +20,6 @@ public abstract class DatabaseBase<T> : Singleton<T> where T : DatabaseBase<T>
         {
             GEM.PrintDebugError("jsonFileName not mentioned");
             return;
-            //Debug.LogWarning("Json file name not given, trying to get it automagically!!!");
-            //string name = GetComponent<MonoBehaviour>().GetType().Name;
-            //name = name.Replace("Database", "");
-            //name = "Jsons/ItemDatabase - " + name;
-            //textAsset = (TextAsset)Resources.Load(name);
-            //if (textAsset == null)
-            //{
-            //    Debug.LogError("Database not loaded for " + name);
-            //    return;
-            //}
         }
         else
         {

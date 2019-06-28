@@ -113,7 +113,7 @@ public class Inu : MonoBehaviour
             }
             else
             {
-                int canAdd = stdStack - sameList[i].inuItem.item.duraCount;
+                int canAdd = stdStack - (int)sameList[i].inuItem.item.duraCount;
                 itemToAdd.duraCount -= canAdd;
                 if (itemToAdd.duraCount > 0)
                 {
@@ -154,10 +154,10 @@ public class Inu : MonoBehaviour
     {
         int draggedBgId = draggedItem.inuItem.invSlotId;
         int currentBgId = inuItem.inuItem.invSlotId;
-        int draggedItemId = draggedItem.inuItem.item.id;
-        int currentItemId = inuItem.inuItem.item.id;
-        int draggedDuraCount = draggedItem.inuItem.item.duraCount;
-        int currentDuraCount = inuItem.inuItem.item.duraCount;
+        int draggedItemId = (int)draggedItem.inuItem.item.id;
+        int currentItemId = (int)inuItem.inuItem.item.id;
+        int draggedDuraCount = (int)draggedItem.inuItem.item.duraCount;
+        int currentDuraCount = (int)inuItem.inuItem.item.duraCount;
 
         if (draggedItemId == currentItemId)//merge
         {

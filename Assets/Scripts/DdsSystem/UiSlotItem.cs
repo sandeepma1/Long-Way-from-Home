@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -20,12 +19,12 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public int ItemId
     {
-        get { return slotItem.item.id; }
+        get { return (int)slotItem.item.id; }
         set { slotItem.item.id = value; }
     }
     public int ItemDuraCount
     {
-        get { return slotItem.item.duraCount; }
+        get { return (int)slotItem.item.duraCount; }
         set { slotItem.item.duraCount = value; }
     }
     public int ItemSlotId
@@ -36,7 +35,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void Init(SlotItems slotItem)
     {
-        maxStackable = InventoryItemsDatabase.GetMaxStackableById(slotItem.item.id);
+        maxStackable = InventoryItemsDatabase.GetMaxStackableById((int)slotItem.item.id);
         this.slotItem = slotItem;
         lastDragDropBase = transform.parent.parent.GetComponent<DragDropBase>();
         gameObject.name = ItemId + "-" + ItemDuraCount;

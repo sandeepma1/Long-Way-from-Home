@@ -8,9 +8,9 @@ public class SimpleItem : MonoBehaviour
 [System.Serializable]
 public class Item
 {
-    public int id;
-    public int duraCount;
-    public Item(int id, int duraCount)
+    public int? id;
+    public int? duraCount;
+    public Item(int? id, int? duraCount)
     {
         this.id = id;
         this.duraCount = duraCount;

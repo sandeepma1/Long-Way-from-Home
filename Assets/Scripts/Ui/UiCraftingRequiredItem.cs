@@ -7,9 +7,9 @@ public class UiCraftingRequiredItem : MonoBehaviour
     [SerializeField] private Image itemIconImage;
     [SerializeField] private TextMeshProUGUI requiredText;
 
-    public void Init(Requires requires)
+    public void Init(Item item)
     {
-        itemIconImage.sprite = AtlasBank.GetMapItemSpriteById(requires.itemId ?? default); //use ?? for nullable types
-        requiredText.text = "x " + requires.count;
+        itemIconImage.sprite = AtlasBank.GetMapItemSpriteById((int)item.id);
+        requiredText.text = "x " + item.duraCount;
     }
 }

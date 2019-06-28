@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class UiFurnace : DragDropBase
 {
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         InitUiSlots();
     }
 

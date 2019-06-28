@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class MapTilesDatabase : DatabaseBase<MapTilesDatabase>
@@ -14,6 +13,10 @@ public class MapTilesDatabase : DatabaseBase<MapTilesDatabase>
         if (MapTiles.MapTiles.Length <= 0)
         {
             Debug.LogError("MapTiles db not loaded or empty");
+        }
+        else
+        {
+            GEM.PrintDebug("MapTiles loaded with " + MapTiles.MapTiles.Length + " items");
         }
         for (int i = 0; i < MapTiles.MapTiles.Length; i++)
         {
