@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class UiFurnace : DragDropBase
+﻿public class UiFurnace : DragDropBase
 {
     protected override void Start()
     {

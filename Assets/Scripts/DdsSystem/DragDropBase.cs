@@ -4,8 +4,8 @@ using UnityEngine;
 public class DragDropBase : MonoBehaviour
 {
     [SerializeField] protected FurnitureType slotItemsType = FurnitureType.None;
-    [SerializeField] protected List<UiSlotItem> uiSlotItems = new List<UiSlotItem>(); //make it private
     [SerializeField] protected UiSlot[] uiSlots;
+    protected static List<UiSlotItem> uiSlotItems = new List<UiSlotItem>(); //make it private
     protected PlayerSaveFurniture furniture;
     protected bool areUiSlotsCreated = false;
 
@@ -66,25 +66,12 @@ public class DragDropBase : MonoBehaviour
         return uiSlot;
     }
 
-    protected List<Item> CheckIfItemsAvailable(CraftableItem craftableItem)
-    {
-        List<Item> requiresItems = new List<Item>();
-        for (int i = 0; i < craftableItem.requires.Count; i++)
-        {
-            if (CheckIfItemAvailable(craftableItem.requires[i]))
-            {
-                requiresItems.Add(craftableItem.requires[i]);
-            }
-        }
-        return requiresItems;
-    }
-
-    protected bool CheckIfItemAvailable(Item item)
+    protected static bool CheckIfItemAvailable(Item item)
     {
         int available = 0;
         for (int i = 0; i < uiSlotItems.Count; i++)
         {
-            if (uiSlotItems[i].ItemId == item.id)
+            if (uiSlotItems[i].ItemId == item.id.Value)
             {
                 available += uiSlotItems[i].ItemDuraCount;
                 if (available >= item.duraCount)
@@ -102,7 +89,7 @@ public class DragDropBase : MonoBehaviour
         //reverse forloop as removing items from list in loop is not good
         for (int i = uiSlotItems.Count - 1; i >= 0; i--)
         {
-            if (uiSlotItems[i].ItemId == item.id)
+            if (uiSlotItems[i].ItemId == item.id.Value)
             {
                 int remaining = uiSlotItems[i].DecrementDuraCount((int)item.duraCount);
                 item.duraCount = remaining;
@@ -133,7 +120,7 @@ public class DragDropBase : MonoBehaviour
         Item item = new Item(itemToAdd.id, itemToAdd.duraCount);
         for (int i = 0; i < uiSlotItems.Count; i++)
         {
-            if (uiSlotItems[i].ItemId == item.id)
+            if (uiSlotItems[i].ItemId == item.id.Value)
             {
                 if (uiSlotItems[i].IsStackMax())
                 {

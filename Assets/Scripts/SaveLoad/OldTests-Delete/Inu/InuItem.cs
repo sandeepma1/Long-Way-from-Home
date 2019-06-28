@@ -15,7 +15,7 @@ public class InuItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHand
     public void UpdateTextValues()
     {
         valText.text = inuItem.item.duraCount.ToString();
-        idText.text = inuItem.item.id.ToString();
+        idText.text = inuItem.item.id.Value.ToString();
     }
 
     public void OnBeginDrag(PointerEventData eventData)

@@ -19,7 +19,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public int ItemId
     {
-        get { return (int)slotItem.item.id; }
+        get { return slotItem.item.id.Value; }
         set { slotItem.item.id = value; }
     }
     public int ItemDuraCount

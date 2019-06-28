@@ -63,7 +63,7 @@ namespace Bronz.Ui
         public void OnAddItemToInventory(Item itemToAdd)
         {
             AddSlotItemReturnRemaining(itemToAdd);
-            GEM.PrintDebug("item added to inventory " + itemToAdd.id);
+            GEM.PrintDebug("item added to inventory " + itemToAdd.id.Value);
         }
 
         private void Update()
@@ -80,8 +80,7 @@ namespace Bronz.Ui
 
             if (Input.GetMouseButtonUp(1))
             {
-                print(InventoryItemsDatabase.InventoryItems.InventoryItems.Length);
-                Item item = new Item(UnityEngine.Random.Range(0, 11), UnityEngine.Random.Range(1, 5));
+                Item item = new Item(UnityEngine.Random.Range(0, 9), UnityEngine.Random.Range(1, 5));
                 AddSlotItemReturnRemaining(item);
             }
         }
@@ -104,6 +103,19 @@ namespace Bronz.Ui
                 UiPlayerControlCanvas.OnToggleControlsView(true);
                 parentPanelRectTransform.DOAnchorPos(new Vector2(0, -270), moveDuration);
             }
+        }
+
+        public static List<Item> CheckIfItemsAvailable(CraftableItem craftableItem)
+        {
+            List<Item> requiresItems = new List<Item>();
+            for (int i = 0; i < craftableItem.requires.Count; i++)
+            {
+                if (CheckIfItemAvailable(craftableItem.requires[i]))
+                {
+                    requiresItems.Add(craftableItem.requires[i]);
+                }
+            }
+            return requiresItems;
         }
     }
 }

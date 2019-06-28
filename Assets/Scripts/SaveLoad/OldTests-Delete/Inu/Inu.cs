@@ -88,7 +88,7 @@ public class Inu : MonoBehaviour
         List<InuItem> sameItems = new List<InuItem>();
         for (int i = 0; i < inuItems.Count; i++)
         {
-            if (inuItems[i].inuItem.item.id == item.id)
+            if (inuItems[i].inuItem.item.id.Value == item.id.Value)
             {
                 sameItems.Add(inuItems[i]);
             }

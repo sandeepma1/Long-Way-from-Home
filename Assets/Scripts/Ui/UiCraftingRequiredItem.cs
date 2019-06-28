@@ -9,7 +9,7 @@ public class UiCraftingRequiredItem : MonoBehaviour
 
     public void Init(Item item)
     {
-        itemIconImage.sprite = AtlasBank.GetMapItemSpriteById((int)item.id);
+        itemIconImage.sprite = AtlasBank.GetMapItemSpriteById(item.id.Value);
         requiredText.text = "x " + item.duraCount;
     }
 }
