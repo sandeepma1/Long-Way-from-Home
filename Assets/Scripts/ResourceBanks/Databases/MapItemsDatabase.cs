@@ -16,7 +16,6 @@ public class MapItemsDatabase : DatabaseBase<MapItemsDatabase>
             {
                 if (MapItems.MapItems[i].drops[j].dropId == null)
                 {
-                    print(MapItems.MapItems[i].drops[j].dropId);
                     MapItems.MapItems[i].drops.RemoveAt(j);
                 }
             }

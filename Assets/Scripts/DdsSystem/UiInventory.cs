@@ -12,13 +12,12 @@ namespace Bronz.Ui
         [SerializeField] private Item itemToAdd;
         [SerializeField] private Transform parentPanel;
         private RectTransform parentPanelRectTransform;
-        private bool isInventoryUp = false;
         private const float moveDuration = 0.1f;
 
         protected override void Start()
         {
+            UiAllMenusCanvas.OnMoveInventoryPanel += OnMoveInventoryPanel;
             parentPanelRectTransform = parentPanel.GetComponent<RectTransform>();
-            UiPlayerControlCanvas.OnInventoryButtonClicked += OnInventoryButtonClicked;
             base.Start();
             AddItemToInventory += OnAddItemToInventory;
             if (!areUiSlotsCreated)
@@ -35,8 +34,22 @@ namespace Bronz.Ui
 
         private void OnDestroy()
         {
-            UiPlayerControlCanvas.OnInventoryButtonClicked -= OnInventoryButtonClicked;
+            UiAllMenusCanvas.OnMoveInventoryPanel -= OnMoveInventoryPanel;
             AddItemToInventory -= OnAddItemToInventory;
+        }
+
+        private void Update()
+        {
+            if (Input.GetMouseButtonUp(2))
+            {
+                Item item = new Item(UnityEngine.Random.Range(0, 9), UnityEngine.Random.Range(1, 5));
+                AddSlotItemReturnRemaining(item);
+            }
+        }
+
+        private void OnMoveInventoryPanel(RectTransform parent)
+        {
+            parentPanelRectTransform.SetAndStretchToParentSize(parent);
         }
 
         protected override void CreateUiSlots()
@@ -64,45 +77,6 @@ namespace Bronz.Ui
         {
             AddSlotItemReturnRemaining(itemToAdd);
             GEM.PrintDebug("item added to inventory " + itemToAdd.id.Value);
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                AddSlotItemReturnRemaining(itemToAdd);
-            }
-
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                print(CheckIfItemAvailable(itemToAdd));
-            }
-
-            if (Input.GetMouseButtonUp(1))
-            {
-                Item item = new Item(UnityEngine.Random.Range(0, 9), UnityEngine.Random.Range(1, 5));
-                AddSlotItemReturnRemaining(item);
-            }
-        }
-
-        private void OnInventoryButtonClicked()
-        {
-            isInventoryUp = !isInventoryUp;
-            ToggleInventoryView(isInventoryUp);
-        }
-
-        private void ToggleInventoryView(bool flag)
-        {
-            if (flag) // hide panel
-            {
-                parentPanelRectTransform.DOAnchorPos(new Vector2(0, 0), moveDuration);
-                UiPlayerControlCanvas.OnToggleControlsView(false);
-            }
-            else  // show panel
-            {
-                UiPlayerControlCanvas.OnToggleControlsView(true);
-                parentPanelRectTransform.DOAnchorPos(new Vector2(0, -270), moveDuration);
-            }
         }
 
         public static List<Item> CheckIfItemsAvailable(CraftableItem craftableItem)

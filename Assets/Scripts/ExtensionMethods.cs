@@ -72,4 +72,14 @@ public static class ExtensionMethods
         }
         return single;
     }
+
+    public static void SetAndStretchToParentSize(this RectTransform _mRect, RectTransform _parent)
+    {
+        _mRect.transform.SetParent(_parent);
+        _mRect.anchoredPosition3D = Vector3.zero;
+        _mRect.anchorMin = new Vector2(0, 0);
+        _mRect.anchorMax = new Vector2(1, 1);
+        _mRect.pivot = new Vector2(0.5f, 0.5f);
+        _mRect.sizeDelta = Vector2.zero;
+    }
 }
