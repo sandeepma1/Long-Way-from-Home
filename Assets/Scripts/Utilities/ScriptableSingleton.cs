@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace HarvestValley.Utilities
+namespace Bronz.Utilities
 {
     /// <summary>
     /// Warning: Any ScriptableSingleton should be in Resources folder.

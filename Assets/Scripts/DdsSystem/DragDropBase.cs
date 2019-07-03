@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DragDropBase : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] protected FurnitureType slotItemsType = FurnitureType.None;
     [SerializeField] protected UiSlot[] uiSlots;
     protected static List<UiSlotItem> uiSlotItems = new List<UiSlotItem>(); //make it private
     protected PlayerSaveFurniture furniture;
     protected bool areUiSlotsCreated = false;
-
+    private UiSlot lastClickedUiSlot;
     protected virtual void Start()
     {
         MasterSave.RequestSaveData += RequestSaveData;
@@ -63,7 +65,30 @@ public class DragDropBase : MonoBehaviour
         uiSlot.OnSlotDrop += OnSlotDrop;
         uiSlot.id = id;
         uiSlot.name = "UiSlot" + id.ToString();
+        uiSlot.OnUiSlotClicked += OnUiSlotClicked;
         return uiSlot;
+    }
+
+    private void OnUiSlotClicked(UiSlot uiSlot, Item item)
+    {
+        uiSlot.SetSpriteToSelected();
+        if (lastClickedUiSlot != null)
+        {
+            lastClickedUiSlot.SetSpriteToNormal();
+        }
+        lastClickedUiSlot = uiSlot;
+
+        if (itemNameText != null)
+        {
+            if (item == null)
+            {
+                itemNameText.text = "";
+            }
+            else
+            {
+                itemNameText.text = InventoryItemsDatabase.GetSlugById((int)item.id);
+            }
+        }
     }
 
     protected static bool CheckIfItemAvailable(Item item)

@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UiSpritesAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: c3830975c85430a4aa5dd5d649b12d02, type: 3}
+    totalSpriteSurfaceArea: 1569
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: ccb64f803feee0748bf8594e390e4242, type: 3}
+  - {fileID: 21300000, guid: 314436f0eeccda54dbe704b71f860db6, type: 3}
+  - {fileID: 21300000, guid: 5a0b45331705dad449cf737fde3801c8, type: 3}
+  - {fileID: 21300000, guid: eeb6df7315ef3be4796b807c914a9163, type: 3}
+  - {fileID: 21300000, guid: b2741f39f86cff843ad086a22b9dbf80, type: 3}
+  - {fileID: 21300000, guid: c21c3d2e4a32c804e86849d19ca8fad7, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - windowBorder_oneMinus
+  - windowBorder
+  - hudBackground
+  - MenuTabs
+  - UiSlotBackground
+  - UiSlotSelector
+  m_Tag: UiSpritesAtlas
+  m_IsVariant: 0

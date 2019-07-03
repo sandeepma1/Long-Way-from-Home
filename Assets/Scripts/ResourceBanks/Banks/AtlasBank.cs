@@ -5,6 +5,7 @@ using UnityEngine.U2D;
 
 public class AtlasBank : MonoBehaviour
 {
+    private static SpriteAtlas uiSpriteAtlas;
     private static SpriteAtlas inventoryAtlas;
     private static SpriteAtlas mapItemsAtlas;
     private static SpriteAtlas mapTilesAtlas;
@@ -13,11 +14,17 @@ public class AtlasBank : MonoBehaviour
 
     private void Awake()
     {
+        uiSpriteAtlas = PrefabBank.uiSpritesAtlas;
         inventoryAtlas = PrefabBank.inventoryItemsAtlas;
         mapItemsAtlas = PrefabBank.mapItemsAtlas;
         miscAtlas = PrefabBank.miscAtlas;
         mapTilesAtlas = PrefabBank.mapTilesAtlas;
         missingSprite = GetSprite("Blockx100", AtlasType.Misc);
+    }
+
+    public static Sprite GetUiSpritesByName(string name)
+    {
+        return GetSprite(name, AtlasType.UiSprites);
     }
 
     public static Sprite GetMapItemSpriteById(int itemId)
@@ -45,6 +52,9 @@ public class AtlasBank : MonoBehaviour
         Sprite sprite = null;
         switch (type)
         {
+            case AtlasType.UiSprites:
+                sprite = uiSpriteAtlas.GetSprite(name);
+                break;
             case AtlasType.InventoryItems:
                 sprite = inventoryAtlas.GetSprite(name);
                 break;
@@ -70,6 +80,7 @@ public class AtlasBank : MonoBehaviour
 
 public enum AtlasType
 {
+    UiSprites,
     InventoryItems,
     MapItems,
     MapTiles,

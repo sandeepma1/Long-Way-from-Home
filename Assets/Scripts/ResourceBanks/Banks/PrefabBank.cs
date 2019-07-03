@@ -8,6 +8,7 @@ public class PrefabBank : MonoBehaviour
     public static UiCraftingRequiredItem uiCraftingRequiredItem;
     public static UiCraftingItem uiCraftingItem;
 
+    public static SpriteAtlas uiSpritesAtlas;
     public static SpriteAtlas mapItemsAtlas;
     public static SpriteAtlas mapTilesAtlas;
     public static SpriteAtlas miscAtlas;
@@ -30,6 +31,7 @@ public class PrefabBank : MonoBehaviour
         mapTilesAtlas = Resources.Load<SpriteAtlas>("Atlas/MapTilesAtlas");
         miscAtlas = Resources.Load<SpriteAtlas>("Atlas/MiscAtlas");
         inventoryItemsAtlas = Resources.Load<SpriteAtlas>("Atlas/InventoryItemsAtlas");
+        uiSpritesAtlas = Resources.Load<SpriteAtlas>("Atlas/UiSpritesAtlas");
 
         uiSlotPrefab = Resources.Load<UiSlot>("Prefabs/UiPrefabs/UiSlot");
         uiSlotItemPrefab = Resources.Load<UiSlotItem>("Prefabs/UiPrefabs/UiSlotitem");

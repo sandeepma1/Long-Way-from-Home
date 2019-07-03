@@ -12,12 +12,13 @@ namespace Bronz.Ui
         [SerializeField] private Item itemToAdd;
         [SerializeField] private Transform parentPanel;
         private RectTransform parentPanelRectTransform;
+        private RectTransform thisRectTransform;
         private const float moveDuration = 0.1f;
 
         protected override void Start()
         {
-            UiAllMenusCanvas.OnMoveInventoryPanel += OnMoveInventoryPanel;
-            parentPanelRectTransform = parentPanel.GetComponent<RectTransform>();
+            thisRectTransform = GetComponent<RectTransform>();
+            UiAllMenusCanvas.OnMoveInventoryPanel += OnMoveInventoryPanelToAnotherPanel;
             base.Start();
             AddItemToInventory += OnAddItemToInventory;
             if (!areUiSlotsCreated)
@@ -34,7 +35,7 @@ namespace Bronz.Ui
 
         private void OnDestroy()
         {
-            UiAllMenusCanvas.OnMoveInventoryPanel -= OnMoveInventoryPanel;
+            UiAllMenusCanvas.OnMoveInventoryPanel -= OnMoveInventoryPanelToAnotherPanel;
             AddItemToInventory -= OnAddItemToInventory;
         }
 
@@ -47,9 +48,9 @@ namespace Bronz.Ui
             }
         }
 
-        private void OnMoveInventoryPanel(RectTransform parent)
+        private void OnMoveInventoryPanelToAnotherPanel(RectTransform parent)
         {
-            parentPanelRectTransform.SetAndStretchToParentSize(parent);
+            thisRectTransform.SetAndStretchToParentSize(parent);
         }
 
         protected override void CreateUiSlots()

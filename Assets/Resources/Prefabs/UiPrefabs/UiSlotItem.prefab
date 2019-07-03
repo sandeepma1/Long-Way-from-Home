@@ -113,7 +113,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: -20}
+  m_SizeDelta: {x: -16, y: -16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1031333802318284617
 CanvasRenderer:
@@ -136,15 +136,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9150943, g: 0.5395603, b: 0.5395603, a: 0.39215687}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 93341d50a0ce60649a7bf17a0da8d2e4, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2aa8e54da931e942bbeac00c615f562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxStack: 0
+  maxStackable: 0
   dropType: 0
   lastDragDropBase: {fileID: 0}
   lastParent: {fileID: 0}
@@ -172,9 +172,6 @@ MonoBehaviour:
   countText: {fileID: 5519623930619179279}
   image: {fileID: 1031333802318284622}
   slotItem:
-    item:
-      id: 0
-      duraCount: 0
     invSlotId: 0
 --- !u!1 &7851632468873602959
 GameObject:
