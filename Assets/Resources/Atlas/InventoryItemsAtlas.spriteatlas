@@ -31,28 +31,64 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 2800000, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
-    totalSpriteSurfaceArea: 2304
+    totalSpriteSurfaceArea: 6912
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 2524048884422963940, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: -6028650366739149073, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
   - {fileID: 8648822512753860137, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: -7997845970612016734, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
   - {fileID: -61507124638633176, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: 3270808615265876699, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: 9063825564124293119, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: -8623789646230292984, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
   - {fileID: -1949760743246841575, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: -3573675141517443807, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
   - {fileID: -4204080491989574595, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: -2687534873909326591, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
   - {fileID: -5468925804600028722, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
   - {fileID: -5334877633514597255, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: 472002234309354747, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: -676894391611082215, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: -8096843291223932549, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
   - {fileID: 3031820995386168073, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: 872726834942113571, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: 2197051851800036995, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: 1513230277251301640, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: -5916795752320230365, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
   - {fileID: 4706875603367313408, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
   - {fileID: 4589751714783062387, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: -8486857536881756168, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: 8860233558306054320, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
+  - {fileID: -4479802803612490419, guid: 918ceea7b67fed94c9cdc9b0df6d160c, type: 3}
   m_PackedSpriteNamesToIndex:
+  - InventoryItemsSprites_13
+  - copperpickaxe
   - grass
+  - goldaxe
   - stone
+  - ironaxe
+  - diamondaxe
+  - stonepickaxe
   - stick
+  - stoneaxe
   - coal
+  - copperaxe
   - berries
   - radish
+  - diamondpickaxe
+  - stonehoe
+  - goldpickaxe
   - flint
+  - InventoryItemsSprites_3
+  - InventoryItemsSprites_0
+  - InventoryItemsSprites_4
+  - InventoryItemsSprites_5
   - log
   - starfish
+  - ironpickaxe
+  - bonfire
+  - shovel
   m_Tag: InventoryItemsAtlas
   m_IsVariant: 0

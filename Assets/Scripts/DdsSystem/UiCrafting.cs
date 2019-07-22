@@ -9,6 +9,7 @@ namespace Bronz.Ui
     public class UiCrafting : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI craftableItemNameText;
+        [SerializeField] private TextMeshProUGUI craftableItemDescriptionText;
         [SerializeField] private Transform craftingRequiredParent;
         [SerializeField] private Transform craftingItemsParent;
         [SerializeField] private Button craftButton;
@@ -17,8 +18,19 @@ namespace Bronz.Ui
         private UiCraftingItem[] uiCraftingItems;
         private UiCraftingRequiredItem uiCraftingRequiredItemPrefab;
         private UiCraftingRequiredItem[] uiCraftingRequiredItems = new UiCraftingRequiredItem[4];
+        private CraftableItem craftableCraftableItem = null;
 
         private void Start()
+        {
+            InitCraftingMenu();
+        }
+
+        private void OnDestroy()
+        {
+            craftButton.onClick.RemoveListener(OnCraftButtonClicked);
+        }
+
+        private void InitCraftingMenu()
         {
             craftButton.onClick.AddListener(OnCraftButtonClicked);
             craftButton.interactable = false;
@@ -41,14 +53,13 @@ namespace Bronz.Ui
             }
         }
 
-        private void OnDestroy()
-        {
-            craftButton.onClick.RemoveListener(OnCraftButtonClicked);
-        }
-
         private void OnCraftButtonClicked()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < craftableCraftableItem.requires.Count; i++)
+            {
+                UiInventory.RemoveItemFromInventory?.Invoke(craftableCraftableItem.requires[i]);
+            }
+            UiInventory.AddItemToInventory?.Invoke(craftableCraftableItem.creates);
         }
 
         private void OnCraftableItemClicked(CraftableItem craftableItem, Transform itemTransform)
@@ -56,6 +67,7 @@ namespace Bronz.Ui
             selectionBox.SetParent(itemTransform);
             selectionBox.anchoredPosition = Vector3.zero;
             craftableItemNameText.text = craftableItem.name;
+            craftableItemDescriptionText.text = "Description: (implement here) " + craftableItem.name;
             for (int i = 0; i < craftableItem.requires.Count; i++)
             {
                 if (craftableItem.requires[i].id.Value < 0)
@@ -66,10 +78,36 @@ namespace Bronz.Ui
                 uiCraftingRequiredItems[i].gameObject.SetActive(true);
                 uiCraftingRequiredItems[i].Init(craftableItem.requires[i]);
             }
-            List<Item> re = UiInventory.CheckIfItemsAvailable(craftableItem);
-            for (int i = 0; i < re.Count; i++)
+            CheckIfCraftable(craftableItem);
+        }
+
+        private void CheckIfCraftable(CraftableItem craftableItem)
+        {
+            bool hasAllItems = true;
+            List<Item> gotItems = UiInventory.CheckIfItemsAvailable(craftableItem);
+            if (gotItems.Count != craftableItem.requires.Count)
             {
-                print(re[i].id + " " + re[i].duraCount + " count " + re.Count);
+                hasAllItems = false;
+            }
+            else
+            {
+                for (int i = 0; i < gotItems.Count; i++)
+                {
+                    if (gotItems[i] != null)
+                    {
+                        print("want id " + craftableItem.requires[i].id + " with count " + craftableItem.requires[i].duraCount + " X got id " + gotItems[i].id + " with count " + gotItems[i].duraCount);
+                        if (gotItems[i].duraCount < craftableItem.requires[i].duraCount)
+                        {
+                            hasAllItems = false;
+                        }
+                    }
+                }
+            }
+
+            craftButton.interactable = hasAllItems;
+            if (hasAllItems)
+            {
+                craftableCraftableItem = craftableItem;
             }
         }
     }

@@ -187,7 +187,7 @@ public class DragDropBase : MonoBehaviour
     #region Actions from Slot and SlotItems
     protected void OnSlotDrop(UiSlot uiSlot, UiSlotItem uiSlotItem)
     {
-        if (uiSlot.transform.childCount == 0)
+        if (uiSlot.transform.childCount == 0 && uiSlotItem != null)
         {
             uiSlotItem.SetParent(uiSlot.transform, uiSlot.id);
             AddSlotItem(uiSlotItem);

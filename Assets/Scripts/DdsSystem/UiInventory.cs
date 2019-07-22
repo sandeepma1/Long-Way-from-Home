@@ -8,6 +8,7 @@ namespace Bronz.Ui
     public class UiInventory : DragDropBase
     {
         public static Action<Item> AddItemToInventory;
+        public static Action<Item> RemoveItemFromInventory;
         [SerializeField] private int slotCount = 5;
         [SerializeField] private Item itemToAdd;
         [SerializeField] private Transform parentPanel;
@@ -21,6 +22,7 @@ namespace Bronz.Ui
             UiAllMenusCanvas.OnMoveInventoryPanel += OnMoveInventoryPanelToAnotherPanel;
             base.Start();
             AddItemToInventory += OnAddItemToInventory;
+            RemoveItemFromInventory += OnRemoveItemFromInventory;
             if (!areUiSlotsCreated)
             {
                 GEM.PrintDebug("CreateUiSlots UiInventory");
@@ -37,6 +39,7 @@ namespace Bronz.Ui
         {
             UiAllMenusCanvas.OnMoveInventoryPanel -= OnMoveInventoryPanelToAnotherPanel;
             AddItemToInventory -= OnAddItemToInventory;
+            RemoveItemFromInventory -= OnRemoveItemFromInventory;
         }
 
         private void Update()
@@ -74,10 +77,19 @@ namespace Bronz.Ui
             GEM.PrintDebug("called derived");
         }
 
-        public void OnAddItemToInventory(Item itemToAdd)
+        private void OnAddItemToInventory(Item itemToAdd)
         {
             AddSlotItemReturnRemaining(itemToAdd);
             GEM.PrintDebug("item added to inventory " + itemToAdd.id.Value);
+        }
+
+        private void OnRemoveItemFromInventory(Item itemToRemove)
+        {
+            Item itemsNeeded = RemoveSlotItemReturnNeeded(itemToRemove);
+            if (itemsNeeded != null)
+            {
+                print("All items removed nothing needed");
+            }
         }
 
         public static List<Item> CheckIfItemsAvailable(CraftableItem craftableItem)

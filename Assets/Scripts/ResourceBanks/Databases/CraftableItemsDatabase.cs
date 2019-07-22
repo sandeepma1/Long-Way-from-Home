@@ -50,10 +50,10 @@ public class CraftableItemsDb
 [System.Serializable]
 public class CraftableItem
 {
-    public int id;
+    public Item creates;
     public string name;
     public string slug;
-    public int creates;
+    public int amount;
     public List<Item> requires;
 }
 

@@ -39,6 +39,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         this.slotItem = slotItem;
         lastDragDropBase = transform.parent.parent.GetComponent<DragDropBase>();
         gameObject.name = ItemId + "-" + ItemDuraCount;
+        SetLastDDBaseParent();
     }
 
     private void SetParent(Transform parent)
@@ -126,7 +127,14 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     public void UpdateText()
     {
         itemImage.sprite = AtlasBank.GetInventoryItemSpriteById(ItemId);
-        countText.text = ItemDuraCount.ToString();
+        if (ItemDuraCount > 1)
+        {
+            countText.text = ItemDuraCount.ToString();
+        }
+        else
+        {
+            countText.text = "";
+        }
         gameObject.name = ItemId + "-" + ItemDuraCount;
     }
 
@@ -142,9 +150,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void RemovedFromThis()
     {
-        //TODO: What the hell is this, refactor it
-        lastDragDropBase = transform.parent.parent.parent.GetComponent<DragDropBase>();
-        lastParent = transform.parent;
+        SetLastDDBaseParent();
         lastDragDropBase.RemoveSlotItem(this);
         SetParent(UiMainCanvas.mainCanvas);
         image.raycastTarget = false;
@@ -152,8 +158,16 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     private void DestroyAndRemoveFromList()
     {
+        SetLastDDBaseParent();
         lastDragDropBase.RemoveSlotItem(this);
         Destroy(this.gameObject);
+    }
+
+    private void SetLastDDBaseParent()
+    {
+        //TODO: What the hell is this, refactor it
+        lastDragDropBase = transform.parent.parent.parent.GetComponent<DragDropBase>();
+        lastParent = transform.parent;
     }
 
     public void AddInThis(DragDropBase tempDragDropBase, Transform tempTransform, int slotId)

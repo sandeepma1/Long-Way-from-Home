@@ -1,1 +1,85 @@
-{"CraftableItems":[{"id":0,"name":"Stone Axe","slug":"stoneaxe","creates":9,"requires":[{"id":4,"duraCount":2},{"id":0,"duraCount":1},{"id":null,"duraCount":null},{"id":null,"duraCount":null}]},{"id":1,"name":"Stone Pickaxe","slug":"stonepickaxe","creates":10,"requires":[{"id":4,"duraCount":2},{"id":0,"duraCount":2},{"id":null,"duraCount":null},{"id":null,"duraCount":null}]}]}
+{
+  "CraftableItems": [
+    {
+      "id": 0,
+      "name": "Stone Axe",
+      "slug": "stoneaxe",
+      "creates": {
+        "id": 9,
+        "duraCount": 1
+      },
+      "requires": [
+        {
+          "id": 4,
+          "duraCount": 2
+        },
+        {
+          "id": 0,
+          "duraCount": 1
+        },
+        {
+          "id": null,
+          "duraCount": null
+        },
+        {
+          "id": null,
+          "duraCount": null
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Stone Pickaxe",
+      "slug": "stonepickaxe",
+      "creates": {
+        "id": 10,
+        "duraCount": 1
+      },
+      "requires": [
+        {
+          "id": 4,
+          "duraCount": 2
+        },
+        {
+          "id": 0,
+          "duraCount": 2
+        },
+        {
+          "id": null,
+          "duraCount": null
+        },
+        {
+          "id": null,
+          "duraCount": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Bonfire",
+      "slug": "bonfire",
+      "creates": {
+        "id": 11,
+        "duraCount": 1
+      },
+      "requires": [
+        {
+          "id": 5,
+          "duraCount": 4
+        },
+        {
+          "id": 4,
+          "duraCount": 10
+        },
+        {
+          "id": 3,
+          "duraCount": 5
+        },
+        {
+          "id": null,
+          "duraCount": null
+        }
+      ]
+    }
+  ]
+}
