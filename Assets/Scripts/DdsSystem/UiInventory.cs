@@ -10,6 +10,7 @@ namespace Bronz.Ui
         public static Action<Item, bool> AddItemToInventory;
         public static Action<Item, bool> RemoveItemFromInventory;
         public static Action OnUiInventoryUpdated;
+        [SerializeField] private GameObject otherOptionsPanel;
         [SerializeField] private Button deleteItemButton;
         [SerializeField] private int slotCount = 5;
         [SerializeField] private Item itemToAdd;
@@ -23,9 +24,10 @@ namespace Bronz.Ui
             thisRectTransform = GetComponent<RectTransform>();
             UiAllMenusCanvas.OnMoveInventoryPanel += OnMoveInventoryPanelToAnotherPanel;
             base.Start();
+            InitOtherOptions();
             AddItemToInventory += OnAddItemToInventory;
             RemoveItemFromInventory += OnRemoveItemFromInventory;
-            deleteItemButton.onClick.AddListener(OnDeleteItemButtonClick);
+
             if (!areUiSlotsCreated)
             {
                 GEM.PrintDebug("CreateUiSlots UiInventory");
@@ -57,6 +59,13 @@ namespace Bronz.Ui
 
         #region UiInventory Buttons
 
+        private void InitOtherOptions()
+        {
+            deleteItemButton.onClick.AddListener(OnDeleteItemButtonClick);
+            //all other options int goes here like split, delete, etc
+            otherOptionsPanel.SetActive(false);
+        }
+
         private void OnDeleteItemButtonClick()
         {
             DeleteSlectedUiSlotItem();
@@ -65,8 +74,9 @@ namespace Bronz.Ui
 
         #endregion
 
-        private void OnMoveInventoryPanelToAnotherPanel(RectTransform parent)
+        private void OnMoveInventoryPanelToAnotherPanel(RectTransform parent, bool showOtherOptionsPanel = false)
         {
+            otherOptionsPanel.SetActive(showOtherOptionsPanel);
             thisRectTransform.SetAndStretchToParentSize(parent);
         }
 

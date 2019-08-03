@@ -138,16 +138,6 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         gameObject.name = ItemId + "-" + ItemDuraCount;
     }
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        transform.position = eventData.position;
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        RemovedFromThis();
-    }
-
     public void RemovedFromThis()
     {
         SetLastDDBaseParent();
@@ -179,6 +169,17 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         image.raycastTarget = true;
     }
 
+    #region --Drag PointerEventData--
+    public void OnDrag(PointerEventData eventData)
+    {
+        transform.position = eventData.position;
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        RemovedFromThis();
+    }
+
     public void OnEndDrag(PointerEventData eventData)
     {
         OnSlotEndDrag?.Invoke(eventData);
@@ -195,6 +196,8 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         OnSlotItemDrop?.Invoke(this, eventData.pointerDrag.GetComponent<UiSlotItem>());
     }
+
+    #endregion
 }
 
 //BeginDrag

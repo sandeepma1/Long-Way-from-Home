@@ -6,7 +6,7 @@ namespace Bronz.Ui
 {
     public class UiAllMenusCanvas : MonoBehaviour
     {
-        public static Action<RectTransform> OnMoveInventoryPanel;
+        public static Action<RectTransform, bool> OnMoveInventoryPanel;
         [SerializeField] private RectTransform inventoryPanel;
         [SerializeField] private RectTransform mainPanel;
         [SerializeField] private RectTransform inventoryPanelInCrafting;
@@ -42,22 +42,22 @@ namespace Bronz.Ui
             if (isThisMenuVisible)
             {
                 inventoryPanel.SetAsLastSibling();
-                OnMoveInventoryPanel?.Invoke(inventoryPanelInInventory);
+                OnMoveInventoryPanel?.Invoke(inventoryPanelInInventory, true);
             }
             else
             {
-                OnMoveInventoryPanel?.Invoke(UiHotBarCanvas.hotBarPanelHolder);
+                OnMoveInventoryPanel?.Invoke(UiHotBarCanvas.hotBarPanelHolder, false);
             }
         }
 
         private void OnInventoryTabButtonClicked()
         {
-            OnMoveInventoryPanel?.Invoke(inventoryPanelInInventory);
+            OnMoveInventoryPanel?.Invoke(inventoryPanelInInventory, true);
         }
 
         private void OnCraftingTabButtonClicked()
         {
-            OnMoveInventoryPanel?.Invoke(inventoryPanelInCrafting);
+            OnMoveInventoryPanel?.Invoke(inventoryPanelInCrafting, true);
         }
 
         private void OnSkillsTabButtonClicked()

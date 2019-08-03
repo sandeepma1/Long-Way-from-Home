@@ -93,6 +93,7 @@ public class DragDropBase : MonoBehaviour
                 itemNameText.text = InventoryItemsDatabase.GetSlugById((int)uislotItem.ItemId);
             }
         }
+        //print(InventoryItemsDatabase. uislotItem.ItemSlotId)
     }
 
     protected static bool CheckIfItemAvailable(Item item)

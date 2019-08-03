@@ -50,4 +50,28 @@ public class InventoryItems
     public string slug;
     public int maxStackable;
     public int hitPoints;
+    public InventoryItemType inventoryItemType;
+}
+
+public enum ToolType
+{
+    axe,
+    pickaxe,
+    shovel,
+    hammer,
+    fishingPole,
+    hand,
+    scyth
+}
+
+public enum InventoryItemType
+{
+    none,
+    food,
+    equip,
+    pickaxe,
+    axe,
+    shovel,
+    weapon,
+    placeable
 }

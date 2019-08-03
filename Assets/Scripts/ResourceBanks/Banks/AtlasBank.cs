@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.U2D;
 
 public class AtlasBank : MonoBehaviour
@@ -71,7 +69,7 @@ public class AtlasBank : MonoBehaviour
 
         if (sprite == null)
         {
-            //Debug.Log("Sprite named " + name + " not found in Bank Type " + type);
+            GEM.PrintDebugWarning("Sprite named " + name + " not found in Bank Type " + type);
             sprite = missingSprite;
         }
         return sprite;
