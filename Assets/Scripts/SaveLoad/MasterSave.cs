@@ -14,7 +14,7 @@ public class MasterSave : Singleton<MasterSave>
     protected override void Awake()
     {
         playerSaveAllFurnitures = new PlayerSaveAllFurnitures();
-        print("MasterSave Awake");
+        GEM.PrintDebug("MasterSave Awake");
         if (SaveGame.Exists(GEM.AllFurnituresSaveName))
         {
             playerSaveAllFurnitures = SaveGame.Load<PlayerSaveAllFurnitures>(GEM.AllFurnituresSaveName);
@@ -86,7 +86,7 @@ public class MasterSave : Singleton<MasterSave>
 
     public static PlayerSavePlayerInfo LoadPlayerInfo()
     {
-        print("Loading PlayerInfo data...");
+        GEM.PrintDebug("Loading PlayerInfo data...");
         if (!SaveGame.Exists(GEM.PlayerInfoSaveName))
         {
             GEM.PrintDebugWarning("PlayerInfo not found, creating new default data and saving");
@@ -135,7 +135,7 @@ public class MasterSave : Singleton<MasterSave>
 
     public static PlayerSaveFurniture LoadInventory()
     {
-        print("Loading playerInventory data...");
+        GEM.PrintDebug("Loading playerInventory data...");
         if (playerSaveAllFurnitures == null)
         {
             return null;
@@ -145,13 +145,13 @@ public class MasterSave : Singleton<MasterSave>
 
     public static List<PlayerSaveFurniture> LoadChests()
     {
-        print("Loading playerChests data...");
+        GEM.PrintDebug("Loading playerChests data...");
         return playerSaveAllFurnitures.playerChests;
     }
 
     public static List<PlayerSaveFurniture> LoadFurnaces()
     {
-        print("Loading playerFurnaces data...");
+        GEM.PrintDebug("Loading playerFurnaces data...");
         return playerSaveAllFurnitures.playerFurnaces;
     }
     #endregion

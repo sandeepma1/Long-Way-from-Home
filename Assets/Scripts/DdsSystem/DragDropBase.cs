@@ -11,6 +11,8 @@ public class DragDropBase : MonoBehaviour
     protected PlayerSaveFurniture furniture;
     protected bool areUiSlotsCreated = false;
     private UiSlot lastClickedUiSlot;
+    private UiSlotItem lastClickedUiSlotItem;
+
     protected virtual void Start()
     {
         MasterSave.RequestSaveData += RequestSaveData;
@@ -45,7 +47,7 @@ public class DragDropBase : MonoBehaviour
 
     protected virtual void CreateUiSlots()
     {
-        print("virtual class called CreateUiSlots");
+        GEM.PrintDebug("virtual class called CreateUiSlots");
         //Used to call all base class to create their own slots
     }
 
@@ -69,7 +71,7 @@ public class DragDropBase : MonoBehaviour
         return uiSlot;
     }
 
-    private void OnUiSlotClicked(UiSlot uiSlot, Item item)
+    private void OnUiSlotClicked(UiSlot uiSlot, UiSlotItem uislotItem)
     {
         uiSlot.SetSpriteToSelected();
         if (lastClickedUiSlot != null)
@@ -80,13 +82,15 @@ public class DragDropBase : MonoBehaviour
 
         if (itemNameText != null)
         {
-            if (item == null)
+            if (uislotItem == null)
             {
+                lastClickedUiSlotItem = null;
                 itemNameText.text = "";
             }
             else
             {
-                itemNameText.text = InventoryItemsDatabase.GetSlugById((int)item.id);
+                lastClickedUiSlotItem = uislotItem;
+                itemNameText.text = InventoryItemsDatabase.GetSlugById((int)uislotItem.ItemId);
             }
         }
     }
@@ -98,7 +102,7 @@ public class DragDropBase : MonoBehaviour
         {
             if (uiSlotItems[i].ItemId == item.id.Value)
             {
-                available += uiSlotItems[i].ItemDuraCount;
+                available += uiSlotItems[i].ItemDuraCount.Value;
                 if (available >= item.duraCount)
                 {
                     return true;
@@ -106,6 +110,18 @@ public class DragDropBase : MonoBehaviour
             }
         }
         return false;
+    }
+
+    protected void DeleteSlectedUiSlotItem()
+    {
+        if (lastClickedUiSlotItem == null)
+        {
+            return;
+        }
+        else
+        {
+            lastClickedUiSlotItem.DecrementDuraCount(1);
+        }
     }
 
     protected Item RemoveSlotItemReturnNeeded(Item itemToRemoved)
@@ -130,7 +146,7 @@ public class DragDropBase : MonoBehaviour
         }
         if (item.duraCount > 0)
         {
-            print("not in inu " + item.duraCount);
+            GEM.PrintDebug("not in Inventory " + item.duraCount);
             return item;
         }
         else
@@ -166,14 +182,27 @@ public class DragDropBase : MonoBehaviour
                 uiSlotItem.OnSlotItemDrop += OnSlotItemDrop;
                 item.duraCount = uiSlotItem.IncrementDuraCount((int)item.duraCount);
                 AddSlotItem(uiSlotItem);
-                if (item.duraCount == 0)
+                if (item.duraCount <= 0)
                 {
                     return null;
                 }
             }
         }
-        print("No empty slots still have " + item.duraCount);
+        GEM.PrintDebugWarning("No empty slots still have " + item.duraCount);
         return item;
+    }
+
+    protected int GetEmptyUiSlotsCount()
+    {
+        int count = 0;
+        for (int i = 0; i < uiSlots.Length; i++)
+        {
+            if (uiSlots[i].transform.childCount == 0)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 
     private UiSlotItem InstantiateUiSlotItem(Transform parent, SlotItems slotItems)
@@ -198,7 +227,7 @@ public class DragDropBase : MonoBehaviour
     {
         if (dragedItem.ItemId == dropedItem.ItemId)
         {
-            dragedItem.DecrementDuraCountDragDrop(dropedItem.IncrementDuraCount(dragedItem.ItemDuraCount));
+            dragedItem.DecrementDuraCountDragDrop(dropedItem.IncrementDuraCount(dragedItem.ItemDuraCount.Value));
         }
         else
         {

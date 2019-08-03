@@ -1,14 +1,16 @@
-﻿using DG.Tweening;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Bronz.Ui
 {
     public class UiInventory : DragDropBase
     {
-        public static Action<Item> AddItemToInventory;
-        public static Action<Item> RemoveItemFromInventory;
+        public static Action<Item, bool> AddItemToInventory;
+        public static Action<Item, bool> RemoveItemFromInventory;
+        public static Action OnUiInventoryUpdated;
+        [SerializeField] private Button deleteItemButton;
         [SerializeField] private int slotCount = 5;
         [SerializeField] private Item itemToAdd;
         [SerializeField] private Transform parentPanel;
@@ -23,6 +25,7 @@ namespace Bronz.Ui
             base.Start();
             AddItemToInventory += OnAddItemToInventory;
             RemoveItemFromInventory += OnRemoveItemFromInventory;
+            deleteItemButton.onClick.AddListener(OnDeleteItemButtonClick);
             if (!areUiSlotsCreated)
             {
                 GEM.PrintDebug("CreateUiSlots UiInventory");
@@ -40,6 +43,7 @@ namespace Bronz.Ui
             UiAllMenusCanvas.OnMoveInventoryPanel -= OnMoveInventoryPanelToAnotherPanel;
             AddItemToInventory -= OnAddItemToInventory;
             RemoveItemFromInventory -= OnRemoveItemFromInventory;
+            deleteItemButton.onClick.RemoveListener(OnDeleteItemButtonClick);
         }
 
         private void Update()
@@ -47,9 +51,19 @@ namespace Bronz.Ui
             if (Input.GetMouseButtonUp(2))
             {
                 Item item = new Item(UnityEngine.Random.Range(0, 9), UnityEngine.Random.Range(1, 5));
-                AddSlotItemReturnRemaining(item);
+                OnAddItemToInventory(item, true);
             }
         }
+
+        #region UiInventory Buttons
+
+        private void OnDeleteItemButtonClick()
+        {
+            DeleteSlectedUiSlotItem();
+            OnUiInventoryUpdated?.Invoke();
+        }
+
+        #endregion
 
         private void OnMoveInventoryPanelToAnotherPanel(RectTransform parent)
         {
@@ -77,18 +91,26 @@ namespace Bronz.Ui
             GEM.PrintDebug("called derived");
         }
 
-        private void OnAddItemToInventory(Item itemToAdd)
+        private void OnAddItemToInventory(Item itemToAdd, bool updateInventory = true)
         {
             AddSlotItemReturnRemaining(itemToAdd);
             GEM.PrintDebug("item added to inventory " + itemToAdd.id.Value);
+            if (updateInventory)
+            {
+                OnUiInventoryUpdated?.Invoke();
+            }
         }
 
-        private void OnRemoveItemFromInventory(Item itemToRemove)
+        private void OnRemoveItemFromInventory(Item itemToRemove, bool updateInventory = true)
         {
             Item itemsNeeded = RemoveSlotItemReturnNeeded(itemToRemove);
             if (itemsNeeded != null)
             {
-                print("All items removed nothing needed");
+                GEM.PrintDebug("All items removed nothing needed");
+            }
+            if (updateInventory)
+            {
+                OnUiInventoryUpdated?.Invoke();
             }
         }
 

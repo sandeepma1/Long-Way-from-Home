@@ -95,7 +95,7 @@ public class Inu : MonoBehaviour
         }
         if (sameItems.Count > 0)
         {
-            print("found same " + sameItems.Count);
+            GEM.PrintDebug("found same " + sameItems.Count);
             CompareAndIncrementAndOrAdd(sameItems, item);
         }
         //if does not exists, then add new
@@ -140,7 +140,7 @@ public class Inu : MonoBehaviour
             }
         }
         //No space
-        print("no empty");
+        GEM.PrintDebugWarning("no empty");
     }
 
     #region All Actions functions
@@ -201,7 +201,7 @@ public class Inu : MonoBehaviour
     private Item CreateRanItem()
     {
         Item item = new Item(UnityEngine.Random.Range(0, 10), UnityEngine.Random.Range(2, 20));
-        print("id " + item.id + " val " + item.duraCount);
+        GEM.PrintDebug("id " + item.id + " val " + item.duraCount);
         return item;
     }
 

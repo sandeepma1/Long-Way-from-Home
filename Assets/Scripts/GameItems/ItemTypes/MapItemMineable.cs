@@ -6,11 +6,11 @@ public class MapItemMineable : MapItemBase, IMineable
 {
     public void Mine(int damage)
     {
-        print("Mine with damage " + damage);
+        GEM.PrintDebug("Mine with damage " + damage);
         mapItem.healthPoints -= damage;
         if (mapItem.healthPoints <= 0)
         {
-            print("item mined");
+            GEM.PrintDebug("item mined");
             MapItemDone();
         }
     }

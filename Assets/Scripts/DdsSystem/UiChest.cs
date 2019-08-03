@@ -8,7 +8,7 @@ public class UiChest : DragDropBase
     protected override void CreateUiSlots()
     {
         base.CreateUiSlots();
-        print("CreateUiSlots UiChest");
+        GEM.PrintDebug("CreateUiSlots UiChest");
         CreateUiSlots(slotCount, transform);
     }
 

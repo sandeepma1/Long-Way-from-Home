@@ -19,15 +19,19 @@ namespace Bronz.Ui
         private UiCraftingRequiredItem uiCraftingRequiredItemPrefab;
         private UiCraftingRequiredItem[] uiCraftingRequiredItems = new UiCraftingRequiredItem[4];
         private CraftableItem craftableCraftableItem = null;
+        private CraftableItem lastCraftableItemClicked = null;
 
         private void Start()
         {
             InitCraftingMenu();
+            UiInventory.OnUiInventoryUpdated += OnUiInventoryUpdated;
         }
 
         private void OnDestroy()
         {
             craftButton.onClick.RemoveListener(OnCraftButtonClicked);
+            UiInventory.OnUiInventoryUpdated -= OnUiInventoryUpdated;
+
         }
 
         private void InitCraftingMenu()
@@ -53,28 +57,40 @@ namespace Bronz.Ui
             }
         }
 
+        private void OnUiInventoryUpdated()
+        {
+            if (lastCraftableItemClicked != null)
+            {
+                OnCraftableItemClicked(lastCraftableItemClicked, null);
+            }
+        }
+
         private void OnCraftButtonClicked()
         {
             for (int i = 0; i < craftableCraftableItem.requires.Count; i++)
             {
-                UiInventory.RemoveItemFromInventory?.Invoke(craftableCraftableItem.requires[i]);
+                UiInventory.RemoveItemFromInventory?.Invoke(craftableCraftableItem.requires[i], false);
             }
-            UiInventory.AddItemToInventory?.Invoke(craftableCraftableItem.creates);
+            UiInventory.AddItemToInventory?.Invoke(craftableCraftableItem.creates, false);
+            CheckIfCraftable(craftableCraftableItem);
         }
 
         private void OnCraftableItemClicked(CraftableItem craftableItem, Transform itemTransform)
         {
-            selectionBox.SetParent(itemTransform);
+            lastCraftableItemClicked = craftableItem;
+            if (itemTransform != null)
+            {
+                selectionBox.SetParent(itemTransform);
+            }
             selectionBox.anchoredPosition = Vector3.zero;
             craftableItemNameText.text = craftableItem.name;
             craftableItemDescriptionText.text = "Description: (implement here) " + craftableItem.name;
+            for (int i = 0; i < uiCraftingRequiredItems.Length; i++)
+            {
+                uiCraftingRequiredItems[i].gameObject.SetActive(false);
+            }
             for (int i = 0; i < craftableItem.requires.Count; i++)
             {
-                if (craftableItem.requires[i].id.Value < 0)
-                {
-                    uiCraftingRequiredItems[i].gameObject.SetActive(false);
-                    continue;
-                }
                 uiCraftingRequiredItems[i].gameObject.SetActive(true);
                 uiCraftingRequiredItems[i].Init(craftableItem.requires[i]);
             }
@@ -95,7 +111,7 @@ namespace Bronz.Ui
                 {
                     if (gotItems[i] != null)
                     {
-                        print("want id " + craftableItem.requires[i].id + " with count " + craftableItem.requires[i].duraCount + " X got id " + gotItems[i].id + " with count " + gotItems[i].duraCount);
+                        GEM.PrintDebug("want id " + craftableItem.requires[i].id + " with count " + craftableItem.requires[i].duraCount + " X got id " + gotItems[i].id + " with count " + gotItems[i].duraCount);
                         if (gotItems[i].duraCount < craftableItem.requires[i].duraCount)
                         {
                             hasAllItems = false;
@@ -108,6 +124,10 @@ namespace Bronz.Ui
             if (hasAllItems)
             {
                 craftableCraftableItem = craftableItem;
+            }
+            else
+            {
+                craftableCraftableItem = null;
             }
         }
     }

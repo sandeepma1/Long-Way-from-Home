@@ -1,1 +1,417 @@
-{"InventoryItems":[{"id":0,"name":"Flint","slug":"flint","maxStackable":64,"hitPoints":null},{"id":1,"name":"Coal","slug":"coal","maxStackable":64,"hitPoints":null},{"id":2,"name":"Stone","slug":"stone","maxStackable":64,"hitPoints":null},{"id":3,"name":"Grass","slug":"grass","maxStackable":64,"hitPoints":null},{"id":4,"name":"Stick","slug":"stick","maxStackable":64,"hitPoints":null},{"id":5,"name":"Log","slug":"log","maxStackable":64,"hitPoints":null},{"id":6,"name":"Berries","slug":"berries","maxStackable":64,"hitPoints":null},{"id":7,"name":"Radish","slug":"radish","maxStackable":64,"hitPoints":null},{"id":8,"name":"Star fish","slug":"starfish","maxStackable":64,"hitPoints":null},{"id":9,"name":"Stone Axe","slug":"stoneaxe","maxStackable":1,"hitPoints":50},{"id":10,"name":"Stone Pickaxe","slug":"stonepickaxe","maxStackable":1,"hitPoints":40},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null},{"id":null,"name":null,"slug":null,"maxStackable":null,"hitPoints":null}]}
+{
+  "InventoryItems": [
+    {
+      "id": 0,
+      "name": "Flint",
+      "slug": "flint",
+      "maxStackable": 64,
+      "hitPoints": -1
+    },
+    {
+      "id": 1,
+      "name": "Coal",
+      "slug": "coal",
+      "maxStackable": 64,
+      "hitPoints": -1
+    },
+    {
+      "id": 2,
+      "name": "Stone",
+      "slug": "stone",
+      "maxStackable": 64,
+      "hitPoints": -1
+    },
+    {
+      "id": 3,
+      "name": "Grass",
+      "slug": "grass",
+      "maxStackable": 64,
+      "hitPoints": -1
+    },
+    {
+      "id": 4,
+      "name": "Stick",
+      "slug": "stick",
+      "maxStackable": 64,
+      "hitPoints": -1
+    },
+    {
+      "id": 5,
+      "name": "Log",
+      "slug": "log",
+      "maxStackable": 64,
+      "hitPoints": -1
+    },
+    {
+      "id": 6,
+      "name": "Berries",
+      "slug": "berries",
+      "maxStackable": 64,
+      "hitPoints": -1
+    },
+    {
+      "id": 7,
+      "name": "Radish",
+      "slug": "radish",
+      "maxStackable": 64,
+      "hitPoints": -1
+    },
+    {
+      "id": 8,
+      "name": "Star fish",
+      "slug": "starfish",
+      "maxStackable": 64,
+      "hitPoints": -1
+    },
+    {
+      "id": 9,
+      "name": "Stone Axe",
+      "slug": "stoneaxe",
+      "maxStackable": 1,
+      "hitPoints": 50
+    },
+    {
+      "id": 10,
+      "name": "Stone Pickaxe",
+      "slug": "stonepickaxe",
+      "maxStackable": 1,
+      "hitPoints": 40
+    },
+    {
+      "id": 11,
+      "name": "Bonfire",
+      "slug": "bonfire",
+      "maxStackable": 1,
+      "hitPoints": 70
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "maxStackable": null,
+      "hitPoints": null
+    }
+  ]
+}

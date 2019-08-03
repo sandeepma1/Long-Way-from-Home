@@ -103,7 +103,7 @@ public class SimpleMap : MonoBehaviour
     private void OnApplicationQuit()
     {
         Save();
-        print("Saved");
+        GEM.PrintDebug("Saved");
     }
 }
 

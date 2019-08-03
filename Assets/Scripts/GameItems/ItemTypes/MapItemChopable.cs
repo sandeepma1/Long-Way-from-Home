@@ -2,11 +2,11 @@
 {
     public void Chop(int damage)
     {
-        print("chop with damage " + damage);
+        GEM.PrintDebug("chop with damage " + damage);
         mapItem.healthPoints -= damage;
         if (mapItem.healthPoints <= 0)
         {
-            print("item chopped");
+            GEM.PrintDebug("item chopped");
             MapItemDone();
         }
     }

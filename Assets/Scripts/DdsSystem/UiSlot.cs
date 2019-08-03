@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UiSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 {
-    public Action<UiSlot, Item> OnUiSlotClicked;
+    public Action<UiSlot, UiSlotItem> OnUiSlotClicked;
     public Action<UiSlot, UiSlotItem> OnSlotDrop;
     public int id;
     public bool isDropable = true;
@@ -44,12 +44,12 @@ public class UiSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         slotImage.sprite = AtlasBank.GetUiSpritesByName("UiSlotSelector");
     }
 
-    public Item GetSlotItem()
+    public UiSlotItem GetSlotItem()
     {
         if (transform.childCount == 0)
         {
             return null;
         }
-        return transform.GetChild(0).GetComponent<UiSlotItem>().slotItem.item;
+        return transform.GetChild(0).GetComponent<UiSlotItem>();
     }
 }

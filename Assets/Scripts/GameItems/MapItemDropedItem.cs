@@ -37,7 +37,7 @@ public class MapItemDropedItem : MonoBehaviour
 
     private void ItemTakenByPlayer()
     {
-        UiInventory.AddItemToInventory?.Invoke(item);
+        UiInventory.AddItemToInventory?.Invoke(item, true);
         Destroy(gameObject);
     }
 }

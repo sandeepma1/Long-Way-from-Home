@@ -17,14 +17,14 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     [SerializeField] private Image image;
     public SlotItems slotItem; //make private later
 
-    public int ItemId
+    public int? ItemId
     {
-        get { return slotItem.item.id.Value; }
+        get { return slotItem.item.id; }
         set { slotItem.item.id = value; }
     }
-    public int ItemDuraCount
+    public int? ItemDuraCount
     {
-        get { return (int)slotItem.item.duraCount; }
+        get { return slotItem.item.duraCount; }
         set { slotItem.item.duraCount = value; }
     }
     public int ItemSlotId
@@ -64,7 +64,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         {
             return -1;
         }
-        int add = ItemDuraCount + duraCount;
+        int add = ItemDuraCount.Value + duraCount;
         if (add <= maxStackable)
         {
             ItemDuraCount = add;
@@ -73,7 +73,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         }
         else
         {
-            int canAdd = Mathf.Abs(maxStackable - ItemDuraCount);
+            int canAdd = Mathf.Abs(maxStackable - ItemDuraCount.Value);
             ItemDuraCount += canAdd;
             int cannotAdd = Mathf.Abs(canAdd - duraCount);
             UpdateText();
@@ -113,7 +113,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         }
         else if (ItemDuraCount < duracount)
         {
-            int remaining = duracount - ItemDuraCount;
+            int remaining = duracount - ItemDuraCount.Value;
             DestroyAndRemoveFromList();
             return remaining;
         }
@@ -126,7 +126,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void UpdateText()
     {
-        itemImage.sprite = AtlasBank.GetInventoryItemSpriteById(ItemId);
+        itemImage.sprite = AtlasBank.GetInventoryItemSpriteById(ItemId.Value);
         if (ItemDuraCount > 1)
         {
             countText.text = ItemDuraCount.ToString();
