@@ -11,6 +11,9 @@ namespace Bronz.Ui
         public static Action<Item, bool> RemoveItemFromInventory;
         public static Action OnUiInventoryUpdated;
         [SerializeField] private GameObject sidePanel;
+        [SerializeField] private Button useItemButton;
+        [SerializeField] private Button splitItemButton;
+        [SerializeField] private Button sortItemButton;
         [SerializeField] private Button deleteItemButton;
         [SerializeField] private int slotCount = 5;
         [SerializeField] private Item itemToAdd;
@@ -46,6 +49,9 @@ namespace Bronz.Ui
             AddItemToInventory -= OnAddItemToInventory;
             RemoveItemFromInventory -= OnRemoveItemFromInventory;
             deleteItemButton.onClick.RemoveListener(OnDeleteItemButtonClick);
+            splitItemButton.onClick.RemoveListener(OnSplitItemButtonClick);
+            sortItemButton.onClick.RemoveListener(OnSortItemButtonClick);
+            useItemButton.onClick.RemoveListener(OnUseItemButtonClick);
         }
 
         private void Update()
@@ -61,15 +67,59 @@ namespace Bronz.Ui
 
         private void InitOtherOptions()
         {
+            useItemButton.onClick.AddListener(OnUseItemButtonClick);
+            splitItemButton.onClick.AddListener(OnSplitItemButtonClick);
+            sortItemButton.onClick.AddListener(OnSortItemButtonClick);
             deleteItemButton.onClick.AddListener(OnDeleteItemButtonClick);
-            //all other options int goes here like split, delete, etc
             sidePanel.SetActive(false);
+        }
+
+        private void OnUseItemButtonClick()
+        {
+            DecrementSlectedUiSlotItem(1);
+            OnUiInventoryUpdated?.Invoke();
+            CheckIfUiSlotItemIsUseable();
+            CheckIfUiSlotItemIsDeleteable();
+            CheckIfUiSlotItemIsSplitable();
         }
 
         private void OnDeleteItemButtonClick()
         {
-            DeleteSlectedUiSlotItem();
+            //TODO: add common ui window to delete all or one
+            DecrementSlectedUiSlotItem(1);
             OnUiInventoryUpdated?.Invoke();
+            CheckIfUiSlotItemIsUseable();
+            CheckIfUiSlotItemIsDeleteable();
+            CheckIfUiSlotItemIsSplitable();
+        }
+
+        private void OnSplitItemButtonClick()
+        {
+            SplitUiSlotItems();
+            CheckIfUiSlotItemIsSplitable();
+        }
+
+        private void OnSortItemButtonClick()
+        {
+            OnUiInventoryUpdated?.Invoke();
+        }
+
+        protected override void ToggleSplitButton(bool flag)
+        {
+            base.ToggleSplitButton(flag);
+            splitItemButton.interactable = flag;
+        }
+
+        protected override void ToggleUseButton(bool flag)
+        {
+            base.ToggleUseButton(flag);
+            useItemButton.interactable = flag;
+        }
+
+        protected override void ToggleDeleteButton(bool flag)
+        {
+            base.ToggleDeleteButton(flag);
+            deleteItemButton.interactable = flag;
         }
 
         #endregion

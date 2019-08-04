@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,7 +30,6 @@ namespace Bronz.Ui
         {
             craftButton.onClick.RemoveListener(OnCraftButtonClicked);
             UiInventory.OnUiInventoryUpdated -= OnUiInventoryUpdated;
-
         }
 
         private void InitCraftingMenu()
@@ -119,7 +117,6 @@ namespace Bronz.Ui
                     }
                 }
             }
-
             craftButton.interactable = hasAllItems;
             if (hasAllItems)
             {

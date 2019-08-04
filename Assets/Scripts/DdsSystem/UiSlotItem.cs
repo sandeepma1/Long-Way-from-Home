@@ -148,7 +148,8 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     private void DestroyAndRemoveFromList()
     {
-        SetLastDDBaseParent();
+        //SetLastDDBaseParent();
+        ItemDuraCount = 0;
         lastDragDropBase.RemoveSlotItem(this);
         Destroy(this.gameObject);
     }

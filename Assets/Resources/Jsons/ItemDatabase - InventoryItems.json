@@ -3,6 +3,7 @@
     {
       "id": 0,
       "name": "Flint",
+      "description": "Some Description",
       "slug": "flint",
       "maxStackable": 64,
       "hitPoints": -1,
@@ -11,6 +12,7 @@
     {
       "id": 1,
       "name": "Coal",
+      "description": "Some Description",
       "slug": "coal",
       "maxStackable": 64,
       "hitPoints": -1,
@@ -19,6 +21,7 @@
     {
       "id": 2,
       "name": "Stone",
+      "description": "Some Description",
       "slug": "stone",
       "maxStackable": 64,
       "hitPoints": -1,
@@ -27,6 +30,7 @@
     {
       "id": 3,
       "name": "Grass",
+      "description": "Some Description",
       "slug": "grass",
       "maxStackable": 64,
       "hitPoints": -1,
@@ -35,6 +39,7 @@
     {
       "id": 4,
       "name": "Stick",
+      "description": "Some Description",
       "slug": "stick",
       "maxStackable": 64,
       "hitPoints": -1,
@@ -43,6 +48,7 @@
     {
       "id": 5,
       "name": "Log",
+      "description": "Some Description",
       "slug": "log",
       "maxStackable": 64,
       "hitPoints": -1,
@@ -51,6 +57,7 @@
     {
       "id": 6,
       "name": "Berries",
+      "description": "Some Description",
       "slug": "berries",
       "maxStackable": 64,
       "hitPoints": -1,
@@ -59,6 +66,7 @@
     {
       "id": 7,
       "name": "Radish",
+      "description": "Some Description",
       "slug": "radish",
       "maxStackable": 64,
       "hitPoints": -1,
@@ -67,6 +75,7 @@
     {
       "id": 8,
       "name": "Star fish",
+      "description": "Some Description",
       "slug": "starfish",
       "maxStackable": 64,
       "hitPoints": -1,
@@ -75,6 +84,7 @@
     {
       "id": 9,
       "name": "Stone Axe",
+      "description": "Some Description",
       "slug": "stoneaxe",
       "maxStackable": 1,
       "hitPoints": 50,
@@ -83,6 +93,7 @@
     {
       "id": 10,
       "name": "Stone Pickaxe",
+      "description": "Some Description",
       "slug": "stonepickaxe",
       "maxStackable": 1,
       "hitPoints": 40,
@@ -91,6 +102,7 @@
     {
       "id": 11,
       "name": "Bonfire",
+      "description": "Some Description",
       "slug": "bonfire",
       "maxStackable": 1,
       "hitPoints": 70,

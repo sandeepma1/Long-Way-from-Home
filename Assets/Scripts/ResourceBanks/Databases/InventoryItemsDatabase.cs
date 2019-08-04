@@ -25,6 +25,16 @@ public class InventoryItemsDatabase : DatabaseBase<InventoryItemsDatabase>
         return InventoryItems.InventoryItems?[id].slug;
     }
 
+    public static string GetNameById(int id)
+    {
+        return InventoryItems.InventoryItems?[id].name;
+    }
+
+    public static string GetDescriptionById(int id)
+    {
+        return InventoryItems.InventoryItems?[id].description;
+    }
+
     public static InventoryItems[] GetMapItemsArray()
     {
         return InventoryItems.InventoryItems;
@@ -33,6 +43,11 @@ public class InventoryItemsDatabase : DatabaseBase<InventoryItemsDatabase>
     public static int GetMaxStackableById(int id)
     {
         return InventoryItems.InventoryItems[id].maxStackable;
+    }
+
+    public static InventoryItemType GetInventoryItemTypeById(int id)
+    {
+        return InventoryItems.InventoryItems[id].inventoryItemType;
     }
 }
 
@@ -47,6 +62,7 @@ public class InventoryItems
 {
     public int id;
     public string name;
+    public string description;
     public string slug;
     public int maxStackable;
     public int hitPoints;

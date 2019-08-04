@@ -360,11 +360,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AllBanks
       objectReference: {fileID: 0}
-    - target: {fileID: 7744939646360387026, guid: 607433a8d7d4cd34788b1e162b49600c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7744939646360387025, guid: 607433a8d7d4cd34788b1e162b49600c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -433,11 +428,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AllDatabases
-      objectReference: {fileID: 0}
-    - target: {fileID: 7387137431771114790, guid: cb98a80b3be9fc648af261a0dfd3c6d5,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7387137431771114784, guid: cb98a80b3be9fc648af261a0dfd3c6d5,
         type: 3}
@@ -1534,11 +1524,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MasterSave
-      objectReference: {fileID: 0}
-    - target: {fileID: 386159239781320544, guid: 9dd87135ea50e734f83d27733cc4b91d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 386159239781320545, guid: 9dd87135ea50e734f83d27733cc4b91d,
         type: 3}
