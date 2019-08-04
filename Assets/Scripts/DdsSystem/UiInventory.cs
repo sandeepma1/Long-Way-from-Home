@@ -10,7 +10,7 @@ namespace Bronz.Ui
         public static Action<Item, bool> AddItemToInventory;
         public static Action<Item, bool> RemoveItemFromInventory;
         public static Action OnUiInventoryUpdated;
-        [SerializeField] private GameObject otherOptionsPanel;
+        [SerializeField] private GameObject sidePanel;
         [SerializeField] private Button deleteItemButton;
         [SerializeField] private int slotCount = 5;
         [SerializeField] private Item itemToAdd;
@@ -63,7 +63,7 @@ namespace Bronz.Ui
         {
             deleteItemButton.onClick.AddListener(OnDeleteItemButtonClick);
             //all other options int goes here like split, delete, etc
-            otherOptionsPanel.SetActive(false);
+            sidePanel.SetActive(false);
         }
 
         private void OnDeleteItemButtonClick()
@@ -76,7 +76,7 @@ namespace Bronz.Ui
 
         private void OnMoveInventoryPanelToAnotherPanel(RectTransform parent, bool showOtherOptionsPanel = false)
         {
-            otherOptionsPanel.SetActive(showOtherOptionsPanel);
+            sidePanel.SetActive(showOtherOptionsPanel);
             thisRectTransform.SetAndStretchToParentSize(parent);
         }
 
