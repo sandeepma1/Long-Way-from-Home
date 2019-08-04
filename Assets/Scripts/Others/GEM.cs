@@ -18,21 +18,23 @@ public static class GEM
     public static readonly string PlayerSortingLayer = "L2Player";
     #endregion
 
+    #region Player Stats values
+    public static float actionHungerExhaustionLevel = 0.15f;
+    public static float actionThirstExhaustionLevel = 0.3f;
+    public static float walkingHungerExhaustionLevel = 0.0025f;
+    public static float walkingThirstExhaustionLevel = 0.005f;
+    public static float idleHungerExhaustionLevel = 0.025f;
+    public static float idleThirstExhaustionLevel = 0.05f;
+    public static float idlehungerFrequency = 20;
+    public static float idlethirstFrequency = 20;
+    public static float healthExhaustionLevel = 5f;
+    #endregion
+
     #region Save names identifiers
     public static string MapSaveName = "MapSave";
     public static string PlayerInfoSaveName = "PlayerInfoSave";
+    public static string PlayerStatsSaveName = "PlayerStatsSave";
     public static string AllFurnituresSaveName = "AllFurnituresSave";
-    #endregion
-
-    #region  Player Profile
-    public static string playerName;
-    public static string playerFarmName;
-    public static int playerLevel;
-    public static int playerXPPoints;
-    public static int playerCoins;
-    public static int playerGems;
-    public static int playerStamina;
-    public static string playerStaminaMaxDateTime;
     #endregion
 
     #region Debug Stuff
@@ -61,11 +63,6 @@ public static class GEM
         }
     }
     #endregion
-
-    public static int numberOfRocksInLevel = 0;
-    public static int[] screensPositions = new int[] { 0, 7, 24, 41, 58, 75, 92 };
-    public static int[] farmLandUpgrade = new int[] { 1, 3, 5, 7, 9, 11, 13, 16 };
-    public static bool isObjectDragging = false;
 
     public delegate void GameEvent();
 

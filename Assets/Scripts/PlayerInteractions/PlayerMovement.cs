@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public static Action<int, int> OnPlayerMovedPerGrid;
+    public static Action OnPlayerMovedPerMeter;
     public static Action OnPlayerMoved;
     [SerializeField] private GameObject characterGO;
     [SerializeField] private SpriteRenderer playerHead;
@@ -47,6 +48,21 @@ public class PlayerMovement : MonoBehaviour
         SetSortingOrder();
         OnPlayerMoved?.Invoke();
     }
+
+    #region --Save Load Stuff--
+    private void LoadPlayerInfoData()
+    {
+        PlayerSavePlayerInfo playerSavePlayerInfo = MasterSave.LoadPlayerInfo();
+        transform.position = new Vector2(playerSavePlayerInfo.posX, playerSavePlayerInfo.posY);
+        currentPosY = (int)transform.position.y;
+        SetSortingOrder();
+    }
+
+    private void RequestSaveData()
+    {
+        MasterSave.SavePlayerInfo(new PlayerSavePlayerInfo(transform.position.x, transform.position.y));
+    }
+    #endregion
 
     public static void SetTriggerAnimation(PlayerActions playerAction)
     {
@@ -94,6 +110,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         OnPlayerMovedPerGrid?.Invoke(currentPosX, currentPosY);
+        OnPlayerMovedPerMeter?.Invoke();
         tempPosX = currentPosX;
         tempPosY = currentPosY;
         int order = (MainGameMapManager.CurrentMapSize + 1) - currentPosY;
@@ -106,19 +123,4 @@ public class PlayerMovement : MonoBehaviour
         playerLegLeft.sortingOrder = order + 1;
         playerLegRight.sortingOrder = order - 1;
     }
-
-    #region --Save Load Stuff--
-    private void LoadPlayerInfoData()
-    {
-        PlayerSavePlayerInfo playerSavePlayerInfo = MasterSave.LoadPlayerInfo();
-        transform.position = new Vector2(playerSavePlayerInfo.posX, playerSavePlayerInfo.posY);
-        currentPosY = (int)transform.position.y;
-        SetSortingOrder();
-    }
-
-    private void RequestSaveData()
-    {
-        MasterSave.SavePlayerInfo(new PlayerSavePlayerInfo(transform.position.x, transform.position.y));
-    }
-    #endregion
 }

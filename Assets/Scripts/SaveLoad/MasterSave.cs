@@ -25,14 +25,6 @@ public class MasterSave : Singleton<MasterSave>
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            //RequestForSaveData();
-        }
-    }
-
     private void OnApplicationQuit()
     {
         RequestForSaveData();
@@ -93,6 +85,26 @@ public class MasterSave : Singleton<MasterSave>
             SavePlayerInfo(new PlayerSavePlayerInfo());
         }
         return SaveGame.Load<PlayerSavePlayerInfo>(GEM.PlayerInfoSaveName);
+    }
+    #endregion
+
+
+    #region PlayerStats Save/Load
+    public static void SavePlayerStats(PlayerSavePlayerStats playerSavePlayerStats)
+    {
+        SaveGame.Save<PlayerSavePlayerStats>(GEM.PlayerStatsSaveName, playerSavePlayerStats);
+        GEM.PrintDebug("PlayerStats Save Complete");
+    }
+
+    public static PlayerSavePlayerStats LoadPlayerStats()
+    {
+        GEM.PrintDebug("Loading PlayerStats data...");
+        if (!SaveGame.Exists(GEM.PlayerStatsSaveName))
+        {
+            GEM.PrintDebugWarning("PlayerStats not found, creating new default data and saving");
+            SavePlayerStats(new PlayerSavePlayerStats());
+        }
+        return SaveGame.Load<PlayerSavePlayerStats>(GEM.PlayerStatsSaveName);
     }
     #endregion
 
@@ -201,9 +213,21 @@ public class PlayerSaveFurniture
 
 public class PlayerSavePlayerStats
 {
-    public int health;
+    public float health;
+    public float hunger;
+    public float thirst;
+    public PlayerSavePlayerStats(float health, float hunger, float thirst)
+    {
+        this.health = health;
+        this.hunger = hunger;
+        this.thirst = thirst;
+    }
     public PlayerSavePlayerStats()
-    { health = 100; }
+    {
+        health = 100;
+        hunger = 100;
+        thirst = 100;
+    }
 }
 
 public class MapSave

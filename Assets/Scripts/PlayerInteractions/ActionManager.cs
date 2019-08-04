@@ -6,6 +6,7 @@ using UnityEngine;
 public class ActionManager : MonoBehaviour
 {
     public static Action<Vector2> OnMouseClick;
+    public static Action OnPlayerActionDone;
     private Camera mainCamera;
     private bool isActionButtonDown;
     private const float actionInterval = 0.5f;
@@ -92,6 +93,7 @@ public class ActionManager : MonoBehaviour
         yield return new WaitForSeconds(duration);
         PerformActionOnMapItem(GetObjectsAround.closestItem);
         isActionInProgress = false;
+        OnPlayerActionDone?.Invoke();
     }
 
     private void PerformActionOnMapItem(MapItemBase clickedMapItem)

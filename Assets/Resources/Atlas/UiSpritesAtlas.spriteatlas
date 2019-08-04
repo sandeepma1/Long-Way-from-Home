@@ -31,22 +31,28 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: c3830975c85430a4aa5dd5d649b12d02, type: 3}
-    totalSpriteSurfaceArea: 1569
+    totalSpriteSurfaceArea: 3873
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: ccb64f803feee0748bf8594e390e4242, type: 3}
   - {fileID: 21300000, guid: 314436f0eeccda54dbe704b71f860db6, type: 3}
+  - {fileID: 21300000, guid: 5e57754241e81a64d8049f70a64557f4, type: 3}
   - {fileID: 21300000, guid: 5a0b45331705dad449cf737fde3801c8, type: 3}
   - {fileID: 21300000, guid: eeb6df7315ef3be4796b807c914a9163, type: 3}
   - {fileID: 21300000, guid: b2741f39f86cff843ad086a22b9dbf80, type: 3}
+  - {fileID: 21300000, guid: 3e3813c98345e624a9146f46a833ceed, type: 3}
+  - {fileID: 21300000, guid: 3408cdbd9ef07244db53c7845515fe95, type: 3}
   - {fileID: 21300000, guid: c21c3d2e4a32c804e86849d19ca8fad7, type: 3}
   m_PackedSpriteNamesToIndex:
   - windowBorder_oneMinus
   - windowBorder
+  - Thirst
   - hudBackground
   - MenuTabs
   - UiSlotBackground
+  - Drumstick
+  - Heart
   - UiSlotSelector
   m_Tag: UiSpritesAtlas
   m_IsVariant: 0
