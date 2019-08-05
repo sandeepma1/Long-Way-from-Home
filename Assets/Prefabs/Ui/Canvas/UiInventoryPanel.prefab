@@ -335,6 +335,7 @@ MonoBehaviour:
   uiSlots: []
   sidePanel: {fileID: 4849089085830760905}
   useItemButton: {fileID: 4203794961930228578}
+  useButtonText: {fileID: 141871011971384980}
   splitItemButton: {fileID: 7132401956995592441}
   sortItemButton: {fileID: 991290670568515963}
   deleteItemButton: {fileID: 5456639394631966052}
@@ -1421,7 +1422,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Use
+  m_text: Eat
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7cc8ad537fe694049bf17e9a61a0af61, type: 2}
   m_sharedMaterial: {fileID: 7596186914338189845, guid: 7cc8ad537fe694049bf17e9a61a0af61,

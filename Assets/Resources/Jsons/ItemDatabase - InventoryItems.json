@@ -7,7 +7,9 @@
       "slug": "flint",
       "maxStackable": 64,
       "hitPoints": -1,
-      "inventoryItemType": "none"
+      "inventoryItemType": "none",
+      "foodPoints": -1,
+      "thirstPoints": -1
     },
     {
       "id": 1,
@@ -16,7 +18,9 @@
       "slug": "coal",
       "maxStackable": 64,
       "hitPoints": -1,
-      "inventoryItemType": "none"
+      "inventoryItemType": "none",
+      "foodPoints": -1,
+      "thirstPoints": -1
     },
     {
       "id": 2,
@@ -25,7 +29,9 @@
       "slug": "stone",
       "maxStackable": 64,
       "hitPoints": -1,
-      "inventoryItemType": "none"
+      "inventoryItemType": "none",
+      "foodPoints": -1,
+      "thirstPoints": -1
     },
     {
       "id": 3,
@@ -34,7 +40,9 @@
       "slug": "grass",
       "maxStackable": 64,
       "hitPoints": -1,
-      "inventoryItemType": "none"
+      "inventoryItemType": "none",
+      "foodPoints": -1,
+      "thirstPoints": -1
     },
     {
       "id": 4,
@@ -43,7 +51,9 @@
       "slug": "stick",
       "maxStackable": 64,
       "hitPoints": -1,
-      "inventoryItemType": "none"
+      "inventoryItemType": "none",
+      "foodPoints": -1,
+      "thirstPoints": -1
     },
     {
       "id": 5,
@@ -52,7 +62,9 @@
       "slug": "log",
       "maxStackable": 64,
       "hitPoints": -1,
-      "inventoryItemType": "none"
+      "inventoryItemType": "none",
+      "foodPoints": -1,
+      "thirstPoints": -1
     },
     {
       "id": 6,
@@ -61,7 +73,9 @@
       "slug": "berries",
       "maxStackable": 64,
       "hitPoints": -1,
-      "inventoryItemType": "food"
+      "inventoryItemType": "food",
+      "foodPoints": 10,
+      "thirstPoints": 6
     },
     {
       "id": 7,
@@ -70,7 +84,9 @@
       "slug": "radish",
       "maxStackable": 64,
       "hitPoints": -1,
-      "inventoryItemType": "food"
+      "inventoryItemType": "food",
+      "foodPoints": 12,
+      "thirstPoints": 10
     },
     {
       "id": 8,
@@ -79,7 +95,9 @@
       "slug": "starfish",
       "maxStackable": 64,
       "hitPoints": -1,
-      "inventoryItemType": "food"
+      "inventoryItemType": "food",
+      "foodPoints": 15,
+      "thirstPoints": 3
     },
     {
       "id": 9,
@@ -88,7 +106,9 @@
       "slug": "stoneaxe",
       "maxStackable": 1,
       "hitPoints": 50,
-      "inventoryItemType": "axe"
+      "inventoryItemType": "axe",
+      "foodPoints": -1,
+      "thirstPoints": -1
     },
     {
       "id": 10,
@@ -97,7 +117,9 @@
       "slug": "stonepickaxe",
       "maxStackable": 1,
       "hitPoints": 40,
-      "inventoryItemType": "pickaxe"
+      "inventoryItemType": "pickaxe",
+      "foodPoints": -1,
+      "thirstPoints": -1
     },
     {
       "id": 11,
@@ -106,7 +128,9 @@
       "slug": "bonfire",
       "maxStackable": 1,
       "hitPoints": 70,
-      "inventoryItemType": "placeable"
+      "inventoryItemType": "placeable",
+      "foodPoints": -1,
+      "thirstPoints": -1
     }
   ]
 }

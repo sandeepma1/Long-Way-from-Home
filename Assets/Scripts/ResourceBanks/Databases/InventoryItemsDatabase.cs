@@ -45,6 +45,16 @@ public class InventoryItemsDatabase : DatabaseBase<InventoryItemsDatabase>
         return InventoryItems.InventoryItems[id].maxStackable;
     }
 
+    public static float GetFoodPointsById(int id)
+    {
+        return InventoryItems.InventoryItems[id].foodPoints;
+    }
+
+    public static float GetThirstPointsById(int id)
+    {
+        return InventoryItems.InventoryItems[id].thirstPoints;
+    }
+
     public static InventoryItemType GetInventoryItemTypeById(int id)
     {
         return InventoryItems.InventoryItems[id].inventoryItemType;
@@ -67,6 +77,8 @@ public class InventoryItems
     public int maxStackable;
     public int hitPoints;
     public InventoryItemType inventoryItemType;
+    public float foodPoints;
+    public float thirstPoints;
 }
 
 public enum ToolType
@@ -82,12 +94,12 @@ public enum ToolType
 
 public enum InventoryItemType
 {
-    none,
-    food,
-    equip,
+    weapon,
     pickaxe,
     axe,
     shovel,
-    weapon,
-    placeable
+    food,
+    equip,
+    placeable,
+    none
 }

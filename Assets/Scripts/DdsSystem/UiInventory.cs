@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ namespace Bronz.Ui
         public static Action OnUiInventoryUpdated;
         [SerializeField] private GameObject sidePanel;
         [SerializeField] private Button useItemButton;
+        [SerializeField] private TextMeshProUGUI useButtonText;
         [SerializeField] private Button splitItemButton;
         [SerializeField] private Button sortItemButton;
         [SerializeField] private Button deleteItemButton;
@@ -63,7 +65,7 @@ namespace Bronz.Ui
             }
         }
 
-        #region UiInventory Buttons
+        #region UiInventory Buttons Side options
 
         private void InitOtherOptions()
         {
@@ -76,11 +78,16 @@ namespace Bronz.Ui
 
         private void OnUseItemButtonClick()
         {
-            DecrementSlectedUiSlotItem(1);
-            OnUiInventoryUpdated?.Invoke();
-            CheckIfUiSlotItemIsUseable();
-            CheckIfUiSlotItemIsDeleteable();
-            CheckIfUiSlotItemIsSplitable();
+            int itemId = lastClickedUiSlotItem.ItemId.Value;
+            if (PlayerStats.PlayerHunger < GEM.maxPlayerHunger)
+            {
+                PlayerStats.OnIncrementPlayerHunger(InventoryItemsDatabase.GetFoodPointsById(itemId));
+            }
+            if (PlayerStats.PlayerThirst < GEM.maxPlayerThirst)
+            {
+                PlayerStats.OnIncrementPlayerThirst(InventoryItemsDatabase.GetThirstPointsById(itemId));
+            }
+            OnDeleteItemButtonClick();
         }
 
         private void OnDeleteItemButtonClick()
@@ -113,6 +120,7 @@ namespace Bronz.Ui
         protected override void ToggleUseButton(bool flag)
         {
             base.ToggleUseButton(flag);
+            useButtonText.text = "Eat";
             useItemButton.interactable = flag;
         }
 

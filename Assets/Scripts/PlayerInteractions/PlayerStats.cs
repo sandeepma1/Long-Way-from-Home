@@ -3,52 +3,55 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public static Action<float> SetPlayerHealth;
-    public static Action<float> SetPlayerHunger;
-    public static Action<float> SetPlayerThirst;
+    public static Action<float> SetPlayerHealthOnUi;
+    public static Action<float> SetPlayerHungerOnUi;
+    public static Action<float> SetPlayerThirstOnUi;
+    public static Action<float> OnIncrementPlayerHealth;
+    public static Action<float> OnIncrementPlayerHunger;
+    public static Action<float> OnIncrementPlayerThirst;
 
     private const float healthFrequency = 2;
-    private float healthCounter = 0;
-    private float playerHealth;
-    private float PlayerHealth
+    public static float healthCounter = 0;
+    private static float playerHealth;
+    public static float PlayerHealth
     {
         get { return playerHealth; }
-        set
+        private set
         {
             playerHealth = value;
             if (playerHealth <= 0)
             {
                 playerHealth = 0;
             }
-            SetPlayerHealth?.Invoke(playerHealth);
+            SetPlayerHealthOnUi?.Invoke(playerHealth);
         }
     }
-    private float playerHunger;
-    private float PlayerHunger
+    private static float playerHunger;
+    public static float PlayerHunger
     {
         get { return playerHunger; }
-        set
+        private set
         {
             playerHunger = value;
             if (playerHunger <= 0)
             {
                 playerHunger = 0;
             }
-            SetPlayerHunger?.Invoke(playerHunger);
+            SetPlayerHungerOnUi?.Invoke(playerHunger);
         }
     }
-    private float playerThirst;
-    private float PlayerThirst
+    private static float playerThirst;
+    public static float PlayerThirst
     {
         get { return playerThirst; }
-        set
+        private set
         {
             playerThirst = value;
             if (playerThirst <= 0)
             {
                 playerThirst = 0;
             }
-            SetPlayerThirst?.Invoke(playerThirst);
+            SetPlayerThirstOnUi?.Invoke(playerThirst);
         }
     }
 
@@ -57,6 +60,9 @@ public class PlayerStats : MonoBehaviour
         LoadPlayerStatsData();
         ActionManager.OnPlayerActionDone += OnPlayerActionDone;
         PlayerMovement.OnPlayerMovedPerMeter += OnPlayerMovedPerMeter;
+        OnIncrementPlayerHealth += OnIncrementPlayerHealthEventHandler;
+        OnIncrementPlayerHunger += OnIncrementPlayerHungerEventHandler;
+        OnIncrementPlayerThirst += OnIncrementPlayerThirstEventHandler;
         MasterSave.RequestSaveData += RequestSaveData;
         InvokeRepeating("DecrementHungerIdle", 0, GEM.idlehungerFrequency);
         InvokeRepeating("DecrementThirstIdle", 0, GEM.idlethirstFrequency);
@@ -67,6 +73,9 @@ public class PlayerStats : MonoBehaviour
         ActionManager.OnPlayerActionDone -= OnPlayerActionDone;
         PlayerMovement.OnPlayerMovedPerMeter -= OnPlayerMovedPerMeter;
         MasterSave.RequestSaveData -= RequestSaveData;
+        OnIncrementPlayerHealth -= OnIncrementPlayerHealthEventHandler;
+        OnIncrementPlayerHunger -= OnIncrementPlayerHungerEventHandler;
+        OnIncrementPlayerThirst -= OnIncrementPlayerThirstEventHandler;
     }
 
     private void Update()
@@ -125,5 +134,41 @@ public class PlayerStats : MonoBehaviour
     private void DecrementThirstIdle()
     {
         PlayerThirst -= GEM.idleThirstExhaustionLevel;
+    }
+
+    private void OnIncrementPlayerHealthEventHandler(float health)
+    {
+        if (PlayerHealth + health > GEM.maxPlayerHealth)
+        {
+            PlayerHealth = GEM.maxPlayerHealth;
+        }
+        else
+        {
+            PlayerHealth += health;
+        }
+    }
+
+    private void OnIncrementPlayerHungerEventHandler(float hunger)
+    {
+        if (PlayerHunger + hunger > GEM.maxPlayerHunger)
+        {
+            PlayerHunger = GEM.maxPlayerHunger;
+        }
+        else
+        {
+            PlayerHunger += hunger;
+        }
+    }
+
+    private void OnIncrementPlayerThirstEventHandler(float thirst)
+    {
+        if (PlayerThirst + thirst > GEM.maxPlayerThirst)
+        {
+            PlayerThirst = GEM.maxPlayerThirst;
+        }
+        else
+        {
+            PlayerThirst += thirst;
+        }
     }
 }

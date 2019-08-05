@@ -9,16 +9,16 @@ public class UiPlayerStatsCanvas : MonoBehaviour
 
     private void Awake()
     {
-        PlayerStats.SetPlayerHealth += SetPlayerHealth;
-        PlayerStats.SetPlayerHunger += SetPlayerHunger;
-        PlayerStats.SetPlayerThirst += SetPlayerThirst;
+        PlayerStats.SetPlayerHealthOnUi += SetPlayerHealth;
+        PlayerStats.SetPlayerHungerOnUi += SetPlayerHunger;
+        PlayerStats.SetPlayerThirstOnUi += SetPlayerThirst;
     }
 
     private void OnDestroy()
     {
-        PlayerStats.SetPlayerHealth -= SetPlayerHealth;
-        PlayerStats.SetPlayerHunger -= SetPlayerHunger;
-        PlayerStats.SetPlayerThirst -= SetPlayerThirst;
+        PlayerStats.SetPlayerHealthOnUi -= SetPlayerHealth;
+        PlayerStats.SetPlayerHungerOnUi -= SetPlayerHunger;
+        PlayerStats.SetPlayerThirstOnUi -= SetPlayerThirst;
     }
 
     private void SetPlayerHealth(float health)

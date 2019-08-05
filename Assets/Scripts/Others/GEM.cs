@@ -19,6 +19,9 @@ public static class GEM
     #endregion
 
     #region Player Stats values
+    public static float maxPlayerHealth = 100;
+    public static float maxPlayerHunger = 100;
+    public static float maxPlayerThirst = 100;
     public static float actionHungerExhaustionLevel = 0.15f;
     public static float actionThirstExhaustionLevel = 0.3f;
     public static float walkingHungerExhaustionLevel = 0.0025f;
