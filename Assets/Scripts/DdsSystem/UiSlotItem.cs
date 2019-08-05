@@ -178,6 +178,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        UiToolTipCanvas.OnShowToolTip(false, Vector2.zero, -1);
         RemovedFromThis();
     }
 

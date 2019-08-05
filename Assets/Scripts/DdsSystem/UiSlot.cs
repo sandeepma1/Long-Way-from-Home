@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UiSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
+public class UiSlot : MonoBehaviour, IDropHandler, IPointerDownHandler, IPointerUpHandler
 {
     public Action<UiSlot, UiSlotItem> OnUiSlotClicked;
     public Action<UiSlot, UiSlotItem> OnSlotDrop;
@@ -28,10 +28,19 @@ public class UiSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         }
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
     {
-        //UiMainCanvas.OnSlotItemClicked?.Invoke(this);
+        UiSlotItem uiSlotItem = GetSlotItem();
+        if (uiSlotItem != null)
+        {
+            UiToolTipCanvas.OnShowToolTip(true, RectTransformUtility.WorldToScreenPoint(null, transform.position), uiSlotItem.ItemId.Value);
+        }
         OnUiSlotClicked?.Invoke(this, GetSlotItem());
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        UiToolTipCanvas.OnShowToolTip(false, Vector2.zero, -1);
     }
 
     public void SetSpriteToNormal()
