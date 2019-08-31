@@ -25,7 +25,7 @@ public class HudCanvas : MonoBehaviour
         }
     }
 
-    private static void PrintHudText(string text)
+    public static void SetHudText(string text)
     {
         debugText.text = text;
     }

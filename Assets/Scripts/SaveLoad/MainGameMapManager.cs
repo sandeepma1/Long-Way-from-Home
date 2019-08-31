@@ -86,51 +86,51 @@ public class MainGameMapManager : MonoBehaviour
 
     private void InstantiateMapItem(int posX, int posY, MapItem mapItem)
     {
-        PlayerActions action = MapItemsDatabase.GetActionById(mapItem.mapItemId);
-        if (action == PlayerActions.none)
+        ItemType action = MapItemsDatabase.GetItemTypeById(mapItem.mapItemId);
+        if (action == ItemType.none)
         {
             return;
         }
         switch (action)
         {
-            case PlayerActions.chopable:
+            case ItemType.chopable:
                 MapItemChopable mapItemChopable = Instantiate(PrefabBank.mapItemChopablePrefab, this.transform);
                 mapItemChopable.Init(posX, posY, mapItem, CurrentMapSize);
                 mapItemsGO[posX, posY] = mapItemChopable;
                 break;
-            case PlayerActions.mineable:
+            case ItemType.mineable:
                 MapItemMineable mapItemMineable = Instantiate(PrefabBank.mapItemMineablePrefab, this.transform);
                 mapItemMineable.Init(posX, posY, mapItem, CurrentMapSize);
                 mapItemsGO[posX, posY] = mapItemMineable;
                 break;
-            case PlayerActions.hitable:
+            case ItemType.hitable:
                 break;
-            case PlayerActions.fishable:
+            case ItemType.fishable:
                 break;
-            case PlayerActions.breakable:
+            case ItemType.breakable:
                 break;
-            case PlayerActions.openable:
+            case ItemType.openable:
                 break;
-            case PlayerActions.pickable:
+            case ItemType.pickable:
                 MapItemPickable mapItemPickable = Instantiate(PrefabBank.mapItemPickablePrefab, this.transform);
                 mapItemPickable.Init(posX, posY, mapItem, CurrentMapSize);
                 mapItemsGO[posX, posY] = mapItemPickable;
                 break;
-            case PlayerActions.interactable:
+            case ItemType.interactable:
                 break;
-            case PlayerActions.moveable:
+            case ItemType.moveable:
                 break;
-            case PlayerActions.shakeable:
+            case ItemType.shakeable:
                 break;
-            case PlayerActions.placeable:
+            case ItemType.placeable:
                 break;
-            case PlayerActions.shoveable:
+            case ItemType.shoveable:
                 break;
-            case PlayerActions.cutable:
+            case ItemType.cutable:
                 break;
-            case PlayerActions.none:
+            case ItemType.none:
                 break;
-            case PlayerActions.harvestable:
+            case ItemType.harvestable:
                 break;
             default:
                 break;

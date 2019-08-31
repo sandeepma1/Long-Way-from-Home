@@ -174,10 +174,11 @@ public class PlayerSavePlayerInfo
 {
     public float posX;
     public float posY;
+    public int lastSelectedInventorySlotId;
     public PlayerSavePlayerInfo()
-    { posX = 20; posY = 20; }
-    public PlayerSavePlayerInfo(float posX, float posY)
-    { this.posX = posX; this.posY = posY; }
+    { posX = 20; posY = 20; lastSelectedInventorySlotId = 0; }
+    public PlayerSavePlayerInfo(float posX, float posY, int slotId)
+    { this.posX = posX; this.posY = posY; lastSelectedInventorySlotId = slotId; }
 }
 
 public class PlayerSaveAllFurnitures

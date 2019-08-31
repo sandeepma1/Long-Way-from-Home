@@ -22,16 +22,16 @@ public class MapItemsDatabase : DatabaseBase<MapItemsDatabase>
         }
     }
 
-    public static PlayerActions GetActionById(int id)
+    public static ItemType GetItemTypeById(int id)
     {
         if (id < MapItems.MapItems.Length)
         {
-            return MapItems.MapItems[id].primaryAction;
+            return MapItems.MapItems[id].itemType;
         }
         else
         {
             GEM.PrintDebug("GetActionById=> id incorrect " + id);
-            return PlayerActions.none;
+            return ItemType.none;
         }
     }
 
@@ -48,11 +48,6 @@ public class MapItemsDatabase : DatabaseBase<MapItemsDatabase>
     public static MapItems[] GetMapItemsArray()
     {
         return MapItems.MapItems;
-    }
-
-    public static MapItemType GetMapItemTypeById(int id)
-    {
-        return MapItems.MapItems[id].mapItemType;
     }
 
     public static int GetHealthPointsById(int id)
@@ -73,9 +68,7 @@ public class MapItems
     public int id;
     public string name;
     public string slug;
-    public PlayerActions primaryAction;
-    public PlayerActions secondaryAction;
-    public MapItemType mapItemType;
+    public ItemType itemType;
     public int healthPoints;
     public bool hasLifeCycle;
     public int nextStageId;
@@ -84,14 +77,7 @@ public class MapItems
     public List<Drops> drops;
 }
 
-[System.Serializable]
-public enum MapItemType
-{
-    natural,
-    manMade
-}
-
-public enum PlayerActions
+public enum ItemType
 {
     chopable,
     mineable,
@@ -108,6 +94,7 @@ public enum PlayerActions
     cutable,
     none,
     harvestable,
+    edible
 }
 
 [System.Serializable]

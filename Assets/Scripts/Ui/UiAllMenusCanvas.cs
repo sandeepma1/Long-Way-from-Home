@@ -38,7 +38,7 @@ namespace Bronz.Ui
         {
             isThisMenuVisible = !isThisMenuVisible;
             mainPanel.gameObject.SetActive(isThisMenuVisible);
-            UiPlayerControlCanvas.OnToggleControlsView(!isThisMenuVisible);
+            UiPlayerControlCanvas.OnToggleControlsView?.Invoke(!isThisMenuVisible);
             if (isThisMenuVisible)
             {
                 inventoryPanel.SetAsLastSibling();

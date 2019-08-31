@@ -12,7 +12,7 @@ public class DragDropBase : MonoBehaviour
     protected PlayerSaveFurniture furniture;
     protected bool areUiSlotsCreated = false;
     private UiSlot lastClickedUiSlot;
-    protected UiSlotItem lastClickedUiSlotItem;
+    protected static UiSlotItem lastClickedUiSlotItem;
 
     protected virtual void Start()
     {
@@ -23,6 +23,9 @@ public class DragDropBase : MonoBehaviour
     {
         MasterSave.RequestSaveData -= RequestSaveData;
     }
+
+
+    #region --Save/Load Stuff--
 
     protected void LoadFurnitureData(List<SlotItems> slotItems)
     {
@@ -38,7 +41,7 @@ public class DragDropBase : MonoBehaviour
             uiSlotItem.OnSlotItemDrop += OnSlotItemDrop;
             AddSlotItem(uiSlotItem);
         }
-        OnUiSlotClicked(uiSlots[0], uiSlots[0].GetSlotItem());
+        //OnUiSlotClicked(uiSlots[0], uiSlots[0].GetSlotItem());
     }
 
     protected virtual void RequestSaveData()
@@ -46,6 +49,9 @@ public class DragDropBase : MonoBehaviour
         //This will call all the base class requesting save.
         //print("called base");
     }
+
+    #endregion
+
 
     protected virtual void CreateUiSlots()
     {
@@ -73,7 +79,14 @@ public class DragDropBase : MonoBehaviour
         return uiSlot;
     }
 
-    private void OnUiSlotClicked(UiSlot uiSlot, UiSlotItem uiSlotItem)
+    private UiSlotItem InstantiateUiSlotItem(Transform parent, SlotItems slotItems)
+    {
+        UiSlotItem uiSlotItem = Instantiate(PrefabBank.uiSlotItemPrefab, parent);
+        uiSlotItem.Init(slotItems);
+        return uiSlotItem;
+    }
+
+    protected virtual void OnUiSlotClicked(UiSlot uiSlot, UiSlotItem uiSlotItem)
     {
         if (lastClickedUiSlot != null)
         {
@@ -115,8 +128,7 @@ public class DragDropBase : MonoBehaviour
 
     protected void CheckIfUiSlotItemIsUseable()
     {
-        if (lastClickedUiSlotItem != null &&
-            InventoryItemsDatabase.GetInventoryItemTypeById(lastClickedUiSlotItem.ItemId.Value) == InventoryItemType.food &&
+        if (lastClickedUiSlotItem != null && lastClickedUiSlotItem.itemType == ItemType.edible &&
             lastClickedUiSlotItem.ItemDuraCount.Value > 0)
         {
             ToggleUseButton(true);
@@ -311,13 +323,6 @@ public class DragDropBase : MonoBehaviour
             }
         }
         return count;
-    }
-
-    private UiSlotItem InstantiateUiSlotItem(Transform parent, SlotItems slotItems)
-    {
-        UiSlotItem uiSlotItem = Instantiate(PrefabBank.uiSlotItemPrefab, parent);
-        uiSlotItem.Init(slotItems);
-        return uiSlotItem;
     }
 
 

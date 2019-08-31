@@ -12,6 +12,8 @@ public class ActionManager : MonoBehaviour
     private const float actionInterval = 0.5f;
     private const float itemMinDistance = 1.5f;
     private bool isActionInProgress = false;
+    private UiSlotItem lastClikcedUiSlotItem = null;
+    private ItemType lastClickedItemType;
 
     private void Start()
     {
@@ -19,6 +21,7 @@ public class ActionManager : MonoBehaviour
         UiPlayerControlCanvas.OnActionButtonDown += OnActionButtonDown;
         UiPlayerControlCanvas.OnActionButtonUp += OnActionButtonUp;
         UiPlayerControlCanvas.OnMoreButtonClicked += OnMoreButtonClicked;
+        UiInventory.OnInventoryItemClicked += OnInventoryItemClicked;
         mainCamera = Camera.main;
     }
 
@@ -28,6 +31,7 @@ public class ActionManager : MonoBehaviour
         UiPlayerControlCanvas.OnActionButtonDown -= OnActionButtonDown;
         UiPlayerControlCanvas.OnActionButtonUp -= OnActionButtonUp;
         UiPlayerControlCanvas.OnMoreButtonClicked -= OnMoreButtonClicked;
+        UiInventory.OnInventoryItemClicked -= OnInventoryItemClicked;
     }
 
     private void Update()
@@ -44,6 +48,27 @@ public class ActionManager : MonoBehaviour
         {
             ActionButtonPressed();
         }
+    }
+
+    private void OnInventoryItemClicked(UiSlotItem uiSlotItemClicked)
+    {
+        lastClikcedUiSlotItem = uiSlotItemClicked;
+        if (uiSlotItemClicked == null)
+        {
+            lastClickedItemType = ItemType.none;
+        }
+        else
+        {
+            lastClickedItemType = InventoryItemsDatabase.GetInventoryItemTypeById(lastClikcedUiSlotItem.ItemId.Value);
+        }
+
+        if (lastClikcedUiSlotItem == null)
+        {
+            UiPlayerControlCanvas.OnActionButtonTextChange?.Invoke("");
+            //Empty UiSlot clicked
+            return;
+        }
+        UiPlayerControlCanvas.OnActionButtonTextChange?.Invoke(uiSlotItemClicked.itemType.ToString());
     }
 
 
@@ -66,6 +91,10 @@ public class ActionManager : MonoBehaviour
 
     private void OnActionButtonDown()
     {
+        if (lastClickedItemType == ItemType.edible)
+        {
+            UiInventory.OnUseActionClicked?.Invoke();
+        }
         isActionButtonDown = true;
     }
     #endregion
@@ -73,6 +102,10 @@ public class ActionManager : MonoBehaviour
 
     private void ActionButtonPressed()
     {
+        if (lastClickedItemType == ItemType.edible)
+        {
+            return;
+        }
         if (GetObjectsAround.closestItem == null) { return; }
         if (!IsPlayerNearMapItem())
         {
@@ -89,7 +122,7 @@ public class ActionManager : MonoBehaviour
     {
         isActionInProgress = true;
         int itemId = GetObjectsAround.closestItem.mapItem.mapItemId;
-        PlayerMovement.SetTriggerAnimation(MapItemsDatabase.GetActionById(itemId));
+        PlayerMovement.SetTriggerAnimation(MapItemsDatabase.GetItemTypeById(itemId));
         yield return new WaitForSeconds(duration);
         PerformActionOnMapItem(GetObjectsAround.closestItem);
         isActionInProgress = false;
@@ -98,43 +131,43 @@ public class ActionManager : MonoBehaviour
 
     private void PerformActionOnMapItem(MapItemBase clickedMapItem)
     {
-        PlayerActions currentAction = MapItemsDatabase.GetActionById(clickedMapItem.mapItem.mapItemId);
+        ItemType currentAction = MapItemsDatabase.GetItemTypeById(clickedMapItem.mapItem.mapItemId);
         //TODO: Check if tool available in inventory to perform action       
         switch (currentAction)
         {
-            case PlayerActions.chopable:
+            case ItemType.chopable:
                 //TODO: add weapon damage 
                 clickedMapItem.GetComponent<IChopable>().Chop(2);
                 break;
-            case PlayerActions.mineable:
+            case ItemType.mineable:
                 clickedMapItem.GetComponent<IMineable>().Mine(2);
                 break;
-            case PlayerActions.hitable:
+            case ItemType.hitable:
                 break;
-            case PlayerActions.fishable:
+            case ItemType.fishable:
                 break;
-            case PlayerActions.breakable:
+            case ItemType.breakable:
                 break;
-            case PlayerActions.openable:
+            case ItemType.openable:
                 break;
-            case PlayerActions.pickable:
+            case ItemType.pickable:
                 clickedMapItem.GetComponent<IPickable>().Pick();
                 break;
-            case PlayerActions.interactable:
+            case ItemType.interactable:
                 break;
-            case PlayerActions.moveable:
+            case ItemType.moveable:
                 break;
-            case PlayerActions.shakeable:
+            case ItemType.shakeable:
                 break;
-            case PlayerActions.placeable:
+            case ItemType.placeable:
                 break;
-            case PlayerActions.shoveable:
+            case ItemType.shoveable:
                 break;
-            case PlayerActions.cutable:
+            case ItemType.cutable:
                 break;
-            case PlayerActions.none:
+            case ItemType.none:
                 break;
-            case PlayerActions.harvestable:
+            case ItemType.harvestable:
                 break;
             default:
                 break;
@@ -144,7 +177,6 @@ public class ActionManager : MonoBehaviour
     private bool IsPlayerNearMapItem()
     {
         float distance = Vector3.Distance(transform.position, GetObjectsAround.closestItem.transform.position);
-        DebugText.PrintDebugText(distance.ToString());
         if (distance <= itemMinDistance)
         {
             return true;

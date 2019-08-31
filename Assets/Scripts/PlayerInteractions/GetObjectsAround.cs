@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bronz.Ui;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,23 +11,39 @@ public class GetObjectsAround : MonoBehaviour
     public static MapItemBase closestItem;
     private MapItemBase closestItemLast;
     [SerializeField] private float itemPickupRadius = 4f;
+    private ItemType lastClickedItemType = ItemType.none;
 
     private void Start()
     {
         PlayerMovement.OnPlayerMoved += OnPlayerMoved;
+        UiInventory.OnInventoryItemClicked += OnInventoryItemClicked;
+        CalculateNearestItem();
     }
 
     private void OnDestroy()
     {
         PlayerMovement.OnPlayerMoved -= OnPlayerMoved;
+        UiInventory.OnInventoryItemClicked -= OnInventoryItemClicked;
+    }
+
+    private void OnInventoryItemClicked(UiSlotItem uiSlotItem)
+    {
+        if (uiSlotItem == null)
+        {
+            lastClickedItemType = ItemType.none;
+        }
+        else
+        {
+            lastClickedItemType = uiSlotItem.itemType;
+        }
     }
 
     private void OnPlayerMoved()
     {
-        // CalculateNearestItem();
+        //CalculateNearestItem();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         CalculateNearestItem();
     }
@@ -34,14 +51,28 @@ public class GetObjectsAround : MonoBehaviour
     private void CalculateNearestItem()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, itemPickupRadius, layerMask);
-        if (colliders.Length == 0)
+        List<MapItemBase> mapItems = new List<MapItemBase>();
+
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            MapItemBase mapItem = colliders[i].GetComponent<MapItemBase>();
+            ItemType itemType = MapItemsDatabase.GetItemTypeById(mapItem.mapItem.mapItemId);
+            if (itemType == lastClickedItemType ||
+                itemType == ItemType.pickable ||
+                itemType == ItemType.interactable)
+            {
+                mapItems.Add(mapItem);
+            }
+        }
+
+        if (mapItems.Count == 0)
         {
             nearestItemPosition = Vector3.zero;
             closestItem = null;
         }
         else
         {
-            closestItem = GetClosestItem(colliders);
+            closestItem = GetClosestItem(mapItems);
             if (closestItem != null)
             {
                 nearestItemPosition = closestItem.transform.position;
@@ -50,26 +81,26 @@ public class GetObjectsAround : MonoBehaviour
         closestItemMarker.transform.localPosition = nearestItemPosition;
     }
 
-    private MapItemBase GetClosestItem(Collider2D[] colliders)
+    private MapItemBase GetClosestItem(List<MapItemBase> mapItems)
     {
-        Transform tMin = null;
+        MapItemBase tMin = null;
         float minDist = Mathf.Infinity;
-        if (colliders.Length == 1 && colliders[0] != null)
+        if (mapItems.Count == 1 && mapItems[0] != null)
         {
-            return colliders[0].GetComponent<MapItemBase>();
+            return mapItems[0].GetComponent<MapItemBase>();
         }
-        foreach (Collider2D t in colliders)
+        foreach (MapItemBase t in mapItems)
         {
             if (t != null)
             {
                 float dist = Vector3.Distance(t.transform.position, transform.position);
                 if (dist < minDist)
                 {
-                    tMin = t.transform;
+                    tMin = t;
                     minDist = dist;
                 }
             }
         }
-        return tMin.GetComponent<MapItemBase>();
+        return tMin;
     }
 }

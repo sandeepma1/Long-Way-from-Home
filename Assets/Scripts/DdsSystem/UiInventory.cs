@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -8,9 +9,11 @@ namespace Bronz.Ui
 {
     public class UiInventory : DragDropBase
     {
+        public static Action<UiSlotItem> OnInventoryItemClicked;
         public static Action<Item, bool> AddItemToInventory;
         public static Action<Item, bool> RemoveItemFromInventory;
         public static Action OnUiInventoryUpdated;
+        public static Action OnUseActionClicked;
         [SerializeField] private GameObject sidePanel;
         [SerializeField] private Button useItemButton;
         [SerializeField] private TextMeshProUGUI useButtonText;
@@ -26,13 +29,14 @@ namespace Bronz.Ui
 
         protected override void Start()
         {
+            PlayerMovement.OnPlayerDataLoaded += SetUiSlotIdOnLoad;
             thisRectTransform = GetComponent<RectTransform>();
             UiAllMenusCanvas.OnMoveInventoryPanel += OnMoveInventoryPanelToAnotherPanel;
             base.Start();
             InitOtherOptions();
             AddItemToInventory += OnAddItemToInventory;
             RemoveItemFromInventory += OnRemoveItemFromInventory;
-
+            OnUseActionClicked += OnUseItemButtonClick;
             if (!areUiSlotsCreated)
             {
                 GEM.PrintDebug("CreateUiSlots UiInventory");
@@ -47,9 +51,11 @@ namespace Bronz.Ui
 
         private void OnDestroy()
         {
+            PlayerMovement.OnPlayerDataLoaded -= SetUiSlotIdOnLoad;
             UiAllMenusCanvas.OnMoveInventoryPanel -= OnMoveInventoryPanelToAnotherPanel;
             AddItemToInventory -= OnAddItemToInventory;
             RemoveItemFromInventory -= OnRemoveItemFromInventory;
+            OnUseActionClicked -= OnUseItemButtonClick;
             deleteItemButton.onClick.RemoveListener(OnDeleteItemButtonClick);
             splitItemButton.onClick.RemoveListener(OnSplitItemButtonClick);
             sortItemButton.onClick.RemoveListener(OnSortItemButtonClick);
@@ -159,6 +165,12 @@ namespace Bronz.Ui
             GEM.PrintDebug("called derived");
         }
 
+        protected override void OnUiSlotClicked(UiSlot uiSlot, UiSlotItem uiSlotItem)
+        {
+            base.OnUiSlotClicked(uiSlot, uiSlotItem);
+            OnInventoryItemClicked?.Invoke(uiSlotItem);
+        }
+
         private void OnAddItemToInventory(Item itemToAdd, bool updateInventory = true)
         {
             AddSlotItemReturnRemaining(itemToAdd);
@@ -193,6 +205,22 @@ namespace Bronz.Ui
                 }
             }
             return requiresItems;
+        }
+
+        public static int GetLastClikcedSlotId()
+        {
+            return lastClickedUiSlotItem.ItemSlotId;
+        }
+
+        public void SetUiSlotIdOnLoad(int id)
+        {
+            StartCoroutine(SetUiSlotIdOnLoadOnDelay(id));
+        }
+
+        private IEnumerator SetUiSlotIdOnLoadOnDelay(int id)
+        {
+            yield return new WaitForEndOfFrame();
+            OnUiSlotClicked(uiSlots[id], uiSlots[id].GetSlotItem());
         }
     }
 }

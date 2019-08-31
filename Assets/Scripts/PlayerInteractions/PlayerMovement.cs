@@ -1,9 +1,11 @@
-﻿using CnControls;
+﻿using Bronz.Ui;
+using CnControls;
 using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static Action<int> OnPlayerDataLoaded;
     public static Action<int, int> OnPlayerMovedPerGrid;
     public static Action OnPlayerMovedPerMeter;
     public static Action OnPlayerMoved;
@@ -55,21 +57,23 @@ public class PlayerMovement : MonoBehaviour
         PlayerSavePlayerInfo playerSavePlayerInfo = MasterSave.LoadPlayerInfo();
         transform.position = new Vector2(playerSavePlayerInfo.posX, playerSavePlayerInfo.posY);
         currentPosY = (int)transform.position.y;
+        OnPlayerDataLoaded?.Invoke(playerSavePlayerInfo.lastSelectedInventorySlotId);
         SetSortingOrder();
     }
 
     private void RequestSaveData()
     {
-        MasterSave.SavePlayerInfo(new PlayerSavePlayerInfo(transform.position.x, transform.position.y));
+        MasterSave.SavePlayerInfo(new PlayerSavePlayerInfo(transform.position.x,
+            transform.position.y, UiInventory.GetLastClikcedSlotId()));
     }
     #endregion
 
-    public static void SetTriggerAnimation(PlayerActions playerAction)
+    public static void SetTriggerAnimation(ItemType playerAction)
     {
         anim.SetTrigger(playerAction.ToString());
     }
 
-    public static void SetBoolAnimation(PlayerActions playerAction, bool flag)
+    public static void SetBoolAnimation(ItemType playerAction, bool flag)
     {
         anim.SetBool(playerAction.ToString(), flag);
     }

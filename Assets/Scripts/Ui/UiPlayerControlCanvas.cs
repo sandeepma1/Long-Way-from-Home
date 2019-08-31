@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,9 +13,11 @@ namespace Bronz.Ui
         public static Action OnActionButtonDown;
         public static Action OnActionButtonUp;
         public static Action OnMoreButtonClicked;
+        public static Action<string> OnActionButtonTextChange;
         public static Action<bool> OnToggleControlsView;
         [SerializeField] private GameObject panelParent;
         [SerializeField] private Button actionButton;
+        [SerializeField] private TextMeshProUGUI actionButtonText;
         [SerializeField] private Button moreButton;
         [SerializeField] private Button inventoryButton;
         private EventTrigger trigger;
@@ -23,6 +26,7 @@ namespace Bronz.Ui
 
         private void Start()
         {
+            OnActionButtonTextChange += OnActionButtonTextChangeEventHandler;
             OnToggleControlsView += TogglePlayerControls;
             trigger = actionButton.GetComponent<EventTrigger>();
             pointerDown.eventID = EventTriggerType.PointerDown;
@@ -40,6 +44,7 @@ namespace Bronz.Ui
 
         private void OnDestroy()
         {
+            OnActionButtonTextChange -= OnActionButtonTextChangeEventHandler;
             OnToggleControlsView -= TogglePlayerControls;
             pointerDown.callback.RemoveListener((e) => OnActionButtonDown?.Invoke());
             pointerUp.callback.RemoveListener((e) => OnActionButtonUp?.Invoke());
@@ -51,6 +56,19 @@ namespace Bronz.Ui
         public void TogglePlayerControls(bool flag)
         {
             panelParent.SetActive(flag);
+        }
+
+        private void OnActionButtonTextChangeEventHandler(string text)
+        {
+            actionButtonText.text = text;
+            //if (text == "")
+            //{
+            //    actionButton.interactable = false;
+            //}
+            //else
+            //{
+            //    actionButton.interactable = true;
+            //}
         }
     }
 }

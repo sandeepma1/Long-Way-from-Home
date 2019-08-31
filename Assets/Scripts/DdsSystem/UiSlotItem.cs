@@ -12,6 +12,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     public DropType dropType;
     public DragDropBase lastDragDropBase;
     public Transform lastParent;
+    public ItemType itemType;
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI countText;
     [SerializeField] private Image image;
@@ -35,7 +36,8 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void Init(SlotItems slotItem)
     {
-        maxStackable = InventoryItemsDatabase.GetMaxStackableById((int)slotItem.item.id);
+        maxStackable = InventoryItemsDatabase.GetMaxStackableById(slotItem.item.id.Value);
+        itemType = InventoryItemsDatabase.GetInventoryItemTypeById(slotItem.item.id.Value);
         this.slotItem = slotItem;
         lastDragDropBase = transform.parent.parent.GetComponent<DragDropBase>();
         gameObject.name = ItemId + "-" + ItemDuraCount;
