@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetSortingOrder()
     {
-        if (tempPosX == currentPosX || tempPosY == currentPosY)
+        if (tempPosX == currentPosX && tempPosY == currentPosY)
         {
             return;
         }

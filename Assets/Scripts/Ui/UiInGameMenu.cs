@@ -1,22 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class UiInGameMenu : MonoBehaviour
+namespace Bronz.Ui
 {
-    [SerializeField] private Button backToMainMenuButton;
-
-    private void Start()
+    public class UiInGameMenu : MonoBehaviour
     {
-        backToMainMenuButton.onClick.AddListener(BackToMainMenuButtonClicked);
-    }
+        [SerializeField] private Button backToMainMenuButton;
 
-    private void OnDestroy()
-    {
-        backToMainMenuButton.onClick.RemoveListener(BackToMainMenuButtonClicked);
-    }
+        private void Start()
+        {
+            backToMainMenuButton.onClick.AddListener(BackToMainMenuButtonClicked);
+        }
 
-    private void BackToMainMenuButtonClicked()
-    {
-        SceneLoader.LoadScene(SceneNames.StartMenuScene);
+        private void OnDestroy()
+        {
+            backToMainMenuButton.onClick.RemoveListener(BackToMainMenuButtonClicked);
+        }
+
+        private void BackToMainMenuButtonClicked()
+        {
+            SceneLoader.LoadScene(SceneNames.StartMenuScene);
+        }
     }
 }
