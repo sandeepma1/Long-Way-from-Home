@@ -6,6 +6,7 @@ using UnityEngine;
 public class ActionManager : MonoBehaviour
 {
     public static Action<Vector2> OnMouseClick;
+    public static Action<UiSlotItem> OnItemPlacedClicked;
     public static Action OnPlayerActionDone;
     private Camera mainCamera;
     private bool isActionButtonDown;
@@ -59,7 +60,7 @@ public class ActionManager : MonoBehaviour
         }
         else
         {
-            lastClickedItemType = InventoryItemsDatabase.GetInventoryItemTypeById(lastClikcedUiSlotItem.ItemId.Value);
+            lastClickedItemType = InventoryItemsDatabase.GetInventoryItemTypeById(uiSlotItemClicked.ItemId.Value);
         }
 
         if (lastClikcedUiSlotItem == null)
@@ -94,6 +95,10 @@ public class ActionManager : MonoBehaviour
         if (lastClickedItemType == ItemType.edible)
         {
             UiInventory.OnUseActionClicked?.Invoke();
+        }
+        if (lastClickedItemType == ItemType.placeable)
+        {
+            OnItemPlacedClicked?.Invoke(lastClikcedUiSlotItem);
         }
         isActionButtonDown = true;
     }

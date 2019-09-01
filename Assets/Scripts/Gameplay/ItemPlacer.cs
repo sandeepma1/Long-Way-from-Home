@@ -7,34 +7,39 @@ public class ItemPlacer : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     private Vector2 lastPosition;
     private Vector2 currentPosition;
-    private bool isPlacementModeActive = false;
+    private bool isPlacementModeActive;
+    private bool IsPlacementModeActive
+    {
+        get => isPlacementModeActive;
+        set
+        {
+            isPlacementModeActive = value;
+            spriteRenderer.enabled = value;
+        }
+    }
 
     private void Start()
     {
+        ActionManager.OnItemPlacedClicked += OnItemPlacedClicked;
         UiInventory.OnInventoryItemClicked += OnInventoryItemClicked;
         PlayerMovement.OnPlayerMovedPerGrid += OnPlayerMovedPerGrid;
     }
 
     private void OnDestroy()
     {
+        ActionManager.OnItemPlacedClicked -= OnItemPlacedClicked;
         UiInventory.OnInventoryItemClicked -= OnInventoryItemClicked;
         PlayerMovement.OnPlayerMovedPerGrid -= OnPlayerMovedPerGrid;
     }
 
     private void OnInventoryItemClicked(UiSlotItem selectedUiSlotItem)
     {
-        ItemType itemType = InventoryItemsDatabase.GetInventoryItemTypeById(selectedUiSlotItem.ItemId.Value);
-        spriteRenderer.enabled = isPlacementModeActive = itemType == ItemType.placeable ? true : false;
-        //if (itemType == ItemType.placeable)
-        //{
-        //    isPlacementModeActive = true;
-        //    spriteRenderer.enabled = true;
-        //}
-        //else
-        //{
-        //    isPlacementModeActive = false;
-        //    spriteRenderer.enabled = false;
-        //}
+        ItemType itemType = ItemType.none;
+        if (selectedUiSlotItem != null)
+        {
+            itemType = InventoryItemsDatabase.GetInventoryItemTypeById(selectedUiSlotItem.ItemId.Value);
+        }
+        IsPlacementModeActive = itemType == ItemType.placeable ? true : false;
     }
 
     private void OnPlayerMovedPerGrid(int posX, int posY)
@@ -45,5 +50,10 @@ public class ItemPlacer : MonoBehaviour
         Vector2 direction = heading / heading.magnitude;
         lastPosition = currentPosition;
         transform.position = currentPosition + direction;
+    }
+
+    private void OnItemPlacedClicked(UiSlotItem lastClickedUiSlotItem)
+    {
+        IsPlacementModeActive = false;
     }
 }

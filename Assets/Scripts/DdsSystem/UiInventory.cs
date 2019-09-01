@@ -12,6 +12,7 @@ namespace Bronz.Ui
         public static Action<UiSlotItem> OnInventoryItemClicked;
         public static Action<Item, bool> AddItemToInventory;
         public static Action<Item, bool> RemoveItemFromInventory;
+        public static Action<UiSlotItem> RemoveItemFromUiSlot;
         public static Action OnUiInventoryUpdated;
         public static Action OnUseActionClicked;
         [SerializeField] private GameObject sidePanel;
@@ -37,6 +38,7 @@ namespace Bronz.Ui
             AddItemToInventory += OnAddItemToInventory;
             RemoveItemFromInventory += OnRemoveItemFromInventory;
             OnUseActionClicked += OnUseItemButtonClick;
+            RemoveItemFromUiSlot += RemoveItemFromUiSlotClick;
             if (!areUiSlotsCreated)
             {
                 GEM.PrintDebug("CreateUiSlots UiInventory");
@@ -55,6 +57,7 @@ namespace Bronz.Ui
             UiAllMenusCanvas.OnMoveInventoryPanel -= OnMoveInventoryPanelToAnotherPanel;
             AddItemToInventory -= OnAddItemToInventory;
             RemoveItemFromInventory -= OnRemoveItemFromInventory;
+            RemoveItemFromUiSlot -= RemoveItemFromUiSlotClick;
             OnUseActionClicked -= OnUseItemButtonClick;
             deleteItemButton.onClick.RemoveListener(OnDeleteItemButtonClick);
             splitItemButton.onClick.RemoveListener(OnSplitItemButtonClick);
@@ -194,6 +197,11 @@ namespace Bronz.Ui
             }
         }
 
+        private void RemoveItemFromUiSlotClick(UiSlotItem uiSlotItemToRemove)
+        {
+
+        }
+
         public static List<Item> CheckIfItemsAvailable(CraftableItem craftableItem)
         {
             List<Item> requiresItems = new List<Item>();
@@ -209,7 +217,14 @@ namespace Bronz.Ui
 
         public static int GetLastClikcedSlotId()
         {
-            return lastClickedUiSlotItem.ItemSlotId;
+            if (lastClickedUiSlotItem == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return lastClickedUiSlotItem.ItemSlotId;
+            }
         }
 
         public void SetUiSlotIdOnLoad(int id)
