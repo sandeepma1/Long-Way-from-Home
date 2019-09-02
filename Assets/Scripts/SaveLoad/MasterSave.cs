@@ -251,12 +251,12 @@ public class MapSave
 public class MapItem
 {
     public int mapItemId;
-    public int furnitureId;
+    public int structureId;
     public int healthPoints;
-    public MapItem(int mapItemId, int furnitureId, int healthPoints)
+    public MapItem(int mapItemId, int structureId, int healthPoints)
     {
         this.mapItemId = mapItemId;
-        this.furnitureId = furnitureId;
+        this.structureId = structureId;
         this.healthPoints = healthPoints;
     }
 }

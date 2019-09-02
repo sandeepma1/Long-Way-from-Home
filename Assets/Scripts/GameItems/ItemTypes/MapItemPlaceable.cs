@@ -2,6 +2,6 @@
 {
     public void Place()
     {
-        throw new System.NotImplementedException();
+        print("I Place");
     }
 }

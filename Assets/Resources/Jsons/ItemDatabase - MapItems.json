@@ -368,12 +368,12 @@
       "id": 13,
       "name": "Bonfire",
       "slug": "bonfire",
-      "itemType": "placeable",
+      "itemType": "interactable",
       "healthPoints": 10,
       "hasLifeCycle": false,
       "nextStageId": 0,
       "hasStructure": true,
-      "structureId": 0,
+      "structureId": 1,
       "drops": [
         {
           "dropId": 13,

@@ -94,10 +94,11 @@ public class MainGameMapManager : MonoBehaviour
 
     private void OnCreatePlacableMapItemClicked(int posX, int posY, MapItem mapItem)
     {
-        MapItemPlaceable mapItemPlaceable = Instantiate(PrefabBank.mapItemPlaceablePrefab, this.transform);
-        mapItemPlaceable.Init(posX, posY, mapItem, CurrentMapSize);
-        mapItemsGO[posX, posY] = mapItemPlaceable;
-        AddNewMapItem(posX, posY, mapItem.mapItemId);
+        MapItemInteractable mapItemInteractable = Instantiate(PrefabBank.mapItemInteractablePrefab, this.transform);
+        mapItemInteractable.Init(posX, posY, mapItem, CurrentMapSize);
+        mapItemsGO[posX, posY] = mapItemInteractable;
+        int key = posX + (posY * mapSave.mapSize);
+        mapSave.mapItems.Add(key, mapItem);
     }
 
     private void InstantiateMapItem(int posX, int posY, MapItem mapItem)
@@ -133,6 +134,9 @@ public class MainGameMapManager : MonoBehaviour
                 mapItemsGO[posX, posY] = mapItemPickable;
                 break;
             case ItemType.interactable:
+                MapItemInteractable mapItemInteractable = Instantiate(PrefabBank.mapItemInteractablePrefab, this.transform);
+                mapItemInteractable.Init(posX, posY, mapItem, CurrentMapSize);
+                mapItemsGO[posX, posY] = mapItemInteractable;
                 break;
             case ItemType.moveable:
                 break;
@@ -174,15 +178,6 @@ public class MainGameMapManager : MonoBehaviour
         else
         {
             return mapTiles[(int)pos.x, (int)pos.y].isItemPlacable;
-        }
-    }
-
-    public void AddNewMapItem(int posX, int posY, int mapItemId)
-    {
-        int key = posX + (posY * mapSave.mapSize);
-        if (!mapSave.mapItems.ContainsKey(key))
-        {
-            mapSave.mapItems.Add(key, CreateMapItemById(mapItemId));
         }
     }
 

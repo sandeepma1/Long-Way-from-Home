@@ -24,15 +24,17 @@ public class MapItemsDatabase : DatabaseBase<MapItemsDatabase>
 
     public static ItemType GetItemTypeById(int id)
     {
-        if (id < MapItems.MapItems.Length)
-        {
-            return MapItems.MapItems[id].itemType;
-        }
-        else
-        {
-            GEM.PrintDebug("GetActionById=> id incorrect " + id);
-            return ItemType.none;
-        }
+        return MapItems.MapItems[id].itemType;
+        //If any error then uncommit below lines
+        //if (id < MapItems.MapItems.Length)
+        //{
+        //    return MapItems.MapItems[id].itemType;
+        //}
+        //else
+        //{
+        //    GEM.PrintDebug("GetActionById=> id incorrect " + id);
+        //    return ItemType.none;
+        //}
     }
 
     public static List<Drops> GetDropsById(int id)
