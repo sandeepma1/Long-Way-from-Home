@@ -59,6 +59,11 @@ public class InventoryItemsDatabase : DatabaseBase<InventoryItemsDatabase>
     {
         return InventoryItems.InventoryItems[id].itemType;
     }
+
+    public static int GetPlacableMapItemIdById(int id)
+    {
+        return InventoryItems.InventoryItems[id].placableMapItemId;
+    }
 }
 
 [System.Serializable]
@@ -77,6 +82,7 @@ public class InventoryItems
     public int maxStackable;
     public int hitPoints;
     public ItemType itemType;
+    public int placableMapItemId;
     public float foodPoints;
     public float thirstPoints;
 }

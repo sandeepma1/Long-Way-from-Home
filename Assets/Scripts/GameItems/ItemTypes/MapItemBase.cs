@@ -16,25 +16,10 @@ public class MapItemBase : MonoBehaviour
         spriteRenderer.sortingOrder = (mapSize + 1) - posY;
     }
 
-    protected virtual void MapItemDone()
+    protected virtual void MapItemHarvestingDone()
     {
         //TODO: ugly code, refactor it later
-        MainGameMapManager.MapItemDone((int)transform.position.x, (int)transform.position.y);
-        DropItemsAfterDone();
+        MainGameMapManager.MapItemHarvestingDone(transform.position, mapItem.mapItemId);
         Destroy(this.gameObject);
-    }
-
-    private void DropItemsAfterDone()
-    {
-        List<Drops> drops = MapItemsDatabase.GetDropsById(mapItem.mapItemId);
-        for (int i = 0; i < drops.Count; i++)
-        {
-            if (drops[i].dropId != null)
-            {
-                MapItemDropedItem mapItemDropedItem = Instantiate(PrefabBank.mapItemDroped, null);
-                int dropCountRandom = UnityEngine.Random.Range((int)drops[i].min, (int)drops[i].max);
-                mapItemDropedItem.Init(this.transform.position, (int)drops[i].dropId, dropCountRandom);
-            }
-        }
     }
 }

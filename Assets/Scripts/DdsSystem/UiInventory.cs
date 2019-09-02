@@ -12,7 +12,7 @@ namespace Bronz.Ui
         public static Action<UiSlotItem> OnInventoryItemClicked;
         public static Action<Item, bool> AddItemToInventory;
         public static Action<Item, bool> RemoveItemFromInventory;
-        public static Action<UiSlotItem> RemoveItemFromUiSlot;
+        public static Action RemoveSelectedUiSlotItemOnClicked;
         public static Action OnUiInventoryUpdated;
         public static Action OnUseActionClicked;
         [SerializeField] private GameObject sidePanel;
@@ -38,7 +38,7 @@ namespace Bronz.Ui
             AddItemToInventory += OnAddItemToInventory;
             RemoveItemFromInventory += OnRemoveItemFromInventory;
             OnUseActionClicked += OnUseItemButtonClick;
-            RemoveItemFromUiSlot += RemoveItemFromUiSlotClick;
+            RemoveSelectedUiSlotItemOnClicked += RemoveSelectedUiSlotItemOnClick;
             if (!areUiSlotsCreated)
             {
                 GEM.PrintDebug("CreateUiSlots UiInventory");
@@ -57,7 +57,7 @@ namespace Bronz.Ui
             UiAllMenusCanvas.OnMoveInventoryPanel -= OnMoveInventoryPanelToAnotherPanel;
             AddItemToInventory -= OnAddItemToInventory;
             RemoveItemFromInventory -= OnRemoveItemFromInventory;
-            RemoveItemFromUiSlot -= RemoveItemFromUiSlotClick;
+            RemoveSelectedUiSlotItemOnClicked -= RemoveSelectedUiSlotItemOnClick;
             OnUseActionClicked -= OnUseItemButtonClick;
             deleteItemButton.onClick.RemoveListener(OnDeleteItemButtonClick);
             splitItemButton.onClick.RemoveListener(OnSplitItemButtonClick);
@@ -197,9 +197,9 @@ namespace Bronz.Ui
             }
         }
 
-        private void RemoveItemFromUiSlotClick(UiSlotItem uiSlotItemToRemove)
+        private void RemoveSelectedUiSlotItemOnClick()
         {
-
+            DecrementSlectedUiSlotItem(1);
         }
 
         public static List<Item> CheckIfItemsAvailable(CraftableItem craftableItem)

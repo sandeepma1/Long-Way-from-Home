@@ -31,12 +31,22 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: c3830975c85430a4aa5dd5d649b12d02, type: 3}
-    totalSpriteSurfaceArea: 3873
+    totalSpriteSurfaceArea: 6433
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: ccb64f803feee0748bf8594e390e4242, type: 3}
   - {fileID: 21300000, guid: 314436f0eeccda54dbe704b71f860db6, type: 3}
+  - {fileID: 8648822512753860137, guid: 9f55d002ca716994d854af20bdf22715, type: 3}
+  - {fileID: -61507124638633176, guid: 9f55d002ca716994d854af20bdf22715, type: 3}
+  - {fileID: -1949760743246841575, guid: 9f55d002ca716994d854af20bdf22715, type: 3}
+  - {fileID: -5468925804600028722, guid: 9f55d002ca716994d854af20bdf22715, type: 3}
+  - {fileID: -5334877633514597255, guid: 9f55d002ca716994d854af20bdf22715, type: 3}
+  - {fileID: 3031820995386168073, guid: 9f55d002ca716994d854af20bdf22715, type: 3}
+  - {fileID: -2287478640758741509, guid: 9f55d002ca716994d854af20bdf22715, type: 3}
+  - {fileID: 4706875603367313408, guid: 9f55d002ca716994d854af20bdf22715, type: 3}
+  - {fileID: 4589751714783062387, guid: 9f55d002ca716994d854af20bdf22715, type: 3}
+  - {fileID: -4796633505624523523, guid: 9f55d002ca716994d854af20bdf22715, type: 3}
   - {fileID: 21300000, guid: 5e57754241e81a64d8049f70a64557f4, type: 3}
   - {fileID: 21300000, guid: 5a0b45331705dad449cf737fde3801c8, type: 3}
   - {fileID: 21300000, guid: eeb6df7315ef3be4796b807c914a9163, type: 3}
@@ -47,6 +57,16 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - windowBorder_oneMinus
   - windowBorder
+  - grass
+  - stone
+  - stick
+  - berries
+  - radish
+  - flint
+  - seeds
+  - log
+  - starfish
+  - coconut
   - Thirst
   - hudBackground
   - MenuTabs

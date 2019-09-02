@@ -8,6 +8,7 @@
       "maxStackable": 64,
       "hitPoints": -1,
       "itemType": "none",
+      "placableMapItemId": -1,
       "foodPoints": -1,
       "thirstPoints": -1
     },
@@ -19,6 +20,7 @@
       "maxStackable": 64,
       "hitPoints": -1,
       "itemType": "none",
+      "placableMapItemId": -1,
       "foodPoints": -1,
       "thirstPoints": -1
     },
@@ -30,6 +32,7 @@
       "maxStackable": 64,
       "hitPoints": -1,
       "itemType": "none",
+      "placableMapItemId": -1,
       "foodPoints": -1,
       "thirstPoints": -1
     },
@@ -41,6 +44,7 @@
       "maxStackable": 64,
       "hitPoints": -1,
       "itemType": "none",
+      "placableMapItemId": -1,
       "foodPoints": -1,
       "thirstPoints": -1
     },
@@ -52,6 +56,7 @@
       "maxStackable": 64,
       "hitPoints": -1,
       "itemType": "none",
+      "placableMapItemId": -1,
       "foodPoints": -1,
       "thirstPoints": -1
     },
@@ -63,6 +68,7 @@
       "maxStackable": 64,
       "hitPoints": -1,
       "itemType": "none",
+      "placableMapItemId": -1,
       "foodPoints": -1,
       "thirstPoints": -1
     },
@@ -74,6 +80,7 @@
       "maxStackable": 64,
       "hitPoints": -1,
       "itemType": "edible",
+      "placableMapItemId": -1,
       "foodPoints": 10,
       "thirstPoints": 6
     },
@@ -85,6 +92,7 @@
       "maxStackable": 64,
       "hitPoints": -1,
       "itemType": "edible",
+      "placableMapItemId": -1,
       "foodPoints": 12,
       "thirstPoints": 10
     },
@@ -96,6 +104,7 @@
       "maxStackable": 64,
       "hitPoints": -1,
       "itemType": "edible",
+      "placableMapItemId": -1,
       "foodPoints": 15,
       "thirstPoints": 3
     },
@@ -107,6 +116,7 @@
       "maxStackable": 1,
       "hitPoints": 50,
       "itemType": "chopable",
+      "placableMapItemId": -1,
       "foodPoints": -1,
       "thirstPoints": -1
     },
@@ -118,6 +128,7 @@
       "maxStackable": 1,
       "hitPoints": 40,
       "itemType": "mineable",
+      "placableMapItemId": -1,
       "foodPoints": -1,
       "thirstPoints": -1
     },
@@ -129,6 +140,7 @@
       "maxStackable": 1,
       "hitPoints": 70,
       "itemType": "placeable",
+      "placableMapItemId": 13,
       "foodPoints": -1,
       "thirstPoints": -1
     }

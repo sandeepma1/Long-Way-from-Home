@@ -17,6 +17,7 @@ public class PrefabBank : MonoBehaviour
     public static MapItemChopable mapItemChopablePrefab;
     public static MapItemMineable mapItemMineablePrefab;
     public static MapItemPickable mapItemPickablePrefab;
+    public static MapItemPlaceable mapItemPlaceablePrefab;
     public static MapTile mapTilePrefab;
     public static MapItemDropedItem mapItemDroped;
 
@@ -41,8 +42,8 @@ public class PrefabBank : MonoBehaviour
         mapItemChopablePrefab = Resources.Load<MapItemChopable>("Prefabs/MapItems/MapItemChopable");
         mapItemMineablePrefab = Resources.Load<MapItemMineable>("Prefabs/MapItems/MapItemMineable");
         mapItemPickablePrefab = Resources.Load<MapItemPickable>("Prefabs/MapItems/MapItemPickable");
+        mapItemPlaceablePrefab = Resources.Load<MapItemPlaceable>("Prefabs/MapItems/MapItemPlaceable");
         mapTilePrefab = Resources.Load<MapTile>("Prefabs/MapItems/MapTile");
         mapItemDroped = Resources.Load<MapItemDropedItem>("Prefabs/MapItems/MapItemDroped");
-
     }
 }

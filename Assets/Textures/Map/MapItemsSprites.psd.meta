@@ -47,6 +47,9 @@ TextureImporter:
   - first:
       213: -4837517295066362216
     second: maturetree
+  - first:
+      213: 8860233558306054320
+    second: bonfire
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -92,7 +95,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -450,6 +453,27 @@ TextureImporter:
       bones: []
       spriteID: db9c760f80532154a9d7d8619e57e9fe
       internalID: -4837517295066362216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bonfire
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 432
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11f819de581ad8240b062f5a12b7085a
+      internalID: 8860233558306054320
       vertices: []
       indices: 
       edges: []

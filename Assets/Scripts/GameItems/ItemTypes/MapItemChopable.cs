@@ -7,7 +7,7 @@
         if (mapItem.healthPoints <= 0)
         {
             GEM.PrintDebug("item chopped");
-            MapItemDone();
+            MapItemHarvestingDone();
         }
     }
 }

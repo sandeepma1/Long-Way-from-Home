@@ -363,6 +363,34 @@
           "max": null
         }
       ]
+    },
+    {
+      "id": 13,
+      "name": "Bonfire",
+      "slug": "bonfire",
+      "itemType": "placeable",
+      "healthPoints": 10,
+      "hasLifeCycle": false,
+      "nextStageId": 0,
+      "hasStructure": true,
+      "structureId": 0,
+      "drops": [
+        {
+          "dropId": 13,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "dropId": null,
+          "min": null,
+          "max": null
+        },
+        {
+          "dropId": null,
+          "min": null,
+          "max": null
+        }
+      ]
     }
   ]
 }

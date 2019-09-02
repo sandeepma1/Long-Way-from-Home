@@ -11,7 +11,7 @@ public class MapItemMineable : MapItemBase, IMineable
         if (mapItem.healthPoints <= 0)
         {
             GEM.PrintDebug("item mined");
-            MapItemDone();
+            MapItemHarvestingDone();
         }
     }
 }

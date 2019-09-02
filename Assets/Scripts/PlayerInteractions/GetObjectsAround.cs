@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class GetObjectsAround : MonoBehaviour
 {
-    [SerializeField] private Transform closestItemMarker;
+    public static Action<Vector2> OnMoveClosestItemMarker;
+    public static Action<bool> OnToggleShowItemMarker;
     [SerializeField] private LayerMask layerMask;
     private Vector3 nearestItemPosition;
     public static MapItemBase closestItem;
     private MapItemBase closestItemLast;
     [SerializeField] private float itemPickupRadius = 4f;
     private ItemType lastClickedItemType = ItemType.none;
+    private bool scanObjectsAround = true;
 
     private void Start()
     {
@@ -28,13 +30,34 @@ public class GetObjectsAround : MonoBehaviour
 
     private void OnInventoryItemClicked(UiSlotItem uiSlotItem)
     {
-        if (uiSlotItem == null)
+        lastClickedItemType = uiSlotItem == null ? ItemType.none : uiSlotItem.itemType;
+        switch (lastClickedItemType)
         {
-            lastClickedItemType = ItemType.none;
-        }
-        else
-        {
-            lastClickedItemType = uiSlotItem.itemType;
+            case ItemType.chopable:
+            case ItemType.mineable:
+            case ItemType.hitable:
+            case ItemType.fishable:
+            case ItemType.breakable:
+            case ItemType.openable:
+            case ItemType.pickable:
+            case ItemType.interactable:
+            case ItemType.moveable:
+            case ItemType.shakeable:
+            case ItemType.shoveable:
+            case ItemType.cutable:
+            case ItemType.none:
+            case ItemType.harvestable:
+                scanObjectsAround = true;
+                OnToggleShowItemMarker?.Invoke(true);
+                break;
+            case ItemType.placeable:
+            case ItemType.edible:
+                scanObjectsAround = false;
+                closestItem = null;
+                OnToggleShowItemMarker?.Invoke(false);
+                break;
+            default:
+                break;
         }
     }
 
@@ -45,7 +68,10 @@ public class GetObjectsAround : MonoBehaviour
 
     private void LateUpdate()
     {
-        CalculateNearestItem();
+        if (scanObjectsAround)
+        {
+            CalculateNearestItem();
+        }
     }
 
     private void CalculateNearestItem()
@@ -78,7 +104,7 @@ public class GetObjectsAround : MonoBehaviour
                 nearestItemPosition = closestItem.transform.position;
             }
         }
-        closestItemMarker.transform.localPosition = nearestItemPosition;
+        OnMoveClosestItemMarker?.Invoke(nearestItemPosition);
     }
 
     private MapItemBase GetClosestItem(List<MapItemBase> mapItems)

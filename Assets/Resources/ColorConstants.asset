@@ -15,7 +15,11 @@ MonoBehaviour:
   white: {r: 1, g: 1, b: 1, a: 1}
   fieldGlow: {r: 0.75, g: 1, b: 0, a: 1}
   fieldNormal: {r: 1, g: 1, b: 1, a: 1}
+  mapItemPlaceable: {r: 0, g: 1, b: 0, a: 1}
+  mapItemNotPlaceable: {r: 1, g: 0, b: 0, a: 1}
   dehighlightedUiItem: {r: 0.25, g: 0.25, b: 0.25, a: 1}
   normalUiItem: {r: 1, g: 1, b: 1, a: 1}
   closeButtonBackground: {r: 0, g: 0, b: 0, a: 0.14509805}
   fpsColor: {r: 0, g: 0, b: 0, a: 1}
+  uiSlotSelectorInventory: {r: 1, g: 0, b: 0, a: 1}
+  uiSlotSelectorCrafting: {r: 0, g: 1, b: 0, a: 1}

@@ -4,6 +4,7 @@
       "id": 0,
       "name": "Deep Water",
       "slug": "deepwater",
+      "isItemPlacable": false,
       "grows": [
         {
           "growId": null,
@@ -51,6 +52,7 @@
       "id": 1,
       "name": "Shallow Water",
       "slug": "shallowwater",
+      "isItemPlacable": false,
       "grows": [
         {
           "growId": null,
@@ -98,6 +100,7 @@
       "id": 2,
       "name": "Sand",
       "slug": "sand",
+      "isItemPlacable": true,
       "grows": [
         {
           "growId": 0,
@@ -145,6 +148,7 @@
       "id": 3,
       "name": "Green",
       "slug": "green",
+      "isItemPlacable": true,
       "grows": [
         {
           "growId": 3,
@@ -168,19 +172,19 @@
         },
         {
           "growId": 5,
-          "prob": 0.1
+          "prob": 0.2
         },
         {
           "growId": 6,
-          "prob": 0.1
+          "prob": 0.2
         },
         {
           "growId": 7,
-          "prob": 0.1
+          "prob": 0.2
         },
         {
           "growId": 8,
-          "prob": 0.1
+          "prob": 0.2
         },
         {
           "growId": 1,
@@ -192,6 +196,7 @@
       "id": 4,
       "name": "Dark Green",
       "slug": "darkgreen",
+      "isItemPlacable": true,
       "grows": [
         {
           "growId": 0,
@@ -199,11 +204,11 @@
         },
         {
           "growId": 1,
-          "prob": 0.1
+          "prob": 0.4
         },
         {
           "growId": 2,
-          "prob": 0.1
+          "prob": 0.3
         },
         {
           "growId": null,
@@ -239,6 +244,7 @@
       "id": 5,
       "name": "Dry",
       "slug": "dry",
+      "isItemPlacable": true,
       "grows": [
         {
           "growId": 1,
@@ -286,6 +292,7 @@
       "id": 6,
       "name": "Rocky",
       "slug": "rocky",
+      "isItemPlacable": true,
       "grows": [
         {
           "growId": null,

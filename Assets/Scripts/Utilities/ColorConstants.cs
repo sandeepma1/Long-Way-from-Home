@@ -19,12 +19,18 @@ namespace Bronz.Utilities
         public static Color White { get { return Instance.white; } }
         #endregion
 
-        #region Feild
+        #region Map items
         [SerializeField] private Color fieldGlow = new Color(0.75f, 1, 0);
         public static Color FieldGlow { get { return Instance.fieldGlow; } }
 
         [SerializeField] private Color fieldNormal = new Color(1, 1, 1);
         public static Color FieldNormal { get { return Instance.fieldNormal; } }
+
+        [SerializeField] private Color mapItemPlaceable = new Color(1, 1, 1);
+        public static Color MapItemPlaceable { get { return Instance.mapItemPlaceable; } }
+
+        [SerializeField] private Color mapItemNotPlaceable = new Color(1, 1, 1);
+        public static Color MapItemNotPlaceable { get { return Instance.mapItemNotPlaceable; } }
         #endregion
 
         #region Menu UI        

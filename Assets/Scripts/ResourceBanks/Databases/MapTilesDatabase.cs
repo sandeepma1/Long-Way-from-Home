@@ -56,6 +56,11 @@ public class MapTilesDatabase : DatabaseBase<MapTilesDatabase>
             return null;
         }
     }
+
+    public static bool GetMapTileIsPlacableById(int id)
+    {
+        return MapTiles.MapTiles[id].isItemPlacable;
+    }
 }
 
 [System.Serializable]
@@ -70,6 +75,7 @@ public class MapTiles
     public int id;
     public string name;
     public string slug;
+    public bool isItemPlacable;
     public List<Grows> grows;
 }
 

@@ -17,7 +17,7 @@ public class MapItemDropedItem : MonoBehaviour
         circleCollider2D.enabled = false;
         item = new Item(dropId, dropCpunt);
         spriteRenderer.sprite = AtlasBank.GetInventoryItemSpriteById(dropId);
-        transform.position = postion;
+        transform.localPosition = postion;
         StartCoroutine(EnableThisAfterDelay());
     }
 
