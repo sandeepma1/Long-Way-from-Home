@@ -27,7 +27,7 @@ public class DragDropBase : MonoBehaviour
 
     #region --Save/Load Stuff--
 
-    protected void LoadFurnitureData(List<SlotItems> slotItems)
+    protected void LoadFurnitureData(List<SlotItem> slotItems)
     {
         if (!areUiSlotsCreated)
         {
@@ -36,7 +36,7 @@ public class DragDropBase : MonoBehaviour
         for (int i = 0; i < slotItems.Count; i++)
         {
             int slotID = slotItems[i].invSlotId;
-            SlotItems slotItem = new SlotItems(slotItems[i].item, slotID);
+            SlotItem slotItem = new SlotItem(slotItems[i].item, slotID);
             UiSlotItem uiSlotItem = InstantiateUiSlotItem(uiSlots[slotID].transform, slotItem);
             uiSlotItem.OnSlotItemDrop += OnSlotItemDrop;
             AddSlotItem(uiSlotItem);
@@ -79,7 +79,7 @@ public class DragDropBase : MonoBehaviour
         return uiSlot;
     }
 
-    private UiSlotItem InstantiateUiSlotItem(Transform parent, SlotItems slotItems)
+    private UiSlotItem InstantiateUiSlotItem(Transform parent, SlotItem slotItems)
     {
         UiSlotItem uiSlotItem = Instantiate(PrefabBank.uiSlotItemPrefab, parent);
         uiSlotItem.Init(slotItems);
@@ -255,7 +255,7 @@ public class DragDropBase : MonoBehaviour
             {
                 if (uiSlots[i].transform.childCount == 0)
                 {
-                    UiSlotItem uiSlotItem = InstantiateUiSlotItem(uiSlots[i].transform, new SlotItems((int)item.id, 0, i));
+                    UiSlotItem uiSlotItem = InstantiateUiSlotItem(uiSlots[i].transform, new SlotItem((int)item.id, 0, i));
                     uiSlotItem.OnSlotItemDrop += OnSlotItemDrop;
                     item.duraCount = uiSlotItem.IncrementDuraCount((int)item.duraCount);
                     AddSlotItem(uiSlotItem);
@@ -272,7 +272,7 @@ public class DragDropBase : MonoBehaviour
             {
                 if (uiSlots[i].transform.childCount == 0)
                 {
-                    UiSlotItem uiSlotItem = InstantiateUiSlotItem(uiSlots[i].transform, new SlotItems((int)item.id, 0, i));
+                    UiSlotItem uiSlotItem = InstantiateUiSlotItem(uiSlots[i].transform, new SlotItem((int)item.id, 0, i));
                     uiSlotItem.OnSlotItemDrop += OnSlotItemDrop;
                     item.duraCount = uiSlotItem.IncrementDuraCount((int)item.duraCount);
                     AddSlotItem(uiSlotItem);
@@ -394,6 +394,21 @@ public class DragDropBase : MonoBehaviour
         }
         return item;
     }
+
+    protected List<SlotItem> GetSlotItemListFromUiSlotItem()
+    {
+        List<SlotItem> slotItems = new List<SlotItem>();
+        for (int i = 0; i < uiSlots.Length; i++)
+        {
+            UiSlotItem uiSlotItem = uiSlots[i].GetSlotItem();
+            if (uiSlotItem != null)
+            {
+                SlotItem slotItem = new SlotItem(uiSlotItem.ItemId.Value, uiSlotItem.ItemDuraCount.Value, uiSlotItem.ItemSlotId);
+                slotItems.Add(slotItem);
+            }
+        }
+        return slotItems;
+    }
     #endregion
 }
 
@@ -410,6 +425,7 @@ public enum FurnitureType
     None,
     Inventory,
     Chest,
-    Furnace
+    Furnace,
+    Bonfire
     //TODO: look here to refactor names, this can be Workstation, Storage, Decoration, Transport, Defence
 }

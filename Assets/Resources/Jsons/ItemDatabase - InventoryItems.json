@@ -105,7 +105,7 @@
       "hitPoints": -1,
       "itemType": "edible",
       "placableMapItemId": -1,
-      "foodPoints": 15,
+      "foodPoints": 8,
       "thirstPoints": 3
     },
     {
@@ -143,6 +143,18 @@
       "placableMapItemId": 13,
       "foodPoints": -1,
       "thirstPoints": -1
+    },
+    {
+      "id": 12,
+      "name": "Cooked Starfish",
+      "description": "Some Description",
+      "slug": "cookedstarfish",
+      "maxStackable": 64,
+      "hitPoints": -1,
+      "itemType": "edible",
+      "placableMapItemId": -1,
+      "foodPoints": 15,
+      "thirstPoints": 4
     }
   ]
 }

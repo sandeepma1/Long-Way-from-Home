@@ -16,7 +16,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI countText;
     [SerializeField] private Image image;
-    public SlotItems slotItem; //make private later
+    public SlotItem slotItem; //make private later
 
     public int? ItemId
     {
@@ -34,7 +34,7 @@ public class UiSlotItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         set { slotItem.invSlotId = value; }
     }
 
-    public void Init(SlotItems slotItem)
+    public void Init(SlotItem slotItem)
     {
         maxStackable = InventoryItemsDatabase.GetMaxStackableById(slotItem.item.id.Value);
         itemType = InventoryItemsDatabase.GetInventoryItemTypeById(slotItem.item.id.Value);

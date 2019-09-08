@@ -19,17 +19,17 @@ public class Item
 
 
 [System.Serializable]
-public class SlotItems
+public class SlotItem
 {
     public Item item;
     public int invSlotId;
-    public SlotItems(Item item, int invSlotId)
+    public SlotItem(Item item, int invSlotId)
     {
         this.item = item;
         this.invSlotId = invSlotId;
     }
 
-    public SlotItems(int itemId, int itemDuraCount, int inuSlotId)
+    public SlotItem(int itemId, int itemDuraCount, int inuSlotId)
     {
         item = new Item(itemId, itemDuraCount);
         this.invSlotId = inuSlotId;

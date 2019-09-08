@@ -7,7 +7,7 @@ public class InuItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHand
 {
     public Action<InuItem> OnItemDrop;
     public Action<InuItem> OnItemDrag;
-    public SlotItems inuItem;
+    public SlotItem inuItem;
     [SerializeField] private Image thisImage = null;
     [SerializeField] private Text valText;
     [SerializeField] private Text idText;

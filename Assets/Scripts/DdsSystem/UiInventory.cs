@@ -74,6 +74,16 @@ namespace Bronz.Ui
             }
         }
 
+        #region Save/Load Stuff
+        protected override void RequestSaveData()
+        {
+            base.RequestSaveData();
+            furniture = new PlayerSaveFurniture(slotItemsType, 0, 0, GetSlotItemListFromUiSlotItem());
+            MasterSave.SaveInventory(furniture);
+            GEM.PrintDebug("called derived");
+        }
+        #endregion
+
         #region UiInventory Buttons Side options
 
         private void InitOtherOptions()
@@ -152,20 +162,6 @@ namespace Bronz.Ui
             base.CreateUiSlots();
             GEM.PrintDebug("base class called UiInventory");
             CreateUiSlots(slotCount, parentPanel);
-        }
-
-        protected override void RequestSaveData()
-        {
-            base.RequestSaveData();
-            List<SlotItems> slotItems = new List<SlotItems>();
-            for (int i = 0; i < uiSlotItems.Count; i++)
-            {
-                slotItems.Add(uiSlotItems[i].slotItem);
-            }
-            furniture = new PlayerSaveFurniture(slotItemsType, 0, 0, slotItems);
-            furniture.slotItems = slotItems;
-            MasterSave.SaveInventory(furniture);
-            GEM.PrintDebug("called derived");
         }
 
         protected override void OnUiSlotClicked(UiSlot uiSlot, UiSlotItem uiSlotItem)

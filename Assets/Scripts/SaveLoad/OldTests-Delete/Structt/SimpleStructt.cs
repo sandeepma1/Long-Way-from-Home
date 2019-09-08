@@ -18,8 +18,8 @@ public struct AllStructt
 public struct Structt
 {
     public StructtType structtType;
-    public SlotItems[] inputItemIds;
-    public SlotItems[] outputItemIds;
+    public SlotItem[] inputItemIds;
+    public SlotItem[] outputItemIds;
     public int mediumItemId;
 }
 

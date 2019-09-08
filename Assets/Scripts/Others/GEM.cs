@@ -38,6 +38,8 @@ public static class GEM
     public static string PlayerInfoSaveName = "PlayerInfoSave";
     public static string PlayerStatsSaveName = "PlayerStatsSave";
     public static string AllFurnituresSaveName = "AllFurnituresSave";
+    public static string PlayerInventorySaveName = "PlayerInventory";
+    public static string PlayerSlotsSaveName = "PlayerSlots";
     #endregion
 
     #region Debug Stuff

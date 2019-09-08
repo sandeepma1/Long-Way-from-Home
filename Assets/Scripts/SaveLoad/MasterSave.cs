@@ -1,28 +1,16 @@
 ﻿using BayatGames.SaveGameFree;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class MasterSave : Singleton<MasterSave>
 {
     public static Action RequestSaveData;
-    private static PlayerSaveAllFurnitures playerSaveAllFurnitures;
     private static int maxFurnitureSaves = 3;
     private static int furnitureSavesCounter = 0;
 
     protected override void Awake()
     {
-        playerSaveAllFurnitures = new PlayerSaveAllFurnitures();
         GEM.PrintDebug("MasterSave Awake");
-        if (SaveGame.Exists(GEM.AllFurnituresSaveName))
-        {
-            playerSaveAllFurnitures = SaveGame.Load<PlayerSaveAllFurnitures>(GEM.AllFurnituresSaveName);
-        }
-        else
-        {
-            SaveGame.Save<PlayerSaveAllFurnitures>(GEM.AllFurnituresSaveName, playerSaveAllFurnitures);
-        }
     }
 
     private void OnApplicationQuit()
@@ -43,7 +31,6 @@ public class MasterSave : Singleton<MasterSave>
     /// </summary>
     public static void CreatingNewGame()
     {
-        playerSaveAllFurnitures = new PlayerSaveAllFurnitures();
         SaveGame.DeleteAll();
     }
 
@@ -109,62 +96,22 @@ public class MasterSave : Singleton<MasterSave>
     #endregion
 
 
-    #region Furniture SlotItems Save/Load
+    #region PlayerInventory Save/Load
     public static void SaveInventory(PlayerSaveFurniture playerSaveFurniture)
     {
-        playerSaveAllFurnitures.playerInventory = playerSaveFurniture;
+        SaveGame.Save<PlayerSaveFurniture>(GEM.PlayerInventorySaveName, playerSaveFurniture);
         GEM.PrintDebug("SaveInventory Complete");
-        furnitureSavesCounter++;
-        SavePlayerSaveAllFurnitures();
-    }
-
-    public static void SaveFurnitureChest(List<PlayerSaveFurniture> playerChests)
-    {
-        playerSaveAllFurnitures.playerChests = playerChests;
-        GEM.PrintDebug("SaveFurnitureChest Complete");
-        furnitureSavesCounter++;
-        SavePlayerSaveAllFurnitures();
-    }
-
-    public static void SaveFurnitureFurnce(List<PlayerSaveFurniture> playerFurnaces)
-    {
-        playerSaveAllFurnitures.playerFurnaces = playerFurnaces;
-        GEM.PrintDebug("SaveFurnitureFurnce Complete");
-        furnitureSavesCounter++;
-        SavePlayerSaveAllFurnitures();
-    }
-
-    private static void SavePlayerSaveAllFurnitures()
-    {
-        SaveGame.Save<PlayerSaveAllFurnitures>(GEM.AllFurnituresSaveName, playerSaveAllFurnitures);
-
-        if (furnitureSavesCounter == maxFurnitureSaves)
-        {
-            furnitureSavesCounter = 0;
-            SaveGame.Save<PlayerSaveAllFurnitures>(GEM.AllFurnituresSaveName, playerSaveAllFurnitures);
-        }
     }
 
     public static PlayerSaveFurniture LoadInventory()
     {
-        GEM.PrintDebug("Loading playerInventory data...");
-        if (playerSaveAllFurnitures == null)
+        GEM.PrintDebug("Loading PlayerStats data...");
+        if (!SaveGame.Exists(GEM.PlayerInventorySaveName))
         {
-            return null;
+            GEM.PrintDebugWarning("PlayerStats not found, creating new default data and saving");
+            SaveInventory(new PlayerSaveFurniture());
         }
-        return playerSaveAllFurnitures.playerInventory;
-    }
-
-    public static List<PlayerSaveFurniture> LoadChests()
-    {
-        GEM.PrintDebug("Loading playerChests data...");
-        return playerSaveAllFurnitures.playerChests;
-    }
-
-    public static List<PlayerSaveFurniture> LoadFurnaces()
-    {
-        GEM.PrintDebug("Loading playerFurnaces data...");
-        return playerSaveAllFurnitures.playerFurnaces;
+        return SaveGame.Load<PlayerSaveFurniture>(GEM.PlayerInventorySaveName);
     }
     #endregion
 }
@@ -181,29 +128,18 @@ public class PlayerSavePlayerInfo
     { this.posX = posX; this.posY = posY; lastSelectedInventorySlotId = slotId; }
 }
 
-public class PlayerSaveAllFurnitures
-{
-    public PlayerSaveFurniture playerInventory;
-    public List<PlayerSaveFurniture> playerChests = new List<PlayerSaveFurniture>();
-    public List<PlayerSaveFurniture> playerFurnaces = new List<PlayerSaveFurniture>();
-
-    public PlayerSaveAllFurnitures()
-    {
-        playerInventory = new PlayerSaveFurniture();
-    }
-}
 public class PlayerSaveFurniture
 {
     public FurnitureType furnitureType;
     public int id;
     public int currentRunningGuage;
-    public List<SlotItems> slotItems = new List<SlotItems>();
+    public List<SlotItem> slotItems = new List<SlotItem>();
 
     public PlayerSaveFurniture()
     {
     }
 
-    public PlayerSaveFurniture(FurnitureType furnitureType, int id, int currentRunningGuage, List<SlotItems> slotItems)
+    public PlayerSaveFurniture(FurnitureType furnitureType, int id, int currentRunningGuage, List<SlotItem> slotItems)
     {
         this.furnitureType = furnitureType;
         this.id = id;
