@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Bronz.Ui
@@ -19,7 +20,18 @@ namespace Bronz.Ui
 
         private void BackToMainMenuButtonClicked()
         {
+            UiCommonPopupMenu.Instance.InitYesNoDialog("Are you sure you want to go to main menu?",
+                OnYesButtonClicked, OnNoButtonClicked, "Yes", "No");
+        }
+
+        private void OnYesButtonClicked()
+        {
             SceneLoader.LoadScene(SceneNames.StartMenuScene);
+        }
+
+        private void OnNoButtonClicked()
+        {
+            //
         }
     }
 }

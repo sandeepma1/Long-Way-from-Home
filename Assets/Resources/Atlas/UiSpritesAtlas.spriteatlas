@@ -31,7 +31,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: c3830975c85430a4aa5dd5d649b12d02, type: 3}
-    totalSpriteSurfaceArea: 6433
+    totalSpriteSurfaceArea: 310305
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -48,8 +48,11 @@ SpriteAtlas:
   - {fileID: 4589751714783062387, guid: 9f55d002ca716994d854af20bdf22715, type: 3}
   - {fileID: -4796633505624523523, guid: 9f55d002ca716994d854af20bdf22715, type: 3}
   - {fileID: 21300000, guid: 5e57754241e81a64d8049f70a64557f4, type: 3}
+  - {fileID: 21300000, guid: d6b62562599782e469fb78f953d9c3ae, type: 3}
   - {fileID: 21300000, guid: 5a0b45331705dad449cf737fde3801c8, type: 3}
   - {fileID: 21300000, guid: eeb6df7315ef3be4796b807c914a9163, type: 3}
+  - {fileID: 21300000, guid: f7149b246d230b043904947f111d14df, type: 3}
+  - {fileID: 21300000, guid: 5c9f71d440199eb42afe1135705dd7b1, type: 3}
   - {fileID: 21300000, guid: b2741f39f86cff843ad086a22b9dbf80, type: 3}
   - {fileID: 21300000, guid: 3e3813c98345e624a9146f46a833ceed, type: 3}
   - {fileID: 21300000, guid: 3408cdbd9ef07244db53c7845515fe95, type: 3}
@@ -68,8 +71,11 @@ SpriteAtlas:
   - starfish
   - coconut
   - Thirst
+  - WhiteBox
   - hudBackground
   - MenuTabs
+  - PopupBg
+  - RoundButton256
   - UiSlotBackground
   - Drumstick
   - Heart

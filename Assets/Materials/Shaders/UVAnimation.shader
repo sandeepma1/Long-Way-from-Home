@@ -1,4 +1,4 @@
-﻿Shader "BronZ/UVAnimation" {
+﻿Shader "Bronz/UVAnimation" {
 	Properties{
 		_MainTex("Base (RGB)", 2D) = "white" {}
 		_XScrollSpeed("X Scroll Speed", Float) = 1
